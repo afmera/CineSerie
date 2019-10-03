@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Compañias de Producciones de Contenidos AudioVisuales</title>
+    </h:head>
+    <body>
+        <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{beanCompania.listar()}"/>
+                <p:growl id="msj" showDetail="true"/>
+                <h:form id='frm'>
+                    <p:commandButton value="Nuevo" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" actionListener="#{beanCompania.setAccion('Registrar')}" />
+                    <p:dataTable id="data" value="#{beanCompania.listaEntities}" var="entity">
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{entity.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Majos">
+                            <p:outputLabel value="#{entity.majos}"/>
+                        </p:column>
+                        <p:column headerText="Nacionalidad">
+                            <p:outputLabel value="#{entity.nacionalidad}"/>
+                        </p:column>
+                        <p:column headerText="Streaming">
+                            <p:outputLabel value="#{entity.streaming}"/>
+                        </p:column>
+                        <p:column headerText="Opciones">
+                            <p:commandLink value="Modificar" actionListener="#{beanCompania.leerID(entity)}" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" style="margin-right:20px;"/>
+                            <p:commandLink value="Eliminar" actionListener="#{beanCompania.eliminar(entity)}" update="data" style="margin-right:20px;"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog header="Administracion de Datos" widgetVar="wDlgDatos" id="dlgDatos">
+                    <h:form>
+                        <p:outputLabel value="Nombre"/>
+                        <p:inputText value="#{beanCompania.enti.nombre}"/>
+                        <p:outputLabel value="Majos"/>
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="console" value="Majos" />
+                            <p:selectOneRadio id="console" value="#{beanCompania.enti.majos}">
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                        <p:outputLabel for="pais" value="Nacionalidad:" />
+                        <p:selectOneMenu id="pais" value="#{beanCompania.enti.nacionalidad}" dynamic="true" style="width:125px">
+                            <f:selectItem itemLabel="Seleccione Una:" itemValue="Estados Unidos" />
+                            <f:selectItems value="#{beanCompania.pais}" />
+                        </p:selectOneMenu>
+
+                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel for="console02" value="Streaming" />
+                            <p:selectOneRadio id="console02" value="#{beanCompania.enti.streaming}">
+                                <f:selectItem itemLabel="Si" itemValue="Si" />
+                                <f:selectItem itemLabel="No" itemValue="No" />
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                        <p:commandButton value="#{beanCompania.accion}" actionListener="#{beanCompania.operar()}" oncomplete="PF('wDlgDatos').hide();" update=":frm:data"/>
+                        <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wDlgDatos').hide();"/>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -6,13 +6,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <h:head>
+        <title>Peliculas o Series</title>
+    </h:head>
     <body>
         <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
             <ui:define name="content">
+                <f:event type="preRenderView" listener="#{beanPeliculas_Serie.listar(false)}"/>
                 <p:growl id="msj" showDetail="true"/>
                 <h:form id='frm'>
                     <p:commandButton value="Nuevo" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" actionListener="#{beanPeliculas_Serie.setAccion('Registrar')}" />
-                    <p:commandButton value="Listar" actionListener="#{beanPeliculas_Serie.listar()}" update="data"/>
                     <p:dataTable id="data" value="#{beanPeliculas_Serie.listaPS}" var="ps">
                         <p:column headerText="Titulo">
                             <p:outputLabel value="#{ps.titulo}"/>

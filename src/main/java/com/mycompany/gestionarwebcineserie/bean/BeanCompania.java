@@ -5,12 +5,13 @@
  */
 package com.mycompany.gestionarwebcineserie.bean;
 
-import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
-import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
+import com.mycompany.gestionarwebcineserie.control.Control_Compania;
+import com.mycompany.gestionarwebcineserie.model.Compania;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 /**
  *
@@ -18,12 +19,37 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @ViewScoped
-public class BeanPeliculas_Serie {
-
-    private Pelicula_Serie ps = new Pelicula_Serie();
-    private List<Pelicula_Serie> listaPS;
+public class BeanCompania {
+    
+    private Compania enti = new Compania();
+    private List<Compania> listaEntities;
+    private List<String>pais;
     private String accion;
 
+    public List<String> getPais() {
+        return pais;
+    }
+
+    public void setPais(List<String> pais) {
+        this.pais = pais;
+    }
+    
+    public Compania getEnti() {
+        return enti;
+    }
+
+    public void setEnti(Compania enti) {
+        this.enti = enti;
+    }
+
+    public List<Compania> getListaEntities() {
+        return listaEntities;
+    }
+
+    public void setListaEntities(List<Compania> listaEntities) {
+        this.listaEntities = listaEntities;
+    }
+    
     public String getAccion() {
         return accion;
     }
@@ -33,31 +59,6 @@ public class BeanPeliculas_Serie {
         this.accion = accion;
     }
 
-    public Pelicula_Serie getPs() {
-        return ps;
-    }
-
-    public void setPs(Pelicula_Serie ps) {
-        this.ps = ps;
-    }
-
-    public List<Pelicula_Serie> getListaPS() {
-        return listaPS;
-    }
-
-    public void setListaPS(List<Pelicula_Serie> listaPS) {
-        this.listaPS = listaPS;
-    }
-
-    /**
-     * Metodo para verificar el uso del preRenderView para evitar consumo de
-     * recursos innecesarios.
-     *
-     * @return de tipo boolean.
-     */
-    private boolean isPostBack() {
-        return FacesContext.getCurrentInstance().isPostback();
-    }
 
     /**
      * Metodo para determinar la accion registrar o modificar.
@@ -81,12 +82,11 @@ public class BeanPeliculas_Serie {
      * Metodo para limpiar el contenido del objeto.
      */
     public void limpiar() {
-        this.ps.setId(0);
-        this.ps.setAn_lanzamiento("");
-        this.ps.setDuracion("");
-        this.ps.setSinopsis("");
-        this.ps.setTipo("");
-        this.ps.setTitulo("");
+        this.enti.setId(0);
+        this.enti.setNombre("");
+        this.enti.setMajos("");
+        this.enti.setNacionalidad("");
+        this.enti.setStreaming("");
     }
 
     /**
@@ -96,8 +96,8 @@ public class BeanPeliculas_Serie {
      */
     private void registrar() throws Exception {
         try {
-            Control_Peliculas_Serie.control_registrar(ps);
-            this.listar(true);
+            Control_Compania.control_registrar(enti);
+            this.listar();
         } catch (Exception ex) {
             throw ex;
         }
@@ -110,8 +110,8 @@ public class BeanPeliculas_Serie {
      */
     private void modificar() throws Exception {
         try {
-            Control_Peliculas_Serie.control_modificar(ps);
-            this.listar(true);
+            Control_Compania.control_modificar(enti);
+            this.listar();
         } catch (Exception ex) {
             throw ex;
         }
@@ -120,13 +120,13 @@ public class BeanPeliculas_Serie {
     /**
      * Metodo para registrar atos en la base de datos.
      *
-     * @param peliser de tipo de la clase determinda.
+     * @param entity de tipo de la clase determinda.
      * @throws Exception
      */
-    public void eliminar(Pelicula_Serie peliser) throws Exception {
+    public void eliminar(Compania entity) throws Exception {
         try {
-            Control_Peliculas_Serie.control_eliminar(peliser);
-            this.listar(true);
+            Control_Compania.control_eliminar(entity);
+            this.listar();
         } catch (Exception ex) {
             throw ex;
         }
@@ -135,19 +135,11 @@ public class BeanPeliculas_Serie {
     /**
      * Metodo para listar todos los datos de la tabla en la base de datos.
      *
-     * @param valor de tipo boolean.
      * @throws Exception
      */
-    public void listar(boolean valor) throws Exception {
+    public void listar() throws Exception {
         try {
-            if (!valor) {
-                if (!isPostBack()) {
-                    listaPS = Control_Peliculas_Serie.control_listar();
-                }
-            } else {
-                listaPS = Control_Peliculas_Serie.control_listar();
-            }
-
+            listaEntities = Control_Compania.control_listar();
         } catch (Exception ex) {
             System.err.println("Error " + ex);
             throw ex;
@@ -157,19 +149,36 @@ public class BeanPeliculas_Serie {
     /**
      * Metodo para listar todos los datos de la tabla en la base de datos.
      *
-     * @param peliser de tipo de la clase determinada.
+     * @param entity de tipo de la clase determinada.
      * @throws Exception
      */
-    public void leerID(Pelicula_Serie peliser) throws Exception {
+    public void leerID(Compania entity) throws Exception {
         try {
-            Pelicula_Serie temp = Control_Peliculas_Serie.control_leerID(peliser);
+            Compania temp = Control_Compania.control_leerID(entity);
             if (temp != null) {
-                this.ps = temp;
+                this.enti = temp;
                 this.accion = "Modificar";
             }
         } catch (Exception ex) {
             System.err.println("Error " + ex);
             throw ex;
         }
+    }
+    
+    @PostConstruct
+    public void selectNacionalida(){
+        pais = new ArrayList<String>();
+        pais.add("Estados Unidos");
+        pais.add("Inglaterra");
+        pais.add("Alemania");
+        pais.add("Francia");
+        pais.add("España");
+        pais.add("Mexico");
+        pais.add("Argentina");
+        pais.add("Brasil");
+        pais.add("Colombia");
+        pais.add("Republica Popular de China");
+        pais.add("Republica de Corea");
+        pais.add("Otro");
     }
 }
