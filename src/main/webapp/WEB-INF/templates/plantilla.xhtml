@@ -17,8 +17,12 @@
         <ui:insert name="top">
             <h:form>
                 <p:menubar>
-                    <p:menuitem value="Peliculas o Series" url='pelicula_serie.xhtml'/>
-                    <p:menuitem value="Compañias" url='compania.xhtml'/>
+                    <p:menuitem value="Home" url='index.xhtml'/>
+                    <p:submenu label="Administracion Peliculas Serie" icon="pi pi-folder-open" style="font-size: 1em">
+                        <p:menuitem value="Peliculas o Series" url='pelicula_serie.xhtml'/>
+                        <p:menuitem value="Compañias" url='compania.xhtml'/>
+                        <p:menuitem value="" url=''/>
+                    </p:submenu>
                 </p:menubar>
             </h:form>
         </ui:insert>
