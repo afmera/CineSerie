@@ -1,5 +1,5 @@
-com\mycompany\gestionarwebcineserie\datos\DatosPeliculas_Serie.class
 com\mycompany\gestionarwebcineserie\control\Control_Peliculas_Serie.class
-com\mycompany\gestionarwebcineserie\bean\BeanPeliculas_Serie.class
-com\mycompany\gestionarwebcineserie\datos\Conexion.class
 com\mycompany\gestionarwebcineserie\model\Pelicula_Serie.class
+com\mycompany\gestionarwebcineserie\datos\Conexion.class
+com\mycompany\gestionarwebcineserie\bean\BeanPeliculas_Serie.class
+com\mycompany\gestionarwebcineserie\datos\DatosPeliculas_Serie.class

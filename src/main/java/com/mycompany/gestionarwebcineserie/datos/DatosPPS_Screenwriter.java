@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author Andrés Felipe Mera Tróchez
  */
-public class DatosPersona_Pelicula_Serie_Screenwriter {
+public class DatosPPS_Screenwriter {
     
     /**
      * Metodo para registrar datos en la base de datos.

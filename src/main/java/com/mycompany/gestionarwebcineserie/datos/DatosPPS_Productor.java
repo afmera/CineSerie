@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Andrés Felipe Mera Tróchez
  */
-public class DatosPersona_Pelicula_Serie_Productor {
+public class DatosPPS_Productor {
     
     /**
      * Metodo para convertir un valor string de fecha a una valor java.sql.Date

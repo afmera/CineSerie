@@ -103,6 +103,37 @@ public class DatosPeliculas_Serie {
     }
 
     /**
+     * Metodo statico para consultar una tupla de la tabla asignada.
+     *
+     * @param entity obnjeto de la clase determinada.
+     * @return de tipo List<Pelicula_Serie>
+     * @throws Exception mensaje de error
+     */
+    public static List<Pelicula_Serie> datosListarPorTipo(Pelicula_Serie entity) throws Exception {
+        Conexion c = new Conexion();
+        List<Pelicula_Serie> l;
+        ResultSet rs;
+        try {
+            l = new ArrayList<>();
+            c.conectar();
+            String sql = "SELECT ps.ps_titulo FROM pelicula_serie ps where ps.ps_tipo= ?;";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            st.setString(1, entity.getTipo());
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Pelicula_Serie p = new Pelicula_Serie(rs.getInt("ps_id"), rs.getString("ps_titulo"), convetirFechaString(rs.getDate("ps_ano_lanzamiento")), rs.getString("ps_longitud_minutos"), rs.getString("ps_sinopsis"), rs.getString("ps_tipo"));
+                l.add(p);
+            }
+        } catch (Exception ex) {
+            System.err.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
+    }
+
+    /**
      * Metodo para consultar por ID el registro de una Tupla.
      *
      * @param ps de tipo de determinada clase.

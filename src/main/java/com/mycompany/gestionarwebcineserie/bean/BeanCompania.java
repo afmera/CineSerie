@@ -164,7 +164,9 @@ public class BeanCompania {
             throw ex;
         }
     }
-    
+    /**
+     * Metodo para cargar los paices.
+     */
     @PostConstruct
     public void selectNacionalida(){
         pais = new ArrayList<String>();

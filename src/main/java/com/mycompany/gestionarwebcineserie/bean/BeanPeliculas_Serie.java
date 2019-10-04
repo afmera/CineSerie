@@ -8,6 +8,9 @@ package com.mycompany.gestionarwebcineserie.bean;
 import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -22,7 +25,25 @@ public class BeanPeliculas_Serie {
 
     private Pelicula_Serie ps = new Pelicula_Serie();
     private List<Pelicula_Serie> listaPS;
+    private List<Pelicula_Serie> listaPSNombre;
     private String accion;
+    private String[] ListaPeliculas;
+
+    public List<Pelicula_Serie> getListaPSNombre() {
+        return listaPSNombre;
+    }
+
+    public void setListaPSNombre(List<Pelicula_Serie> listaPSNombre) {
+        this.listaPSNombre = listaPSNombre;
+    }
+
+    public String[] getListaPeliculas() {
+        return ListaPeliculas;
+    }
+
+    public void setListaPeliculas(String[] ListaPeliculas) {
+        this.ListaPeliculas = ListaPeliculas;
+    }
 
     public String getAccion() {
         return accion;
@@ -151,6 +172,40 @@ public class BeanPeliculas_Serie {
         } catch (Exception ex) {
             System.err.println("Error " + ex);
             throw ex;
+        }
+    }
+
+    /**
+     * Metodo para listar todos los datos de la tabla en la base de datos.
+     *
+     * @param valor de tipo boolean.
+     * @throws Exception
+     */
+    public void listarPorTipo(boolean valor) throws Exception {
+        try {
+            if (!valor) {
+                if (!isPostBack()) {
+                    listaPSNombre = Control_Peliculas_Serie.control_listarPorTipo(ps);
+                }
+            } else {
+                listaPSNombre = Control_Peliculas_Serie.control_listarPorTipo(ps);
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error " + ex);
+            throw ex;
+        }
+    }
+    /**
+     * Metod de arranque.
+     */
+    @PostConstruct
+    public void init()
+    {
+        try {
+            this.listarPorTipo(false);
+        } catch (Exception ex) {
+            System.out.println("Error"+ex);
         }
     }
 
