@@ -12,16 +12,16 @@ package com.mycompany.gestionarwebcineserie.model;
 public class PPS_Productor {
     private int id;
     private Persona persona;
-    private Pelicula_Serie pelicual_serie;
+    private Pelicula_Serie pelicula_serie;
     private String tipo;
 
     public PPS_Productor() {
     }
 
-    public PPS_Productor(int id, Persona persona, Pelicula_Serie pelicual_serie, String tipo) {
+    public PPS_Productor(int id, Persona persona, Pelicula_Serie pelicula_serie, String tipo) {
         this.id = id;
         this.persona = persona;
-        this.pelicual_serie = pelicual_serie;
+        this.pelicula_serie = pelicula_serie;
         this.tipo = tipo;
     }
 
@@ -41,12 +41,12 @@ public class PPS_Productor {
         this.persona = persona;
     }
 
-    public Pelicula_Serie getPelicual_serie() {
-        return pelicual_serie;
+    public Pelicula_Serie getPelicula_serie() {
+        return pelicula_serie;
     }
 
-    public void setPelicual_serie(Pelicula_Serie pelicual_serie) {
-        this.pelicual_serie = pelicual_serie;
+    public void setPelicula_serie(Pelicula_Serie pelicual_serie) {
+        this.pelicula_serie = pelicual_serie;
     }
 
     public String getTipo() {
@@ -59,6 +59,6 @@ public class PPS_Productor {
 
     @Override
     public String toString() {
-        return "PPS_Productor{" + "id=" + id + ", persona=" + persona + ", pelicual_serie=" + pelicual_serie + ", tipo=" + tipo + '}';
+        return "PPS_Productor{" + "id=" + id + ", persona=" + persona + ", pelicula_serie=" + pelicula_serie + ", tipo=" + tipo + '}';
     }
 }

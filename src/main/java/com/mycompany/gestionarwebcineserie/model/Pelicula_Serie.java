@@ -23,6 +23,10 @@ public class Pelicula_Serie {
     public Pelicula_Serie() {
     }
 
+    public Pelicula_Serie(int id) {
+        this.id = id;
+    }
+
     public Pelicula_Serie(String titulo, String an_lanzamiento, String duracion, String sinopsis, String tipo) {
         this.titulo = titulo;
         this.an_lanzamiento = an_lanzamiento;

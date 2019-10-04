@@ -9,17 +9,17 @@ package com.mycompany.gestionarwebcineserie.model;
  *
  * @author Andrés Felipe Mera Tróchez
  */
-public class favorita {
+public class Favorita {
     private int id;
     private String nombre;
     private String calificacion;
     private String comentario;
     private Pelicula_Serie pelicula_serie;
 
-    public favorita() {
+    public Favorita() {
     }
 
-    public favorita(int id, String nombre, String calificacion, String comentario, Pelicula_Serie pelicula_serie) {
+    public Favorita(int id, String nombre, String calificacion, String comentario, Pelicula_Serie pelicula_serie) {
         this.id = id;
         this.nombre = nombre;
         this.calificacion = calificacion;

@@ -18,6 +18,10 @@ public class Persona {
     public Persona() {
     }
 
+    public Persona(int id) {
+        this.id = id;
+    }
+
     public Persona(int id, String nombre, String genero, String fecha_nacimiento) {
         this.id = id;
         this.nombre = nombre;

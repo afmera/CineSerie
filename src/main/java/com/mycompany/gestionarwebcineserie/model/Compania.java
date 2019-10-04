@@ -19,6 +19,10 @@ public class Compania {
     public Compania() {
     }
 
+    public Compania(int id) {
+        this.id = id;
+    }
+
     public Compania(int id, String nombre, String majos, String nacionalidad, String streaming) {
         this.id = id;
         this.nombre = nombre;
