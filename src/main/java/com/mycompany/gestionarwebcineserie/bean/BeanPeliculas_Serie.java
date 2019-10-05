@@ -25,25 +25,25 @@ public class BeanPeliculas_Serie {
 
     private Pelicula_Serie ps = new Pelicula_Serie();
     private List<Pelicula_Serie> listaPS;
-    private List<Pelicula_Serie> listaPSNombre;
+//    private List<Pelicula_Serie> listaPSNombre;
     private String accion;
-    private String[] ListaPeliculas;
+//    private String[] ListaPeliculas;
 
-    public List<Pelicula_Serie> getListaPSNombre() {
-        return listaPSNombre;
-    }
+//    public List<Pelicula_Serie> getListaPSNombre() {
+//        return listaPSNombre;
+//    }
+//
+//    public void setListaPSNombre(List<Pelicula_Serie> listaPSNombre) {
+//        this.listaPSNombre = listaPSNombre;
+//    }
 
-    public void setListaPSNombre(List<Pelicula_Serie> listaPSNombre) {
-        this.listaPSNombre = listaPSNombre;
-    }
-
-    public String[] getListaPeliculas() {
-        return ListaPeliculas;
-    }
-
-    public void setListaPeliculas(String[] ListaPeliculas) {
-        this.ListaPeliculas = ListaPeliculas;
-    }
+//    public String[] getListaPeliculas() {
+//        return ListaPeliculas;
+//    }
+//
+//    public void setListaPeliculas(String[] ListaPeliculas) {
+//        this.ListaPeliculas = ListaPeliculas;
+//    }
 
     public String getAccion() {
         return accion;
@@ -181,33 +181,33 @@ public class BeanPeliculas_Serie {
      * @param valor de tipo boolean.
      * @throws Exception
      */
-    public void listarPorTipo(boolean valor) throws Exception {
-        try {
-            if (!valor) {
-                if (!isPostBack()) {
-                    listaPSNombre = Control_Peliculas_Serie.control_listarPorTipo(ps);
-                }
-            } else {
-                listaPSNombre = Control_Peliculas_Serie.control_listarPorTipo(ps);
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Error " + ex);
-            throw ex;
-        }
-    }
+//    public void listarPorTipo(boolean valor) throws Exception {
+//        try {
+//            if (!valor) {
+//                if (!isPostBack()) {
+//                    listaPSNombre = Control_Peliculas_Serie.control_listarPorTipo(ps);
+//                }
+//            } else {
+//                listaPSNombre = Control_Peliculas_Serie.control_listarPorTipo(ps);
+//            }
+//
+//        } catch (Exception ex) {
+//            System.out.println("Error " + ex);
+//            throw ex;
+//        }
+//    }
     /**
      * Metod de arranque.
      */
-    @PostConstruct
-    public void init()
-    {
-        try {
-            this.listarPorTipo(false);
-        } catch (Exception ex) {
-            System.out.println("Error"+ex);
-        }
-    }
+//    @PostConstruct
+//    public void init()
+//    {
+//        try {
+//            this.listarPorTipo(false);
+//        } catch (Exception ex) {
+//            System.out.println("Error"+ex);
+//        }
+//    }
 
     /**
      * Metodo para listar todos los datos de la tabla en la base de datos.
