@@ -182,4 +182,25 @@ alter table persona add constraint ck_per_genero check(per_genero in ('F','M'));
 alter table persona_pelicula_serie_productor add constraint ck_ppsp_tipo check(ppsp_tipo in ('Productor Ejecutivo','Coproductor','Productor Asociado','Productor en Línea','Gerente de Producción','Asistente de Producción'));
 alter table persona_pelicula_serie_director add constraint ck_ppsd_tipo check(ppsd_tipo in ('Director Principal','Director Fotografia','Director de Libretos','Director de Compositor','Director de Montaje'));
 alter table persona_pelicula_serie_actor add constraint ck_ppsa_tipo check(ppsa_tipo in ('Protagonista','Secundario','De Reparto','De Pequeñas Partes'));
-
+/*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*/
+-- Datos basicos de la base de datos.
+INSERT INTO genero (gen_nombre)VALUES('Clásicos');
+INSERT INTO genero (gen_nombre)VALUES('Mudas');
+INSERT INTO genero (gen_nombre)VALUES('Sonoras');
+INSERT INTO genero (gen_nombre)VALUES('Blanco y negro');
+INSERT INTO genero (gen_nombre)VALUES('Color');
+INSERT INTO genero (gen_nombre)VALUES('Acción');
+INSERT INTO genero (gen_nombre)VALUES('Aventuras');
+INSERT INTO genero (gen_nombre)VALUES('Comedias');
+INSERT INTO genero (gen_nombre)VALUES('Dramáticas');
+INSERT INTO genero (gen_nombre)VALUES('Terror');
+INSERT INTO genero (gen_nombre)VALUES('Musicales');
+INSERT INTO genero (gen_nombre)VALUES('Ciencia ficción');
+INSERT INTO genero (gen_nombre)VALUES('Guerra o bélicas');
+INSERT INTO genero (gen_nombre)VALUES('Oeste (Wester)');
+INSERT INTO genero (gen_nombre)VALUES('Crimen (Suspense)');
+INSERT INTO genero (gen_nombre)VALUES('Infantiles');
+INSERT INTO genero (gen_nombre)VALUES('Animacion');
+INSERT INTO genero (gen_nombre)VALUES('Adultos');
+INSERT INTO genero (gen_nombre)VALUES('Horror');
+INSERT INTO genero (gen_nombre)VALUES('Anime');

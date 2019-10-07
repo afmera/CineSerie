@@ -85,7 +85,7 @@ public class DatosGenero {
         try {
             l = new ArrayList<>();
             c.conectar();
-            String sql = "Select * from genero;";
+            String sql = "Select * from genero order by gen_nombre;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {

@@ -17,22 +17,31 @@
                 <h:form id='frm'>
                     <p:panel id="tituloselect" header="Selecionar la Pelicula o Serie">
                         <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
-                            <p:selectOneMenu id="pelicula_serie" value="#{beanPeliculas_Serie.listaPeliculas}" dynamic="true" style="width:400px">
+                            <p:selectOneMenu id="pelicula_serie" value="#{beanPeliculas_Serie.ps.titulo}" dynamic="true" style="width:400px">
                                 <f:selectItem itemLabel="Seleccione Una:" itemValue="#{null}"/>
                                 <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="entity" itemLabel="#{entity.titulo}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
 
                     </p:panel>
-                    <p:panel id="basic" header="Genero" footer="Detalle de la Pelicula o Serie" style="margin-bottom:20px">
-                        <h:panelGrid columns="3" cellpadding="10">
+                    <p:panel id="panelGenero" header="Genero" style="margin-bottom:20px">
+                        <h:panelGrid columns="2" cellpadding="10" >
                             <h:outputLabel for="nombreGenero" value="Nombre de los Generos:" />
                             <p:selectCheckboxMenu id="nombreGenero" value="#{beanGenero.generos}" multiple="true" 
-                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:300px" style="width:400px">
-                                <f:selectItems value="#{beanGenero.listGeneros}" />
+                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
+                                <f:selectItems value="#{beanGenero.listEntity}" var="entity" itemLabel="#{entity.nombre}" />
                             </p:selectCheckboxMenu>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="panelReparto" header="Reparto" style="margin-bottom:20px">
+                        <h:panelGrid columns="2" cellpadding="10">
 
-                            <p:commandButton value="Registrar" icon="pi pi-star" style="margin-right:20px;"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="basic" style="margin-bottom:20px">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:commandButton value="Registrar" style="margin-right:20px;"/>
+                            <p:commandButton value="Cancelar" style="margin-right:20px;"/>
                         </h:panelGrid>
                     </p:panel>
                 </h:form>

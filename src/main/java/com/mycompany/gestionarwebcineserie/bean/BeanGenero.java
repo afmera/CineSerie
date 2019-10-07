@@ -25,7 +25,8 @@ public class BeanGenero {
     private Genero entity = new Genero();
     private List<Genero> listEntity;
     private List<String> listGeneros;
-    private String[] generos = {"item1","item2","item3"};
+//    private String[] generos = {"item1","item2","item3"};
+    private String[] generos ;
 
     public String[] getGeneros() {
         return generos;
@@ -65,6 +66,7 @@ public class BeanGenero {
     }
 
     public void setAccion(String accion) {
+        this.limpiar();
         this.accion = accion;
     }
 
@@ -189,7 +191,6 @@ public class BeanGenero {
             } else {
                 listEntity = Control_Genero.control_listar();
             }
-
         } catch (Exception ex) {
             System.err.println("Error " + ex);
             throw ex;

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{beanGenero.listar(false)}"/>
+                <p:growl id="msj" showDetail="true"/>
+                <h:form id='frm'>
+                    <p:commandButton value="Nuevo" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" actionListener="#{beanGenero.setAccion('Registrar')}" />
+                    <p:dataTable id="data" value="#{beanGenero.listEntity}" var="entity">
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{entity.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Opciones">
+                            <p:commandLink value="Modificar" actionListener="#{beanGenero.leerID(entity)}" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" style="margin-right:20px;"/>
+                            <p:commandLink value="Eliminar" actionListener="#{beanGenero.eliminar(entity)}" update="data" style="margin-right:20px;"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <p:dialog header="Administracion de Datos" widgetVar="wDlgDatos" id="dlgDatos">
+                    <h:form>
+                        <p:panel id="panelNombre" >
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                <p:outputLabel value="Nombre"/>
+                                <p:inputText value="#{beanGenero.entity.nombre}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                        <p:panel id="panelButton" >
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                <p:commandButton value="#{beanGenero.accion}" actionListener="#{beanGenero.operar()}" oncomplete="PF('wDlgDatos').hide();" update=":frm:data"/>
+                                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wDlgDatos').hide();"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

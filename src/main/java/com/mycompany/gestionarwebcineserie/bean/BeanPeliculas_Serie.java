@@ -27,7 +27,7 @@ public class BeanPeliculas_Serie {
     private List<Pelicula_Serie> listaPS;
 //    private List<Pelicula_Serie> listaPSNombre;
     private String accion;
-//    private String[] ListaPeliculas;
+    private String[] ListaPeliculas;
 
 //    public List<Pelicula_Serie> getListaPSNombre() {
 //        return listaPSNombre;
@@ -36,14 +36,13 @@ public class BeanPeliculas_Serie {
 //    public void setListaPSNombre(List<Pelicula_Serie> listaPSNombre) {
 //        this.listaPSNombre = listaPSNombre;
 //    }
+    public String[] getListaPeliculas() {
+        return ListaPeliculas;
+    }
 
-//    public String[] getListaPeliculas() {
-//        return ListaPeliculas;
-//    }
-//
-//    public void setListaPeliculas(String[] ListaPeliculas) {
-//        this.ListaPeliculas = ListaPeliculas;
-//    }
+    public void setListaPeliculas(String[] ListaPeliculas) {
+        this.ListaPeliculas = ListaPeliculas;
+    }
 
     public String getAccion() {
         return accion;
@@ -168,7 +167,6 @@ public class BeanPeliculas_Serie {
             } else {
                 listaPS = Control_Peliculas_Serie.control_listar();
             }
-
         } catch (Exception ex) {
             System.err.println("Error " + ex);
             throw ex;
@@ -208,7 +206,6 @@ public class BeanPeliculas_Serie {
 //            System.out.println("Error"+ex);
 //        }
 //    }
-
     /**
      * Metodo para listar todos los datos de la tabla en la base de datos.
      *
