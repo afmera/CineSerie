@@ -19,7 +19,7 @@ import java.util.List;
  * @author Andrés Felipe Mera Tróchez
  */
 public class DatosPersona {
-    
+
     /**
      * Metodo para convertir un valor string de fecha a una valor java.sql.Date
      *
@@ -89,11 +89,11 @@ public class DatosPersona {
         try {
             l = new ArrayList<>();
             c.conectar();
-            String sql = "Select * from compania_pelicula_serie;";
+            String sql = "Select * from persona order by per_nombre;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                Persona entity = new Persona(rs.getInt("per_id"),rs.getString("per_nombre"),rs.getString("per_genero"),convetirFechaString(rs.getDate("per_fecha_nacimiento")));
+                Persona entity = new Persona(rs.getInt("per_id"), rs.getString("per_nombre"), rs.getString("per_genero"), convetirFechaString(rs.getDate("per_fecha_nacimiento")));
                 l.add(entity);
             }
         } catch (Exception ex) {
@@ -151,13 +151,13 @@ public class DatosPersona {
                     + "Set "
                     + "per_nombre=?,"
                     + "per_genero=?,"
-                    + "per_fecha_nacimiento "
+                    + "per_fecha_nacimiento=? "
                     + "Where "
                     + "per_id=?;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             st.setString(1, entity.getNombre());
             st.setString(2, entity.getGenero());
-            st.setString(3, entity.getFecha_nacimiento());
+            st.setDate(3, convertirFecha(entity.getFecha_nacimiento()));
             st.setInt(4, entity.getId());
             st.executeUpdate();
         } catch (Exception ex) {

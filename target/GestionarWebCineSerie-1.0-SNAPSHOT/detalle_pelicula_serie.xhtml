@@ -35,7 +35,14 @@
                     </p:panel>
                     <p:panel id="panelReparto" header="Reparto" style="margin-bottom:20px">
                         <h:panelGrid columns="2" cellpadding="10">
-
+                            <h:outputLabel for="nombrePersona" value="Nombre Completo:" />
+                            <p:autoComplete id="nombrePersona" value="#{beanDetalle_Pelicula_Serie.txt1}" 
+                                            completeMethod="#{beanDetalle_Pelicula_Serie.completeText}" />
+                            <p:outputLabel value="Genero :" />
+                            <p:selectOneRadio value="">
+                                <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                <f:selectItem itemLabel="Femenino" itemValue="F" />
+                            </p:selectOneRadio>
                         </h:panelGrid>
                     </p:panel>
                     <p:panel id="basic" style="margin-bottom:20px">
