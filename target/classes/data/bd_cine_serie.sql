@@ -40,7 +40,6 @@ create table compania
 create table favorita
 (
     fav_id serial not null,
-    fav_nombre varchar(100) not null,
     fav_calificacion varchar(1) not null,
     fav_comentario varchar(10000) not null,
 	

@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,11 +21,20 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class BeanCompania {
-    
+
     private Compania enti = new Compania();
     private List<Compania> listaEntities;
-    private List<String>pais;
+    private String[] selectEntities = null;
+    private List<String> pais;
     private String accion;
+
+    public String[] getSelectEntities() {
+        return selectEntities;
+    }
+
+    public void setSelectEntities(String[] selectEntities) {
+        this.selectEntities = selectEntities;
+    }
 
     public List<String> getPais() {
         return pais;
@@ -33,7 +43,7 @@ public class BeanCompania {
     public void setPais(List<String> pais) {
         this.pais = pais;
     }
-    
+
     public Compania getEnti() {
         return enti;
     }
@@ -49,7 +59,7 @@ public class BeanCompania {
     public void setListaEntities(List<Compania> listaEntities) {
         this.listaEntities = listaEntities;
     }
-    
+
     public String getAccion() {
         return accion;
     }
@@ -58,7 +68,6 @@ public class BeanCompania {
         this.limpiar();
         this.accion = accion;
     }
-
 
     /**
      * Metodo para determinar la accion registrar o modificar.
@@ -141,7 +150,8 @@ public class BeanCompania {
         try {
             listaEntities = Control_Compania.control_listar();
         } catch (Exception ex) {
-            System.err.println("Error " + ex);
+            JOptionPane.showMessageDialog(null, "Error :" + ex);
+            System.out.println("Error " + ex);
             throw ex;
         }
     }
@@ -164,11 +174,12 @@ public class BeanCompania {
             throw ex;
         }
     }
+
     /**
      * Metodo para cargar los paices.
      */
     @PostConstruct
-    public void selectNacionalida(){
+    public void selectNacionalida() {
         pais = new ArrayList<String>();
         pais.add("Estados Unidos");
         pais.add("Inglaterra");

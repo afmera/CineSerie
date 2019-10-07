@@ -13,38 +13,64 @@
             <ui:define name="content">
                 <f:event id="pRVpeliculaSeries" type="preRenderView" listener="#{beanPeliculas_Serie.listar(false)}"/>
                 <!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanGenero.listar(false)}"/>-->
+<!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanPersona.listar(false)}"/>-->
+<!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanCompania.listar()}"/>-->
+<!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanDetalle_Pelicula_Serie.listar()}"/>-->
                 <p:growl id="msj" showDetail="true"/>
                 <h:form id='frm'>
-                    <p:panel id="tituloselect" header="Selecionar la Pelicula o Serie">
+                    <p:panel id="panelPeliculaSerie" header="Selecionar la Pelicula o Serie">
                         <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
                             <p:selectOneMenu id="pelicula_serie" value="#{beanPeliculas_Serie.ps.titulo}" dynamic="true" style="width:400px">
                                 <f:selectItem itemLabel="Seleccione Una:" itemValue="#{null}"/>
-                                <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="entity" itemLabel="#{entity.titulo}" />
+                                <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="entityPelicula" itemLabel="#{entityPelicula.titulo}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
+                    </p:panel>
+                    <p:tabView>
+                        <p:tab title="Informacion de Produccion">
+                            <h:panelGrid columns="1" cellpadding="10">
+                                <p:panel id="panelCompania" header="Seleccionar la Compañia Audiovisual:">
+                                    <h:panelGrid columns="2" cellpadding="10" >
+                                        <h:outputLabel for="nombreCompania" value="Nombre de las Compañias :" />
+                                        <p:selectCheckboxMenu id="nombreCompania" value="#{beanCompania.selectEntities}" multiple="true" 
+                                                              filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
+                                            <f:selectItems value="#{beanCompania.listaEntities}" var="entityCompania" itemLabel="#{entityCompania.nombre}" />
+                                        </p:selectCheckboxMenu>
+                                    </h:panelGrid>
+                                </p:panel>
 
-                    </p:panel>
-                    <p:panel id="panelGenero" header="Genero" style="margin-bottom:20px">
-                        <h:panelGrid columns="2" cellpadding="10" >
-                            <h:outputLabel for="nombreGenero" value="Nombre de los Generos:" />
-                            <p:selectCheckboxMenu id="nombreGenero" value="#{beanGenero.generos}" multiple="true" 
-                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
-                                <f:selectItems value="#{beanGenero.listEntity}" var="entity" itemLabel="#{entity.nombre}" />
-                            </p:selectCheckboxMenu>
-                        </h:panelGrid>
-                    </p:panel>
-                    <p:panel id="panelReparto" header="Reparto" style="margin-bottom:20px">
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <h:outputLabel for="nombrePersona" value="Nombre Completo:" />
-                            <p:autoComplete id="nombrePersona" value="#{beanDetalle_Pelicula_Serie.txt1}" 
-                                            completeMethod="#{beanDetalle_Pelicula_Serie.completeText}" />
-                            <p:outputLabel value="Genero :" />
-                            <p:selectOneRadio value="">
-                                <f:selectItem itemLabel="Masculino" itemValue="M" />
-                                <f:selectItem itemLabel="Femenino" itemValue="F" />
-                            </p:selectOneRadio>
-                        </h:panelGrid>
-                    </p:panel>
+                                <p:panel id="panelGenero" header="Genero">
+                                    <h:panelGrid columns="2" cellpadding="10" >
+                                        <h:outputLabel for="nombreGenero" value="Nombre de los Generos:" />
+                                        <p:selectCheckboxMenu id="nombreGenero" value="#{beanGenero.generos}" multiple="true" 
+                                                              filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
+                                            <f:selectItems value="#{beanGenero.listEntity}" var="entityGenero" itemLabel="#{entityGenero.nombre}" />
+                                        </p:selectCheckboxMenu>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+                            <p:panel id="buttonGestion" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="10">
+                                    <p:commandButton value="Registrar" actionListener="#{beanDetalle_Pelicula_Serie.operar(true,entityPelicula,entityCompania,entityGenero)}" style="margin-right:20px;"/>
+                                    <p:commandButton value="Cancelar" style="margin-right:20px;"/>
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        <p:tab title="Informacion del Talento Humano">
+                            <h:panelGrid columns="2" cellpadding="10">
+
+                                <p:panel id="panelReparto" header="Reparto">
+                                    <h:panelGrid columns="2" cellpadding="10">
+                                        <h:outputLabel for="nombrePersona" value="Nombre Completo:" />
+                                        <p:selectCheckboxMenu id="nombrePersona" value="#{beanPersona.selectedEntity}" multiple="true" 
+                                                              filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
+                                            <f:selectItems value="#{beanPersona.listaEntities}" var="entityPersona" itemLabel="#{entityPersona.nombre}" />
+                                        </p:selectCheckboxMenu>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
                     <p:panel id="basic" style="margin-bottom:20px">
                         <h:panelGrid columns="2" cellpadding="10">
                             <p:commandButton value="Registrar" style="margin-right:20px;"/>

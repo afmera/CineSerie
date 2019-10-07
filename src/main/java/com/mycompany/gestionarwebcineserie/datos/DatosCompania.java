@@ -91,7 +91,7 @@ public class DatosCompania {
         try {
             l = new ArrayList<>();
             c.conectar();
-            String sql = "Select * from compania;";
+            String sql = "Select * from compania order by com_nombre;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {

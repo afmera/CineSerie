@@ -11,6 +11,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,7 +24,8 @@ public class BeanPersona {
     private Persona entity = new Persona();
     private List<Persona> listaEntities;
     private String accion;
-    private String[] selectedEntity;
+//    private String[] selectedEntity ={"items1"};
+    private String[] selectedEntity ;
 
     public Persona getEntity() {
         return entity;
@@ -155,7 +157,7 @@ public class BeanPersona {
                 listaEntities = Control_Persona.control_listar();
             }
         } catch (Exception ex) {
-            System.err.println("Error " + ex);
+            System.out.println("Error " + ex);
             throw ex;
         }
     }
