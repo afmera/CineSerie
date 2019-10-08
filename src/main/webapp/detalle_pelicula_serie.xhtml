@@ -11,8 +11,8 @@
         <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
 
             <ui:define name="content">
-                <f:event id="pRVpeliculaSeries" type="preRenderView" listener="#{beanPeliculas_Serie.listar(false)}"/>
-                <!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanGenero.listar(false)}"/>-->
+                <f:event type="preRenderView" listener="#{beanPeliculas_Serie.listar(false)}"/>
+                <f:event type="preRenderView" listener="#{beanGenero.listar(false)}"/>
 <!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanPersona.listar(false)}"/>-->
 <!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanCompania.listar()}"/>-->
 <!--<f:event id="pRVGenero" type="preRenderView" listener="#{beanDetalle_Pelicula_Serie.listar()}"/>-->
@@ -20,41 +20,55 @@
                 <h:form id='frm'>
                     <p:panel id="panelPeliculaSerie" header="Selecionar la Pelicula o Serie">
                         <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
-                            <p:selectOneMenu id="pelicula_serie" value="#{beanPeliculas_Serie.ps.titulo}" dynamic="true" style="width:400px">
+                            <p:selectOneMenu id="pelicula_serie" value="#{beanDetalle_Pelicula_Serie.entityGPS.pelicula_serie}" converter="omnifaces.SelectItemsConverter" dynamic="true" style="width:400px">
                                 <f:selectItem itemLabel="Seleccione Una:" itemValue="#{null}"/>
-                                <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="entityPelicula" itemLabel="#{entityPelicula.titulo}" />
+                                <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="entityPelicula" itemLabel="#{entityPelicula.titulo}" itemValue="#{entityPelicula}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </p:panel>
                     <p:tabView>
                         <p:tab title="Informacion de Produccion">
                             <h:panelGrid columns="1" cellpadding="10">
-                                <p:panel id="panelCompania" header="Seleccionar la Compañia Audiovisual:">
-                                    <h:panelGrid columns="2" cellpadding="10" >
-                                        <h:outputLabel for="nombreCompania" value="Nombre de las Compañias :" />
-                                        <p:selectCheckboxMenu id="nombreCompania" value="#{beanCompania.selectEntities}" multiple="true" 
-                                                              filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
-                                            <f:selectItems value="#{beanCompania.listaEntities}" var="entityCompania" itemLabel="#{entityCompania.nombre}" />
-                                        </p:selectCheckboxMenu>
-                                    </h:panelGrid>
-                                </p:panel>
 
                                 <p:panel id="panelGenero" header="Genero">
                                     <h:panelGrid columns="2" cellpadding="10" >
                                         <h:outputLabel for="nombreGenero" value="Nombre de los Generos:" />
-                                        <p:selectCheckboxMenu id="nombreGenero" value="#{beanGenero.generos}" multiple="true" 
-                                                              filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
+                                        <p:selectCheckboxMenu id="nombreGenero" value="#{beanDetalle_Pelicula_Serie.selectGenero}" multiple="true" 
+                                                              filter="true" filterMatchMode="startsWith" panelStyle="width:300px" converter="omnifaces.SelectItemsConverter">
                                             <f:selectItems value="#{beanGenero.listEntity}" var="entityGenero" itemLabel="#{entityGenero.nombre}" />
                                         </p:selectCheckboxMenu>
                                     </h:panelGrid>
                                 </p:panel>
                             </h:panelGrid>
+
+                            <p:commandButton value="Agregar" actionListener="#{beanDetalle_Pelicula_Serie.agregarGenero()}" update="detalleGenero"/>
+
+                            <p:dataTable id="detalleGenero" value="#{beanDetalle_Pelicula_Serie.listEntitiesGPS}" var="gps">
+                                <p:column headerText="Nombre de la Pelicula">
+                                    <h:outputLabel value="#{gps.pelicula_serie.titulo}"/>
+                                </p:column>
+                                <p:column headerText="Genero de la Pelicula">
+                                    <h:outputLabel value="#{gps.genero.nombre}"/>
+                                </p:column>
+                            </p:dataTable>
+<!--
+                            <p:panel id="panelCompania" header="Seleccionar la Compañia Audiovisual:">
+                                <h:panelGrid columns="2" cellpadding="10" >
+                                    <h:outputLabel for="nombreCompania" value="Nombre de las Compañias :" />
+                                    <p:selectCheckboxMenu id="nombreCompania" value="#{beanCompania.selectEntities}" multiple="true" 
+                                                          filter="true" filterMatchMode="startsWith" panelStyle="width:300px" >
+                                        <f:selectItems value="#{beanCompania.listaEntities}" var="entityCompania" itemLabel="#{entityCompania.nombre}" />
+                                    </p:selectCheckboxMenu>
+                                </h:panelGrid>
+                            </p:panel>
+
+
                             <p:panel id="buttonGestion" style="margin-bottom:20px">
                                 <h:panelGrid columns="2" cellpadding="10">
                                     <p:commandButton value="Registrar" actionListener="#{beanDetalle_Pelicula_Serie.operar(true,entityPelicula,entityCompania,entityGenero)}" style="margin-right:20px;"/>
                                     <p:commandButton value="Cancelar" style="margin-right:20px;"/>
                                 </h:panelGrid>
-                            </p:panel>
+                            </p:panel>-->
                         </p:tab>
                         <p:tab title="Informacion del Talento Humano">
                             <h:panelGrid columns="2" cellpadding="10">

@@ -25,77 +25,105 @@ import javax.swing.JOptionPane;
 @ManagedBean
 @ViewScoped
 public class BeanDetalle_Pelicula_Serie {
-
+    
     private Genero_Pelicula_Serie entityGPS = new Genero_Pelicula_Serie();
+    private Pelicula_Serie objPeliculaSerie = new Pelicula_Serie();
+    private Genero objGenero = new Genero();
+    private Genero[] selectGenero = new Genero[0];
+    private List<Genero_Pelicula_Serie> listEntitiesGPS = new ArrayList<>();
+    
     private Compania_Pelicula_Serie entityCPS = new Compania_Pelicula_Serie();
-    private List<Genero_Pelicula_Serie> listEntitiesGPS;
     private List<Compania_Pelicula_Serie> listEntitiesCPS;
     private String[] selectEntitiesGPS = null;
     private String[] selectEntitiesCPS = null;
     private String accionPestana01;
     private String txt1;
-
+    
+    public Genero[] getSelectGenero() {
+        return selectGenero;
+    }
+    
+    public void setSelectGenero(Genero[] selectGenero) {
+        this.selectGenero = selectGenero;
+    }
+    
+    public Pelicula_Serie getObjPeliculaSerie() {
+        return objPeliculaSerie;
+    }
+    
+    public void setObjPeliculaSerie(Pelicula_Serie objPeliculaSerie) {
+        this.objPeliculaSerie = objPeliculaSerie;
+    }
+    
+    public Genero getObjGenero() {
+        return objGenero;
+    }
+    
+    public void setObjGenero(Genero objGenero) {
+        this.objGenero = objGenero;
+    }
+    
     public String getAccionPestana01() {
         return accionPestana01;
     }
-
+    
     public void setAccionPestana01(String accionPestana01) {
         this.limpiar();
         this.accionPestana01 = accionPestana01;
     }
-
+    
     public Genero_Pelicula_Serie getEntityGPS() {
         return entityGPS;
     }
-
+    
     public void setEntityGPS(Genero_Pelicula_Serie entityGPS) {
         this.entityGPS = entityGPS;
     }
-
+    
     public Compania_Pelicula_Serie getEntityCPS() {
         return entityCPS;
     }
-
+    
     public void setEntityCPS(Compania_Pelicula_Serie entityCPS) {
         this.entityCPS = entityCPS;
     }
-
+    
     public List<Genero_Pelicula_Serie> getListEntitiesGPS() {
         return listEntitiesGPS;
     }
-
+    
     public void setListEntitiesGPS(List<Genero_Pelicula_Serie> listEntitiesGPS) {
         this.listEntitiesGPS = listEntitiesGPS;
     }
-
+    
     public List<Compania_Pelicula_Serie> getListEntitiesCPS() {
         return listEntitiesCPS;
     }
-
+    
     public void setListEntitiesCPS(List<Compania_Pelicula_Serie> listEntitiesCPS) {
         this.listEntitiesCPS = listEntitiesCPS;
     }
-
+    
     public String[] getSelectEntitiesGPS() {
         return selectEntitiesGPS;
     }
-
+    
     public void setSelectEntitiesGPS(String[] selectEntitiesGPS) {
         this.selectEntitiesGPS = selectEntitiesGPS;
     }
-
+    
     public String[] getSelectEntitiesCPS() {
         return selectEntitiesCPS;
     }
-
+    
     public void setSelectEntitiesCPS(String[] selectEntitiesCPS) {
         this.selectEntitiesCPS = selectEntitiesCPS;
     }
-
+    
     public String getTxt1() {
         return txt1;
     }
-
+    
     public void setTxt1(String txt1) {
         this.txt1 = txt1;
     }
@@ -113,9 +141,16 @@ public class BeanDetalle_Pelicula_Serie {
         }
         return results;
     }
-
-    public void obtenerValorSelected() {
-
+    
+    public void agregarGenero() {
+        if (selectGenero.length > 0) {
+            Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
+            for (int cont = 0; cont < selectGenero.length; cont++) {
+                gps.setGenero(new Genero(selectGenero[cont].getId(), selectGenero[cont].getNombre()));
+                gps.setPelicula_serie(objPeliculaSerie);
+                listEntitiesGPS.add(gps);
+            }
+        }
     }
 
     /**
@@ -153,7 +188,7 @@ public class BeanDetalle_Pelicula_Serie {
         this.entityCPS.setId(0);
         this.entityCPS.setCompania(null);
         this.entityCPS.setPelicual_serie(null);
-
+        
         this.entityGPS.setId(0);
         this.entityGPS.setGenero(null);
         this.entityGPS.setPelicula_serie(null);

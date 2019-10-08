@@ -42,7 +42,29 @@ public class Genero {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Genero other = (Genero) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
-        return "Genero{" + "id=" + id + ", nombre=" + nombre + '}';
+        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
     }
 }

@@ -93,7 +93,29 @@ public class Pelicula_Serie {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pelicula_Serie other = (Pelicula_Serie) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String toString() {
-        return "Pelicula_Serie{" + "id=" + id + ", titulo=" + titulo + ", an_lanzamiento=" + an_lanzamiento + ", duracion=" + duracion + ", sinopsis=" + sinopsis + ", tipo=" + tipo + '}';
+        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
     }
 }
