@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{beanPeliculas_Serie.listar(false)}"/>
+                <f:event type="preRenderView" listener="#{beanGenero.listar(false)}"/>
+                <h:form id='frm'>
+                    <p:outputLabel value="Peliculas o Serie"/>
+                    <p:selectOneMenu>
+                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                        <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="ps" itemLabel="#{ps.titulo}"/> 
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Genero"/>
+                    <p:selectOneMenu>
+                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                        <f:selectItems value="#{beanGenero.listEntity}" var="gen" itemLabel="#{gen.nombre}"/> 
+                    </p:selectOneMenu>
+                    <p:commandButton value="Agregar"/>
+                    <p:dataTable >
+                        <p:column headerText="Peliculas Series">
+                            
+                        </p:column>
+                        <p:column headerText="Genero">
+                            
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
