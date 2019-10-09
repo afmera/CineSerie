@@ -81,6 +81,7 @@ public class BeanDetalle_Pelicula_Serie {
             if (selectGenero.length > 0) {
 //        if(selectedEntiy.length>0){
                 System.out.println("\nselectGenero[0] " + selectGenero[0]);
+                
 //        Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
 //        gps.setGenero(genero);
 //        gps.setPelicula_serie(pelicula_serie);
@@ -89,9 +90,11 @@ public class BeanDetalle_Pelicula_Serie {
 //            for (String sg : selectGenero) {
                 for (int cont = 0; cont < selectGenero.length; cont++) {
                     Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
+                    String[] valor=selectGenero[cont].split(",");
+                    System.out.println("valor[0] "+valor[0]);
 //                genero.setNombre(selectGenero[cont]);
 //                gps.setGenero(genero);
-                    gps.setGenero(new Genero(Integer.parseInt(selectGenero[cont])));
+                    gps.setGenero(new Genero(Integer.parseInt(valor[0]),valor[1]));
                     gps.setPelicula_serie(pelicula_serie);
                     listaGPS.add(gps);
                 }

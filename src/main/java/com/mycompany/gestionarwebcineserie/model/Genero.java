@@ -71,7 +71,7 @@ public class Genero {
 
     @Override
     public String toString() {
-        return ""+id ;
+        return id +","+nombre;
     }
     
 }
