@@ -90,7 +90,7 @@ public class BeanDetalle_Pelicula_Serie {
 //            for (String sg : selectGenero) {
                 for (int cont = 0; cont < selectGenero.length; cont++) {
                     Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
-                    String[] valor=selectGenero[cont].split(",");
+                    String[] valor=selectGenero[cont].split("/");
                     System.out.println("valor[0] "+valor[0]);
 //                genero.setNombre(selectGenero[cont]);
 //                gps.setGenero(genero);
