@@ -6,11 +6,9 @@
 package com.mycompany.gestionarwebcineserie.bean;
 
 import com.mycompany.gestionarwebcineserie.control.Control_Genero_Pelicula_Serie;
-import com.mycompany.gestionarwebcineserie.datos.DatosGenero_Pelicula_Serie;
 import com.mycompany.gestionarwebcineserie.model.Genero;
 import com.mycompany.gestionarwebcineserie.model.Genero_Pelicula_Serie;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
-import com.sun.jmx.snmp.BerDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -29,7 +27,7 @@ public class BeanDetalle_Pelicula_Serie {
     private Pelicula_Serie pelicula_serie = new Pelicula_Serie();
     private Genero genero = new Genero();
 //    private String[] selectGenero = new String[0];
-    private String[] selectGenero = {"Item 1"};
+    private String[] selectGenero;
 //    private Genero[] selectedEntiy= null;
     private List<Genero_Pelicula_Serie> listaGPS = new ArrayList<Genero_Pelicula_Serie>();
 
@@ -81,7 +79,10 @@ public class BeanDetalle_Pelicula_Serie {
             if (selectGenero.length > 0) {
 //        if(selectedEntiy.length>0){
                 System.out.println("\nselectGenero[0] " + selectGenero[0]);
-                
+                for (int i = 0; i < selectGenero.length; i++) {
+                    System.out.println("valor : " + selectGenero[i]);
+                }
+
 //        Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
 //        gps.setGenero(genero);
 //        gps.setPelicula_serie(pelicula_serie);
@@ -90,11 +91,11 @@ public class BeanDetalle_Pelicula_Serie {
 //            for (String sg : selectGenero) {
                 for (int cont = 0; cont < selectGenero.length; cont++) {
                     Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
-                    String[] valor=selectGenero[cont].split("/");
-                    System.out.println("valor[0] "+valor[0]);
+                    String[] valor = selectGenero[cont].split("/");
+                    System.out.println("valor[0] " + valor[0]);
 //                genero.setNombre(selectGenero[cont]);
 //                gps.setGenero(genero);
-                    gps.setGenero(new Genero(Integer.parseInt(valor[0]),valor[1]));
+                    gps.setGenero(new Genero(Integer.parseInt(valor[0]), valor[1]));
                     gps.setPelicula_serie(pelicula_serie);
                     listaGPS.add(gps);
                 }
