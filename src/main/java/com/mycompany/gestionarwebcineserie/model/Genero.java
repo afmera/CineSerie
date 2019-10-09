@@ -63,7 +63,10 @@ public class Genero {
         }
         return true;
     }
-
+/**
+ * Metodo de acceso a los datos ToString
+ * @return 
+ */
     @Override
     public String toString() {
         return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
