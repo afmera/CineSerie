@@ -76,18 +76,42 @@ public class BeanDetalle_Pelicula_Serie {
      */
     public void registrar() throws Exception {
         try {
-            System.out.println("\nTamños listaGPS.size() " + listaGPS.size());
             if (listaGPS.size() > 0) {
                 Control_Genero_Pelicula_Serie.control_registrar(listaGPS);
-                listaGPS.clear();
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"INFORMACION","El registro sea Almacenado de forma exitosa."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro sea Almacenado de forma exitosa."));
             }
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"ERROR","Sea presentado un error en el almacenaje.\n"+ex));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en el almacenaje.\n" + ex));
             System.out.println("Error es : " + ex);
             throw ex;
+        } finally {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         }
-        finally{
+    }
+
+    /**
+     * Metodo void para quitar un elemeto de la lista.
+     *
+     * @param valor de tipo String.
+     */
+    public void quitarElemento(String valor) {
+        try {
+            boolean result = false;
+            for (int cont = 0; cont < listaGPS.size(); cont++) {
+                if (listaGPS.get(cont).getGenero().getNombre().equals(valor)) {
+                    result = listaGPS.remove(valor);
+                }
+            }
+            if (result) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro a sido retirado de la tabla."));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro NO a sido retirado."));
+            }
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en la lista.\n" + ex));
+            System.out.println("Error es : " + ex);
+            throw ex;
+        } finally {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         }
     }
