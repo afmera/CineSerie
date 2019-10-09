@@ -96,17 +96,20 @@ public class BeanDetalle_Pelicula_Serie {
      */
     public void quitarElemento(String valor) {
         try {
-            boolean result = false;
+//            boolean result = false;
             for (int cont = 0; cont < listaGPS.size(); cont++) {
+                System.out.println("\nlistaGPS.get(cont).getGenero().getNombre() "+listaGPS.get(cont).getGenero().getNombre()
+                +"\nvalor "+valor);
                 if (listaGPS.get(cont).getGenero().getNombre().equals(valor)) {
-                    result = listaGPS.remove(valor);
+                    listaGPS.remove(cont);
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro a sido retirado de la tabla."));
                 }
             }
-            if (result) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro a sido retirado de la tabla."));
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro NO a sido retirado."));
-            }
+//            if (result) {
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro a sido retirado de la tabla."));
+//            } else {
+//                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro NO a sido retirado."));
+//            }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en la lista.\n" + ex));
             System.out.println("Error es : " + ex);

@@ -37,7 +37,7 @@
                             <p:outputLabel value="#{gps.genero.nombre}"/>
                         </p:column>
                         <p:column headerText="Opcion">
-                            <p:commandLink value="Quitar" actionListener="#{beanDetalle_Pelicula_Serie.quitarElemento(gps.genero.nombre)}"/>
+                            <p:commandLink value="Quitar" actionListener="#{beanDetalle_Pelicula_Serie.quitarElemento(gps.genero.nombre)}" update="detalleGPS"/>
                         </p:column>
                     </p:dataTable>
                     <p:commandButton value="Registrar" actionListener="#{beanDetalle_Pelicula_Serie.registrar()}" action="detalle_pelicula_serie?faces-redirect=true" />
