@@ -15,13 +15,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Andrés Felipe Mera Tróchez
  */
 public class DatosGenero_Pelicula_Serie {
-    
+
     /**
      * Metodo para convertir un valor string de fecha a una valor java.sql.Date
      *
@@ -51,25 +52,33 @@ public class DatosGenero_Pelicula_Serie {
     /**
      * Metodo para registrar datos en la base de datos.
      *
-     * @param entity del clase definida.
+     * @param listEntities lista de la clase determinida.
      * @throws Exception mensaje de error.
      */
-    public static void datosRegistrar(Genero_Pelicula_Serie entity) throws Exception {
+    public static void datosRegistrar(List<Genero_Pelicula_Serie> listEntities) throws Exception {
         Conexion c = new Conexion();
         try {
-            c.conectar();
-            String sql = "Insert Into genero_pelicula_serie"
-                    + "("
-                    + "ps_id,"
-                    + "gen_id"
-                    + ")"
-                    + "Values(?,?,?);";
-            PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setInt(1, entity.getPelicula_serie().getId());
-            st.setInt(2, entity.getGenero().getId());
-            st.executeUpdate();
+            if (listEntities.size() > 0) {
+                c.conectar();
+                String sql = "Insert Into genero_pelicula_serie"
+                        + "("
+                        + "ps_id,"
+                        + "gen_id"
+                        + ")"
+                        + "Values(?,?);";
+                for (Genero_Pelicula_Serie entity : listEntities) {
+                    PreparedStatement st = c.getCn().prepareStatement(sql);
+                    st.setInt(1, entity.getPelicula_serie().getId());
+                    st.setInt(2, entity.getGenero().getId());
+                    st.executeUpdate();
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "El registro del dato solicitado es invalido");
+            }
         } catch (Exception ex) {
-            System.err.println("Error en Sql " + ex);
+            System.out.println("Error en Sql " + ex);
             throw ex;
         } finally {
             c.cerrar();

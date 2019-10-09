@@ -10,6 +10,7 @@ package com.mycompany.gestionarwebcineserie.model;
  * @author Andrés Felipe Mera Tróchez
  */
 public class Genero {
+
     private int id;
     private String nombre;
 

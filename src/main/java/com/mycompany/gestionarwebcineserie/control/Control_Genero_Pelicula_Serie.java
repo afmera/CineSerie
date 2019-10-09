@@ -18,11 +18,11 @@ public class Control_Genero_Pelicula_Serie {
     /**
      * Metodo de control de loa accesos a la manipulacion de datos.
      *
-     * @param entity del tipo de la clase definada.
+     * @param listEntities lista de una clase definada.
      * @throws java.lang.Exception Mensaje de error.
      */
-    public static void control_registrar(Genero_Pelicula_Serie entity) throws Exception {
-        DatosGenero_Pelicula_Serie.datosRegistrar(entity);
+    public static void control_registrar(List<Genero_Pelicula_Serie> listEntities) throws Exception {
+        DatosGenero_Pelicula_Serie.datosRegistrar(listEntities);
     }
 
     /**
