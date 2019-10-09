@@ -64,8 +64,14 @@ public class Genero {
         return true;
     }
 
+//    @Override
+//    public String toString() {
+//        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+//    }
+
     @Override
     public String toString() {
-        return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+        return ""+id ;
     }
+    
 }
