@@ -13,34 +13,45 @@
                 <f:event type="preRenderView" listener="#{beanGenero.listar(false)}"/>
                 <p:growl id="msj" autoUpdate="true" showDetail="true"/>
                 <h:form id='frm'>
-                    <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                        <p:outputLabel value="Peliculas o Serie"/>
-                        <p:selectOneMenu value="#{beanDetalle_Pelicula_Serie.pelicula_serie}" converter="omnifaces.SelectItemsConverter">
-                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                            <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="ps" itemLabel="#{ps.titulo}" itemValue="#{ps}"/> 
-                        </p:selectOneMenu>
-                        <p:outputLabel value="Genero"/>
-                        <p:selectOneMenu value="#{beanDetalle_Pelicula_Serie.genero}" converter="omnifaces.SelectItemsConverter">
-                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                            <f:selectItems value="#{beanGenero.listEntity}" var="gen" itemLabel="#{gen.nombre}" itemValue="#{gen}"/> 
-                        </p:selectOneMenu>
-                    </h:panelGrid>
-                    <p:commandButton value="Agregar" actionListener="#{beanDetalle_Pelicula_Serie.agregar()}" update="detalleGPS"/>
-                    <p:dataTable id="detalleGPS" value="#{beanDetalle_Pelicula_Serie.listaGPS}" var="gps" 
-                                 paginator="true"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15">
-                        <p:column headerText="Peliculas Series">
-                            <p:outputLabel value="#{gps.pelicula_serie.titulo}"/>
-                        </p:column>
-                        <p:column headerText="Genero">
-                            <p:outputLabel value="#{gps.genero.nombre}"/>
-                        </p:column>
-                        <p:column headerText="Opcion">
-                            <p:commandLink value="Quitar" actionListener="#{beanDetalle_Pelicula_Serie.quitarElemento(gps.genero.nombre)}" update="detalleGPS"/>
-                        </p:column>
-                    </p:dataTable>
-                    <p:commandButton value="Registrar" actionListener="#{beanDetalle_Pelicula_Serie.registrar()}" action="detalle_pelicula_serie?faces-redirect=true" />
+                    <p:tabView>
+                        <p:tab title="Godfather Part I">
+                            <h:panelGrid columns="1" cellpadding="10">
+                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                    <p:outputLabel value="Peliculas o Serie"/>
+                                    <p:selectOneMenu value="#{beanDetalle_Pelicula_Serie.pelicula_serie}" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                        <f:selectItems value="#{beanPeliculas_Serie.listaPS}" var="ps" itemLabel="#{ps.titulo}" itemValue="#{ps}"/> 
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Genero"/>
+                                    <p:selectOneMenu value="#{beanDetalle_Pelicula_Serie.genero}" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                        <f:selectItems value="#{beanGenero.listEntity}" var="gen" itemLabel="#{gen.nombre}" itemValue="#{gen}"/> 
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                <p:commandButton value="Agregar" actionListener="#{beanDetalle_Pelicula_Serie.agregar()}" update="detalleGPS"/>
+                                <p:dataTable id="detalleGPS" value="#{beanDetalle_Pelicula_Serie.listaGPS}" var="gps" 
+                                             paginator="true"
+                                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="5,10,15">
+                                    <p:column headerText="Peliculas Series">
+                                        <p:outputLabel value="#{gps.pelicula_serie.titulo}"/>
+                                    </p:column>
+                                    <p:column headerText="Genero">
+                                        <p:outputLabel value="#{gps.genero.nombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Opcion">
+                                        <p:commandLink value="Quitar" actionListener="#{beanDetalle_Pelicula_Serie.quitarElemento(gps.genero.nombre)}" update="detalleGPS"/>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:commandButton value="Registrar" actionListener="#{beanDetalle_Pelicula_Serie.registrar()}" action="detalle_pelicula_serie?faces-redirect=true" />
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Godfather Part II">
+                            <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+                                <p:outputLabel value="Pestaña 02"/>
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
                 </h:form>
             </ui:define>
         </ui:composition>
