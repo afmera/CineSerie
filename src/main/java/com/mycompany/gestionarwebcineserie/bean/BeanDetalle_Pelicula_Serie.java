@@ -24,58 +24,83 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @ViewScoped
 public class BeanDetalle_Pelicula_Serie {
-
-//    private Genero_Pelicula_Serie genero_pelicula_serie = new Genero_Pelicula_Serie();
+    
     private Pelicula_Serie pelicula_serie = new Pelicula_Serie();
     private Genero genero = new Genero();
-    private String[] selectGenero=null;
+//    private String[] selectGenero = new String[0];
+    private String[] selectGenero ;
+//    private Genero[] selectedEntiy= null;
     private List<Genero_Pelicula_Serie> listaGPS = new ArrayList<Genero_Pelicula_Serie>();
 
+//    public Genero[] getSelectedEntiy() {
+//        return selectedEntiy;
+//    }
+//
+//    public void setSelectedEntiy(Genero[] selectedEntiy) {
+//        this.selectedEntiy = selectedEntiy;
+//    }
+    
     public String[] getSelectGenero() {
         return selectGenero;
     }
-
+    
     public void setSelectGenero(String[] selectGenero) {
         this.selectGenero = selectGenero;
     }
-
-//    public Genero_Pelicula_Serie getGenero_pelicula_serie() {
-//        return genero_pelicula_serie;
-//    }
-//
-//    public void setGenero_pelicula_serie(Genero_Pelicula_Serie genero_pelicula_serie) {
-//        this.genero_pelicula_serie = genero_pelicula_serie;
-//    }
-
+    
     public Pelicula_Serie getPelicula_serie() {
         return pelicula_serie;
     }
-
+    
     public void setPelicula_serie(Pelicula_Serie pelicula_serie) {
         this.pelicula_serie = pelicula_serie;
     }
-
+    
     public Genero getGenero() {
         return genero;
     }
-
+    
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
-
+    
     public List<Genero_Pelicula_Serie> getListaGPS() {
         return listaGPS;
     }
-
+    
     public void setListaGPS(List<Genero_Pelicula_Serie> listaGPS) {
         this.listaGPS = listaGPS;
     }
-
+    /**
+     * Metodo void para agregar ala la lista.
+     */
     public void agregar() {
-        Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
-        gps.setGenero(genero);
-        gps.setPelicula_serie(pelicula_serie);
-        listaGPS.add(gps);
+        try
+        {
+        System.out.println("\n\nselectGenero.length " + selectGenero.length);
+        if (selectGenero.length > 0) {
+//        if(selectedEntiy.length>0){
+            System.out.println("\nselectGenero[0] " + selectGenero[0]);
+//        Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
+//        gps.setGenero(genero);
+//        gps.setPelicula_serie(pelicula_serie);
+//        listaGPS.add(gps);
+            Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
+            for (String sg : selectGenero) {
+                genero.setNombre(sg);
+                gps.setGenero(genero);
+                gps.setPelicula_serie(pelicula_serie);
+                listaGPS.add(gps);
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar por lo menos un genero para agregar."));
+        }
+        }catch(Exception ex)
+        {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en el almacenaje.\n" + ex));
+            System.out.println("Error es : " + ex);
+            throw ex;
+        }
     }
 
     /**
@@ -106,8 +131,8 @@ public class BeanDetalle_Pelicula_Serie {
     public void quitarElemento(String valor) {
         try {
             for (int cont = 0; cont < listaGPS.size(); cont++) {
-                System.out.println("\nlistaGPS.get(cont).getGenero().getNombre() "+listaGPS.get(cont).getGenero().getNombre()
-                +"\nvalor "+valor);
+                System.out.println("\nlistaGPS.get(cont).getGenero().getNombre() " + listaGPS.get(cont).getGenero().getNombre()
+                        + "\nvalor " + valor);
                 if (listaGPS.get(cont).getGenero().getNombre().equals(valor)) {
                     listaGPS.remove(cont);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro a sido retirado de la tabla."));

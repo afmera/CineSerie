@@ -18,7 +18,7 @@
                 <h:form id='frm'>
                     <p:tabView orientation="left">
                         <p:tab title="Administracion de los Generos">
-                            <p:panel id="basic" header="Basic" footer="Movie Details" style="margin-bottom:20px">
+                            <p:panel id="basic" header="Informacion de los Generos" footer="Movies Eeries Details" style="margin-bottom:20px">
                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                     <p:outputLabel value="Peliculas o Serie"/>
                                     <p:selectOneMenu value="#{beanDetalle_Pelicula_Serie.pelicula_serie}" converter="omnifaces.SelectItemsConverter">
@@ -31,10 +31,10 @@
                                         <f:selectItems value="#{beanGenero.listEntity}" var="gen" itemLabel="#{gen.nombre}" itemValue="#{gen}"/> 
                                     </p:selectOneMenu>
 
-                                    <h:outputLabel for="menu" value="Basic:" />
-                                    <p:selectCheckboxMenu id="menu" value="#{beanDetalle_Pelicula_Serie.selectGenero}" label="Cities"
+                                    <h:outputLabel for="menu" value="Genero:" />
+                                    <p:selectCheckboxMenu id="menu" value="#{beanDetalle_Pelicula_Serie.selectGenero}" label="Generos" multiple="true"
                                                           filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                                        <f:selectItems value="#{beanGenero.listEntity}" var="gen" itemLabel="#{gen.nombre}" />
+                                        <f:selectItems value="#{beanGenero.listEntity}" var="gen" itemLabel="#{gen.nombre}"/>
                                     </p:selectCheckboxMenu>
 
                                 </h:panelGrid>
@@ -54,7 +54,7 @@
                                     </p:column>
                                 </p:dataTable>
                                 <p:commandButton value="Registrar" actionListener="#{beanDetalle_Pelicula_Serie.registrar()}" action="detalle_pelicula_serie?faces-redirect=true" />
-                                </h:panel>
+                            </p:panel>
                         </p:tab>
                         <p:tab title="Godfather Part II">
                             <h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
