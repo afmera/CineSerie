@@ -7,9 +7,7 @@ package com.mycompany.gestionarwebcineserie.bean;
 
 import com.mycompany.gestionarwebcineserie.control.Control_Genero;
 import com.mycompany.gestionarwebcineserie.model.Genero;
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -25,7 +23,6 @@ public class BeanGenero {
     private Genero entity = new Genero();
     private List<Genero> listEntity;
     private List<String> listGeneros;
-//    private String[] generos = {"item1","item2","item3"};
     private String[] generos ;
 
     public String[] getGeneros() {

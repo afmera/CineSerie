@@ -20,6 +20,9 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class BeanPelicula_Serie {
 
+    /**
+     * Variable y objetos de clases determinadas.
+     */
     private Pelicula_Serie entity = new Pelicula_Serie();
     private List<Pelicula_Serie> listaEntities;
     private String accion;
