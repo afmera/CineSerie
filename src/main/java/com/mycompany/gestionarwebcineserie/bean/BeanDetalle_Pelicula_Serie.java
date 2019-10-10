@@ -24,10 +24,12 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class BeanDetalle_Pelicula_Serie {
 
+    private Genero_Pelicula_Serie entity = new Genero_Pelicula_Serie();
     private Pelicula_Serie pelicula_serie = new Pelicula_Serie();
     private Genero genero = new Genero();
     private String[] selectGenero;
     private List<Genero_Pelicula_Serie> listaGPS = new ArrayList<Genero_Pelicula_Serie>();
+    private boolean boton = false;
 
     public String[] getSelectGenero() {
         return selectGenero;
@@ -105,6 +107,21 @@ public class BeanDetalle_Pelicula_Serie {
     }
 
     /**
+     * Metodo para consultar toso los datos de un parametro determinado.
+     *
+     * @throws Exception Mensaje de Error.
+     */
+    public void consultar() throws Exception {
+        if (pelicula_serie != null) {
+            listaGPS.clear();
+            listaGPS = Control_Genero_Pelicula_Serie.control_GetAllTuplas(pelicula_serie);
+            boton = true;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "Debes seleccionar una pelicula o serie para consultar."));
+        }
+    }
+
+    /**
      * Metodo void para el almacenamiento de datos.
      *
      * @throws Exception
@@ -127,14 +144,14 @@ public class BeanDetalle_Pelicula_Serie {
     /**
      * Metodo void para quitar un elemeto de la lista.
      *
-     * @param valor de tipo String.
+     * @param objEntity de tipo String.
+     * @throws java.lang.Exception
      */
-    public void quitarElemento(String valor) {
+    public void quitarElemento(Genero_Pelicula_Serie objEntity) throws Exception {
         try {
+            Control_Genero_Pelicula_Serie.control_eliminar(objEntity);
             for (int cont = 0; cont < listaGPS.size(); cont++) {
-//                System.out.println("\nlistaGPS.get(cont).getGenero().getNombre() " + listaGPS.get(cont).getGenero().getNombre()
-//                        + "\nvalor " + valor);
-                if (listaGPS.get(cont).getGenero().getNombre().equals(valor)) {
+                if (listaGPS.get(cont).getGenero().getNombre().equals(objEntity.getGenero().getNombre())) {
                     listaGPS.remove(cont);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro a sido retirado de la tabla."));
                 }
@@ -146,5 +163,38 @@ public class BeanDetalle_Pelicula_Serie {
         } finally {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         }
+    }
+
+    /**
+     * Metodo para listar un dato de la tabla en la base de datos.
+     *
+     * @param entity de tipo de la clase determinada.
+     * @throws Exception Mesaje Error.
+     */
+    public void leerID(Genero_Pelicula_Serie entity) throws Exception {
+        try {
+            Genero_Pelicula_Serie temp = Control_Genero_Pelicula_Serie.control_leerID(entity);
+            if (temp != null) {
+                this.entity = temp;
+            }
+        } catch (Exception ex) {
+            System.err.println("Error " + ex);
+            throw ex;
+        }
+    }
+
+    /**
+     * Metodo para modificar una tuplas de la tabla.
+     *
+     * @param objEntity_ps
+     * @param objEntity_gen
+     * @throws java.lang.Exception
+     */
+    public void modificarElemento(Pelicula_Serie objEntity_ps,Genero objEntity_gen) throws Exception {
+        Genero_Pelicula_Serie temp=new Genero_Pelicula_Serie();
+        temp.setGenero(objEntity_gen);
+        temp.setPelicula_serie(objEntity_ps);
+        
+
     }
 }

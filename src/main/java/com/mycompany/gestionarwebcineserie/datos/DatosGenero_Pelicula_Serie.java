@@ -155,14 +155,27 @@ public class DatosGenero_Pelicula_Serie {
         ResultSet rs;
         try {
             c.conectar();
-            String sql = "Select * from genero_pelicula_serie where gps_id=?;";
+            String sql = "SELECT * From genero_pelicula_serie gps,genero g,pelicula_serie ps "
+                    + "WHERE "
+                    + "gps.gen_id=g.gen_id "
+                    + "AND "
+                    + "gps.ps_id=ps.ps_id "
+                    + "AND "
+                    + "ps.ps_id=?;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             st.setInt(1, entity.getId());
             rs = st.executeQuery();
             while (rs.next()) {
+                temp.setGenero(new Genero(rs.getInt("gen_id"), rs.getString("gen_nombre")));
+                temp.setPelicula_serie(
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")));
                 temp.setId(rs.getInt("gps_id"));
-                temp.setPelicula_serie(new Pelicula_Serie(rs.getInt("ps_id")));
-                temp.setGenero(new Genero(rs.getInt("gen_id")));
             }
         } catch (Exception ex) {
             System.out.println("Error " + ex);
@@ -222,5 +235,54 @@ public class DatosGenero_Pelicula_Serie {
         } finally {
             c.cerrar();
         }
+    }
+
+    /**
+     * Metodo para consultar todos los datos relacionado con de terminado
+     * parametro.
+     *
+     * @param entity de la clase determinada.
+     * @return de la clase determinada.
+     * @throws Exception Mensaje de Error.
+     */
+    public static List<Genero_Pelicula_Serie> DatosGetAllTuplas(Pelicula_Serie entity) throws Exception {
+        Conexion c = new Conexion();
+        List<Genero_Pelicula_Serie> l;
+        ResultSet rs;
+        Genero_Pelicula_Serie temp;
+        try {
+            c.conectar();
+            l = new ArrayList<>();
+            String sql = "SELECT * From genero_pelicula_serie gps,genero g,pelicula_serie ps "
+                    + "WHERE "
+                    + "gps.gen_id=g.gen_id "
+                    + "AND "
+                    + "gps.ps_id=ps.ps_id "
+                    + "AND "
+                    + "ps.ps_id=?;";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            st.setInt(1, entity.getId());
+            rs = st.executeQuery();
+            while (rs.next()) {
+                temp = new Genero_Pelicula_Serie();
+                temp.setGenero(new Genero(rs.getInt("gen_id"), rs.getString("gen_nombre")));
+                temp.setPelicula_serie(
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")));
+                temp.setId(rs.getInt("gps_id"));
+                l.add(temp);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error en Sql " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
     }
 }
