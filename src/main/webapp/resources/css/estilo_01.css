@@ -1,0 +1,11 @@
+#principal{
+    width: 1024px;
+    margin: 0 auto;
+    background-color: #E0FFFF;
+}
+#cuerpo{
+    margin: 0 auto;
+    width: 40%;
+    text-align: center;
+    background-color: #66CDAA;
+}

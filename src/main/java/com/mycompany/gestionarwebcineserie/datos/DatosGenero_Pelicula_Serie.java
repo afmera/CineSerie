@@ -72,9 +72,7 @@ public class DatosGenero_Pelicula_Serie {
                     st.setInt(2, entity.getGenero().getId());
                     st.executeUpdate();
                 }
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "El registro del dato solicitado es invalido");
             }
         } catch (Exception ex) {
@@ -112,6 +110,36 @@ public class DatosGenero_Pelicula_Serie {
             c.cerrar();
         }
         return l;
+    }
+
+    /**
+     * Metodo statico para consultas una tupla de la tabla asignada.
+     *
+     * @param gps objeto de la clase determinada
+     * @return de tipo List<Genero_Pelicula_Serie>
+     * @throws Exception mensaje de error
+     */
+    public static Genero_Pelicula_Serie datosGetExitenciaTupla(Genero_Pelicula_Serie gps) throws Exception {
+        Conexion c = new Conexion();
+        Genero_Pelicula_Serie entity = null;
+        ResultSet rs;
+        try {
+            c.conectar();
+            String sql = "SELECT * FROM genero_pelicula_serie gps "
+                    + "WHERE gps.gen_id=" + gps.getGenero().getId() + " and "
+                    + "gps.ps_id=" + gps.getPelicula_serie().getId() + ";";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                entity = new Genero_Pelicula_Serie(rs.getInt("gps_id"), new Genero(rs.getInt("gen_id")), new Pelicula_Serie(rs.getInt("ps_id")));
+            }
+        } catch (Exception ex) {
+            System.err.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return entity;
     }
 
     /**

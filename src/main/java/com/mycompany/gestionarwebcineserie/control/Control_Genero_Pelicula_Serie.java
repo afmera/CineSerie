@@ -65,4 +65,15 @@ public class Control_Genero_Pelicula_Serie {
     public static void control_eliminar(Genero_Pelicula_Serie entity) throws Exception {
         DatosGenero_Pelicula_Serie.datosElimnar(entity);
     }
+
+    /**
+     * Metodo statico para consultas una tupla de la tabla asignada.
+     *
+     * @param gps objeto de la clase determinada
+     * @return objeto de la clase determinada
+     * @throws java.lang.Exception Mensaje de error.
+     */
+    public static Genero_Pelicula_Serie control_GetExitenciaTupla(Genero_Pelicula_Serie gps) throws Exception {
+        return DatosGenero_Pelicula_Serie.datosGetExitenciaTupla(gps);
+    }
 }

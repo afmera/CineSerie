@@ -26,18 +26,9 @@ public class BeanDetalle_Pelicula_Serie {
 
     private Pelicula_Serie pelicula_serie = new Pelicula_Serie();
     private Genero genero = new Genero();
-//    private String[] selectGenero = new String[0];
     private String[] selectGenero;
-//    private Genero[] selectedEntiy= null;
     private List<Genero_Pelicula_Serie> listaGPS = new ArrayList<Genero_Pelicula_Serie>();
 
-//    public Genero[] getSelectedEntiy() {
-//        return selectedEntiy;
-//    }
-//
-//    public void setSelectedEntiy(Genero[] selectedEntiy) {
-//        this.selectedEntiy = selectedEntiy;
-//    }
     public String[] getSelectGenero() {
         return selectGenero;
     }
@@ -72,18 +63,33 @@ public class BeanDetalle_Pelicula_Serie {
 
     /**
      * Metodo void para agregar ala la lista.
+     *
+     * @throws java.lang.Exception
      */
-    public void agregar() {
+    public void agregar() throws Exception {
         try {
-            System.out.println("pelicula_serie.getId()    "+pelicula_serie.getId() );
-            if (pelicula_serie.getId() >(-1)) {
+            if (pelicula_serie != null) {
                 if (selectGenero.length > 0) {
                     for (int cont = 0; cont < selectGenero.length; cont++) {
                         Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
                         String[] valor = selectGenero[cont].split(",");
                         gps.setGenero(new Genero(Integer.parseInt(valor[0]), valor[1]));
                         gps.setPelicula_serie(pelicula_serie);
-                        listaGPS.add(gps);
+                        Genero_Pelicula_Serie temp = Control_Genero_Pelicula_Serie.control_GetExitenciaTupla(gps);
+                        if (temp != null) {
+                            FacesContext.getCurrentInstance().addMessage(
+                                    null,
+                                    new FacesMessage(
+                                            FacesMessage.SEVERITY_WARN,
+                                            "ADVERTENCIA",
+                                            "El registro \nGenero :" + temp.getGenero().getNombre()
+                                            + " Pelicula o Serie :" + temp.getPelicula_serie().getTitulo()
+                                            + ". \nYa se encuentra agregado en la Bases de Datos. "
+                                            + "\nVerifica los datos por favor y vuelve a intentarlo."));
+
+                        } else {
+                            listaGPS.add(gps);
+                        }
                     }
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar por lo menos un genero para agregar."));
@@ -92,7 +98,7 @@ public class BeanDetalle_Pelicula_Serie {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar una pelicula o serie para agregar."));
             }
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en el almacenaje.\n" + ex));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Sea presentado un error en el almacenaje.\n" + ex));
             System.out.println("Error es : " + ex);
             throw ex;
         }
@@ -126,8 +132,8 @@ public class BeanDetalle_Pelicula_Serie {
     public void quitarElemento(String valor) {
         try {
             for (int cont = 0; cont < listaGPS.size(); cont++) {
-                System.out.println("\nlistaGPS.get(cont).getGenero().getNombre() " + listaGPS.get(cont).getGenero().getNombre()
-                        + "\nvalor " + valor);
+//                System.out.println("\nlistaGPS.get(cont).getGenero().getNombre() " + listaGPS.get(cont).getGenero().getNombre()
+//                        + "\nvalor " + valor);
                 if (listaGPS.get(cont).getGenero().getNombre().equals(valor)) {
                     listaGPS.remove(cont);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro a sido retirado de la tabla."));
