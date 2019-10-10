@@ -75,32 +75,21 @@ public class BeanDetalle_Pelicula_Serie {
      */
     public void agregar() {
         try {
-            System.out.println("\n\nselectGenero.length " + selectGenero.length);
-            if (selectGenero.length > 0) {
-//        if(selectedEntiy.length>0){
-                System.out.println("\nselectGenero[0] " + selectGenero[0]);
-                for (int i = 0; i < selectGenero.length; i++) {
-                    System.out.println("valor : " + selectGenero[i]);
-                }
-
-//        Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
-//        gps.setGenero(genero);
-//        gps.setPelicula_serie(pelicula_serie);
-//        listaGPS.add(gps);
-//            Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
-//            for (String sg : selectGenero) {
-                for (int cont = 0; cont < selectGenero.length; cont++) {
-                    Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
-                    String[] valor = selectGenero[cont].split("/");
-                    System.out.println("valor[0] " + valor[0]);
-//                genero.setNombre(selectGenero[cont]);
-//                gps.setGenero(genero);
-                    gps.setGenero(new Genero(Integer.parseInt(valor[0]), valor[1]));
-                    gps.setPelicula_serie(pelicula_serie);
-                    listaGPS.add(gps);
+            System.out.println("pelicula_serie.getId()    "+pelicula_serie.getId() );
+            if (pelicula_serie.getId() >(-1)) {
+                if (selectGenero.length > 0) {
+                    for (int cont = 0; cont < selectGenero.length; cont++) {
+                        Genero_Pelicula_Serie gps = new Genero_Pelicula_Serie();
+                        String[] valor = selectGenero[cont].split(",");
+                        gps.setGenero(new Genero(Integer.parseInt(valor[0]), valor[1]));
+                        gps.setPelicula_serie(pelicula_serie);
+                        listaGPS.add(gps);
+                    }
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar por lo menos un genero para agregar."));
                 }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar por lo menos un genero para agregar."));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar una pelicula o serie para agregar."));
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en el almacenaje.\n" + ex));
