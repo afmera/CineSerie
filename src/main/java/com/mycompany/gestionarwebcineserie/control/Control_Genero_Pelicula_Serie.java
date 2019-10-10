@@ -89,4 +89,14 @@ public class Control_Genero_Pelicula_Serie {
     public static List<Genero_Pelicula_Serie> control_GetAllTuplas(Pelicula_Serie entity) throws Exception {
         return DatosGenero_Pelicula_Serie.DatosGetAllTuplas(entity);
     }
+    
+    /**
+     * Metodo para registrar una tupla de una tabla determinada.
+     *
+     * @param entity objeto de una clase determinada.
+     * @throws Exception Mensaje de error.
+     */
+    public static void control_RegistrarTupla(Genero_Pelicula_Serie entity) throws Exception {
+        DatosGenero_Pelicula_Serie.datosRegistrarTupla(entity);
+    }
 }

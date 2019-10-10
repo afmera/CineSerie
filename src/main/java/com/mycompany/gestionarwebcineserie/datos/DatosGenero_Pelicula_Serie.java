@@ -84,6 +84,34 @@ public class DatosGenero_Pelicula_Serie {
     }
 
     /**
+     * Metodo para registrar una tupla de una tabla determinada.
+     *
+     * @param entity objeto de una clase determinada.
+     * @throws Exception Mensaje de error.
+     */
+    public static void datosRegistrarTupla(Genero_Pelicula_Serie entity) throws Exception {
+        Conexion c = new Conexion();
+        try {
+            c.conectar();
+            String sql = "Insert Into genero_pelicula_serie"
+                    + "("
+                    + "ps_id,"
+                    + "gen_id"
+                    + ")"
+                    + "Values(?,?);";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            st.setInt(1, entity.getPelicula_serie().getId());
+            st.setInt(2, entity.getGenero().getId());
+            st.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println("Error en Sql " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+    }
+
+    /**
      * Metodo statico para consultas generarles de la tabla asignada.
      *
      * @return de tipo List<Genero_Pelicula_Serie>

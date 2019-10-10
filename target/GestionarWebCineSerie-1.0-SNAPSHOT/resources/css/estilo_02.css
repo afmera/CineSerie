@@ -1,0 +1,27 @@
+#principal{
+    margin: 0 auto;
+    width: 1024px;
+    background-color: #0BE4CD;
+}
+#pie{
+    margin: 0 auto;
+    width: 1024px;
+    background-color: #0BE4CD;
+}
+#msjTitulo{
+    margin: 0 auto;
+    width: 40%;
+    text-align: justify;
+    margin-top: 200px;
+    background-color: #BFFBF5;
+    padding-bottom: 30px;
+}
+#msjPie{
+    margin: 0 auto;
+    width: 40%;
+    text-align: justify;
+    margin-top: 200px;
+    background-color: #BFFBF5;
+    padding-bottom: 30px;
+    border: 1px solid;
+}

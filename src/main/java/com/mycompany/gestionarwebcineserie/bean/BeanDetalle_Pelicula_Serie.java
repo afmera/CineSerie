@@ -178,23 +178,37 @@ public class BeanDetalle_Pelicula_Serie {
                 this.entity = temp;
             }
         } catch (Exception ex) {
-            System.err.println("Error " + ex);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en :\n" + ex));
+            System.out.println("Error es : " + ex);
             throw ex;
+        } finally {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         }
     }
 
-    /**
-     * Metodo para modificar una tuplas de la tabla.
-     *
-     * @param objEntity_ps
-     * @param objEntity_gen
-     * @throws java.lang.Exception
-     */
-    public void modificarElemento(Pelicula_Serie objEntity_ps,Genero objEntity_gen) throws Exception {
-        Genero_Pelicula_Serie temp=new Genero_Pelicula_Serie();
-        temp.setGenero(objEntity_gen);
-        temp.setPelicula_serie(objEntity_ps);
-        
-
-    }
+//    /**
+//     * Metodo para modificar una tuplas de la tabla.
+//     *
+//     * @throws java.lang.Exception
+//     */
+//    public void modificarElemento() throws Exception {
+//        try {
+//            Pelicula_Serie objEntity_ps=this.pelicula_serie; 
+//            Genero objEntity_gen=this.genero;
+//            Genero_Pelicula_Serie objEntity=this.entity;
+//            System.out.println("objEntity_gen.getNombre()     "+objEntity_gen.getNombre());
+////            Genero_Pelicula_Serie temp = new Genero_Pelicula_Serie();
+////            temp.setGenero(objEntity_gen);
+////            temp.setPelicula_serie(objEntity_ps);
+//            System.out.println("objEntity.getGenero().getNombre()                    " + objEntity.getGenero().getNombre());
+////            this.quitarElemento(entity);
+////            Control_Genero_Pelicula_Serie.control_RegistrarTupla(temp);
+//        } catch (Exception ex) {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en:\n" + ex));
+//            System.out.println("Error es : " + ex);
+//            throw ex;
+//        } finally {
+//            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+//        }
+//    }
 }

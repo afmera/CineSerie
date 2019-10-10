@@ -8,11 +8,11 @@
         <h:outputStylesheet library="css" name="estilo_01.css"/>
     </h:head>
     <h:body id="principal">
-        <div id="cuerpo">
             <h:form>
-                <p:commandLink value="Página Principal" action="principal?faces-redirect=true"/>
+                <div id="cuerpo">
+                <p:commandLink id="msjPincipal" value="Página Principal" action="principal?faces-redirect=true"/>
+                </div>
             </h:form>
-        </div>
     </h:body>
 </html>
 

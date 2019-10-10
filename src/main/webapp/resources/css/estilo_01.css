@@ -1,12 +1,19 @@
 #principal{
     width: 1024px;
     margin: 0 auto;
-    background-color: #E0FFFF;
+    background-color: #0BE4CD;
 }
 #cuerpo{
     margin: 0 auto;
     width: 40%;
     text-align: center;
     margin-top: 200px;
-    background-color: #66CDAA;
+    background-color: #BFFBF5;
+    padding-bottom: 30px;
+    border: 1px solid;
+}
+#cuerpo.msjPincipal{
+    margin-top: 5px;
+    text-decoration: overline;
+    text-emphasis-style: circle;
 }
