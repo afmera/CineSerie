@@ -25,13 +25,7 @@
                                         <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                                         <f:selectItems value="#{beanPelicula_Serie.listaEntities}" var="ps" itemLabel="#{ps.titulo}" itemValue="#{ps}"/> 
                                     </p:selectOneMenu>
-                                    <!--
-                                    <p:outputLabel value="Genero"/>
-                                    <p:selectOneMenu value="#{beanDetalle_Pelicula_Serie.genero}" converter="omnifaces.SelectItemsConverter">
-                                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                                        <f:selectItems value="#{beanGenero.listEntity}" var="gen" itemLabel="#{gen.nombre}" itemValue="#{gen}"/> 
-                                    </p:selectOneMenu>
--->
+   
                                     <h:outputLabel for="menu" value="Genero:" />
                                     <p:selectCheckboxMenu id="menu" value="#{beanDetalle_Pelicula_Serie.selectGenero}" label="Generos" multiple="true"
                                                           filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
