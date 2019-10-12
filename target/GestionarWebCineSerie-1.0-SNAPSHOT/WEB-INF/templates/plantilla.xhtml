@@ -10,7 +10,7 @@
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>PAGINA PRINCIPAL DE LA PLANTILLA</title>
-        <h:outputStylesheet library="css" name="estilo_02.css"/>
+        <!--<h:outputStylesheet library="css" name="estilo_02.css"/>-->
     </h:head>
 
     <h:body>
@@ -24,7 +24,10 @@
                         <p:menuitem value="Compañias" url='./views/compania.xhtml'/>
                         <p:menuitem value="Generos" url='./views/genero.xhtml'/>
                         <p:menuitem value="Reparto" url='./views/persona.xhtml'/>
-                        <p:menuitem value="Detalle de las Peliculas y/o Series" url='./views/detalle_genero_pelicula_serie.xhtml'/>
+                        <p:submenu label="Detalle de las peliculas y/o Series">
+                            <p:menuitem value="Generos de las Peliculas y/o Series" url='./views/detalle_genero_pelicula_serie.xhtml'/>
+                            <p:menuitem value="Actores de las Peliculas y/o Series" url='./views/detalle_PPS_Actor.xhtml'/>
+                        </p:submenu>
                     </p:submenu>
                 </p:menubar>
             </h:form>

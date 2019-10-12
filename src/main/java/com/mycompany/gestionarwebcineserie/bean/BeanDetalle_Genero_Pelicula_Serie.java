@@ -9,7 +9,6 @@ import com.mycompany.gestionarwebcineserie.control.Control_Genero_Pelicula_Serie
 import com.mycompany.gestionarwebcineserie.model.Genero;
 import com.mycompany.gestionarwebcineserie.model.Genero_Pelicula_Serie;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;

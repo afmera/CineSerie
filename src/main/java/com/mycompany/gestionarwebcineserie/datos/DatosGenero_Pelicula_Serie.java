@@ -68,15 +68,8 @@ public class DatosGenero_Pelicula_Serie {
                     st1.setInt(1, entity.getPelicula_serie().getId());
                     st1.setInt(2, entity.getGenero().getId());
                     rs = st1.executeQuery();
-//                    System.out.println("rs.next()  "+rs.next());
-                    boolean resultado=rs.next();
-                    if (resultado) 
-                    {
-                        System.err.println("boolean resultado "+resultado);
-                    }
-                    else
-                    {
-                        System.err.println("boolean resultado "+resultado);
+                    boolean resultado = rs.next();
+                    if (!resultado) {
                         sql = "Insert Into genero_pelicula_serie(ps_id,gen_id)Values(?,?);";
                         PreparedStatement st2 = c.getCn().prepareStatement(sql);
                         st2.setInt(1, entity.getPelicula_serie().getId());

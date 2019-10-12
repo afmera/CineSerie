@@ -7,6 +7,7 @@ package com.mycompany.gestionarwebcineserie.bean;
 
 import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
+import java.sql.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -27,6 +28,33 @@ public class BeanPelicula_Serie {
     private List<Pelicula_Serie> listaEntities;
     private String accion;
     private String[] selectedEntity;
+    private Integer rating;
+    private String textArea;
+    private Date date7;
+
+    public Date getDate7() {
+        return date7;
+    }
+
+    public void setDate7(Date date7) {
+        this.date7 = date7;
+    }
+
+    public String getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(String textArea) {
+        this.textArea = textArea;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
 
     public Pelicula_Serie getEntity() {
         return entity;
