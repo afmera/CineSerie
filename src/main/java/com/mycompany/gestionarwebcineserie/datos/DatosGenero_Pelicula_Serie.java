@@ -60,20 +60,32 @@ public class DatosGenero_Pelicula_Serie {
         try {
             if (listEntities.size() > 0) {
                 c.conectar();
-                String sql = "Insert Into genero_pelicula_serie"
-                        + "("
-                        + "ps_id,"
-                        + "gen_id"
-                        + ")"
-                        + "Values(?,?);";
+                String sql = "";
+                ResultSet rs;
                 for (Genero_Pelicula_Serie entity : listEntities) {
-                    PreparedStatement st = c.getCn().prepareStatement(sql);
-                    st.setInt(1, entity.getPelicula_serie().getId());
-                    st.setInt(2, entity.getGenero().getId());
-                    st.executeUpdate();
+                    sql = "Select gps_id From genero_pelicula_serie where ps_id=? AND gen_id=?";
+                    PreparedStatement st1 = c.getCn().prepareStatement(sql);
+                    st1.setInt(1, entity.getPelicula_serie().getId());
+                    st1.setInt(2, entity.getGenero().getId());
+                    rs = st1.executeQuery();
+//                    System.out.println("rs.next()  "+rs.next());
+                    boolean resultado=rs.next();
+                    if (resultado) 
+                    {
+                        System.err.println("boolean resultado "+resultado);
+                    }
+                    else
+                    {
+                        System.err.println("boolean resultado "+resultado);
+                        sql = "Insert Into genero_pelicula_serie(ps_id,gen_id)Values(?,?);";
+                        PreparedStatement st2 = c.getCn().prepareStatement(sql);
+                        st2.setInt(1, entity.getPelicula_serie().getId());
+                        st2.setInt(2, entity.getGenero().getId());
+                        st2.executeUpdate();
+                    }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "El registro del dato solicitado es invalido");
+                System.out.println("La lista de los datos esta vacia.");
             }
         } catch (Exception ex) {
             System.out.println("Error en Sql " + ex);
@@ -153,16 +165,45 @@ public class DatosGenero_Pelicula_Serie {
         ResultSet rs;
         try {
             c.conectar();
-            String sql = "SELECT * FROM genero_pelicula_serie gps "
-                    + "WHERE gps.gen_id=" + gps.getGenero().getId() + " and "
+            String sql = "SELECT "
+                    + "gps.gps_id,"
+                    + "g.gen_id,"
+                    + "g.gen_nombre,"
+                    + "ps.ps_id,"
+                    + "ps.ps_titulo,"
+                    + "ps.ps_ano_lanzamiento,"
+                    + "ps.ps_longitud_minutos,"
+                    + "ps.ps_sinopsis,"
+                    + "ps.ps_tipo "
+                    + "From genero_pelicula_serie gps,genero g,pelicula_serie ps "
+                    + "WHERE "
+                    + "gps.gen_id=g.gen_id "
+                    + "AND "
+                    + "gps.ps_id=ps.ps_id "
+                    + "AND "
+                    + "gps.gen_id=" + gps.getGenero().getId() + " "
+                    + "And "
                     + "gps.ps_id=" + gps.getPelicula_serie().getId() + ";";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                entity = new Genero_Pelicula_Serie(rs.getInt("gps_id"), new Genero(rs.getInt("gen_id")), new Pelicula_Serie(rs.getInt("ps_id")));
+                entity = new Genero_Pelicula_Serie(
+                        rs.getInt("gps_id"),
+                        new Genero(
+                                rs.getInt("gen_id"),
+                                rs.getString("gen_nombre")
+                        ),
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo"))
+                );
             }
         } catch (Exception ex) {
-            System.err.println("Error " + ex);
+            System.out.println("Error " + ex);
             throw ex;
         } finally {
             c.cerrar();
