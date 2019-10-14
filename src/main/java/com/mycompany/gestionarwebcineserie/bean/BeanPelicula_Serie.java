@@ -31,14 +31,11 @@ public class BeanPelicula_Serie {
      * Variable y objetos de clases determinadas.
      */
     private Pelicula_Serie entity = new Pelicula_Serie();
-    private List<Pelicula_Serie> listaEntities=new ArrayList<>();
+    private List<Pelicula_Serie> listaEntities = new ArrayList<>();
     private String accion;
     private String[] selectedEntity;
 
     private Favorita entityFav = new Favorita();
-//    private Integer rating;
-//    private String textArea;
-//    private Date date7;
 
     public Favorita getEntityFav() {
         return entityFav;
@@ -48,29 +45,6 @@ public class BeanPelicula_Serie {
         this.entityFav = entityFav;
     }
 
-//    public Date getDate7() {
-//        return date7;
-//    }
-//
-//    public void setDate7(Date date7) {
-//        this.date7 = date7;
-//    }
-//
-//    public String getTextArea() {
-//        return textArea;
-//    }
-//
-//    public void setTextArea(String textArea) {
-//        this.textArea = textArea;
-//    }
-//
-//    public Integer getRating() {
-//        return rating;
-//    }
-//
-//    public void setRating(Integer rating) {
-//        this.rating = rating;
-//    }
     public Pelicula_Serie getEntity() {
         return entity;
     }
@@ -142,10 +116,10 @@ public class BeanPelicula_Serie {
         this.entity.setSinopsis("");
         this.entity.setTipo("");
         this.entity.setTitulo("");
-        
-//        this.entityFav.setId(0);
-//        this.entityFav.setCalificacion(0);
-//        this.entityFav.setComentario("");
+
+        this.entityFav.setId(0);
+        this.entityFav.setCalificacion(0);
+        this.entityFav.setComentario("");
     }
 
     /**
@@ -208,32 +182,12 @@ public class BeanPelicula_Serie {
 
             Control_Peliculas_Serie.control_eliminar(objEntity);
             this.listar(true);
-            addMessage("INFORMACION", "Registro a sido eliminado con exito.");
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en la eliminacion de un registro.\n" + ex));
             System.out.println("Error es : " + ex);
             throw ex;
         }
     }
-
-    /**
-     * Metodo para agregar contenido al mensaje.
-     *
-     * @param summary titulo del mensaje.
-     * @param detail contenido del mensaje.
-     */
-    private void addMessage(String summary, String detail) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
-        FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-//    public void handleClose(CloseEvent event) {
-//        addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
-//    }
-//
-//    public void handleMove(MoveEvent event) {
-//        addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
-//    }
 
     /**
      * Metodo para listar todos los datos de la tabla en la base de datos.
@@ -253,7 +207,6 @@ public class BeanPelicula_Serie {
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado al consultar en la base de datos.\n" + ex));
             System.out.println("Error es : " + ex);
-            System.out.println("Error " + ex);
             throw ex;
         }
     }

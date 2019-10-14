@@ -1,7 +1,7 @@
 /*==============================================================*/
 /* create database: db_cine_serie                              	*/
 /*==============================================================*/
-create database db_cine_serie;
+-- create database db_cine_serie;
 ----------------------------------------------------------------------------------------------------
 /*==============================================================*/
 /* table: pelicula_serie                                        */
@@ -130,7 +130,7 @@ alter table persona_pelicula_serie_actor add constraint pk_persona_pelicula_seri
 -- foreign key
 alter table favorita
    add constraint fk_favorita_relations_pelicula_serie foreign key (ps_id)
-      references pelicula_serie (ps_id) on delete cascade;
+      references pelicula_serie (ps_id);
 -----------------------------------------------------------------------------------------------------------
 alter table genero_pelicula_serie
    add constraint fk_genero_pelicula_serie_relations_pelicula_serie foreign key (ps_id)

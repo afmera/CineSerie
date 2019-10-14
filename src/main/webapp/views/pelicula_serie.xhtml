@@ -7,12 +7,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
-
         <ui:composition template="./../WEB-INF/templates/plantilla.xhtml">
-
             <ui:define name="content">
                 <f:event type="preRenderView" listener="#{beanPelicula_Serie.listar(false)}"/>
-                <p:growl id="msj" showDetail="true"/>
+                <p:growl id="msj" autoUpdate="true" showDetail="true"/>
                 <h:form id='frm'>
                     <p:commandButton value="Nuevo" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" actionListener="#{beanPelicula_Serie.setAccion('Registrar')}" />
                     <p:dataTable id="data" value="#{beanPelicula_Serie.listaEntities}" var="ps">
@@ -33,14 +31,7 @@
                         </p:column>
                         <p:column headerText="Opciones">
                             <p:commandLink value="Modificar" actionListener="#{beanPelicula_Serie.leerID(ps)}" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" style="margin-right:20px;"/>
-                            <!--<p:commandLink value="Eliminar" actionListener="#{beanPelicula_Serie.eliminar(ps)}" update="data" style="margin-right:20px;"/>-->
-                            <p:commandButton value="Eliminar" action="#{beanPelicula_Serie.eliminar(ps)}" update="msj">
-                                <p:confirm header="Mensage de Confirmacion" message="Esta seguro de eliminar esta informacion?" icon="pi pi-exclamation-triangle" />  
-                            </p:commandButton>
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-                            </p:confirmDialog> 
+                            <p:commandLink value="Eliminar" actionListener="#{beanPelicula_Serie.eliminar(ps)}" update="data" style="margin-right:20px;"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
@@ -77,7 +68,6 @@
                             </p:panel>
                             <h:panelGrid columns="2" style="alignment-adjust: central">
                                 <p:commandButton value="#{beanPelicula_Serie.accion}" actionListener="#{beanPelicula_Serie.operar()}" oncomplete="PF('wDlgDatos').hide();" update=":frm:data"/>
-                                <!--<p:commandButton value="#{beanPelicula_Serie.accion}" actionListener="#{beanPelicula_Serie.operar()}" oncomplete="PF('wDlgDatos').hide();" action="pelicula_serie?faces-redirect=true"/>-->
                                 <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wDlgDatos').hide();"/>
                             </h:panelGrid>
                         </h:panelGrid>
