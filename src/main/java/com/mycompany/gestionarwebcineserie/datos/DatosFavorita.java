@@ -20,7 +20,7 @@ import java.util.List;
  * @author Andrés Felipe Mera Tróchez
  */
 public class DatosFavorita {
-    
+
     /**
      * Metodo para convertir un valor string de fecha a una valor java.sql.Date
      *
@@ -59,17 +59,15 @@ public class DatosFavorita {
             c.conectar();
             String sql = "Insert Into favorita"
                     + "("
-                    + "fav_nombre,"
                     + "fav_calificacion,"
                     + "fav_comentario,"
                     + "ps_id"
                     + ")"
-                    + "Values(?,?,?,?);";
+                    + "Values(?,?,?);";
             PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setString(1, entity.getNombre());
-            st.setString(2, entity.getCalificacion());
-            st.setString(3, entity.getComentario());
-            st.setInt(4, entity.getPelicula_serie().getId());
+            st.setInt(1, entity.getCalificacion());
+            st.setString(2, entity.getComentario());
+            st.setInt(3, entity.getPelicula_serie().getId());
             st.executeUpdate();
         } catch (Exception ex) {
             System.out.println("Error en Sql " + ex);
@@ -96,7 +94,7 @@ public class DatosFavorita {
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                Favorita entity = new Favorita(rs.getInt("fav_id"),rs.getString("fav_nombre"),rs.getString("fav_calificacion"),rs.getString("fav_comentario"), new Pelicula_Serie(rs.getInt("ps_id")));
+                Favorita entity = new Favorita(rs.getInt("fav_id"), rs.getInt("fav_calificacion"), rs.getString("fav_comentario"), new Pelicula_Serie(rs.getInt("ps_id")));
                 l.add(entity);
             }
         } catch (Exception ex) {
@@ -127,8 +125,39 @@ public class DatosFavorita {
             rs = st.executeQuery();
             while (rs.next()) {
                 temp.setId(rs.getInt("fav_id"));
-                temp.setNombre(rs.getString("fav_nombre"));
-                temp.setCalificacion(rs.getString("fav_calificacion"));
+                temp.setCalificacion(rs.getInt("fav_calificacion"));
+                temp.setComentario(rs.getString("fav_comentario"));
+                temp.setPelicula_serie(new Pelicula_Serie(rs.getInt("ps_id")));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return temp;
+    }
+
+    /**
+     * Metodo statico para consultar una tupla por la llave forania.
+     *
+     * @param entity objeto de la clase determinada.
+     * @return objeto de la clase determinada.
+     * @throws Exception Mensaje de Error.
+     */
+    public static Favorita datosLeerIDByForeginKey(Favorita entity) throws Exception {
+        Conexion c = new Conexion();
+        Favorita temp = new Favorita();
+        ResultSet rs;
+        try {
+            c.conectar();
+            String sql = "Select * from favorita where ps_id=?;";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            st.setInt(1, entity.getPelicula_serie().getId());
+            rs = st.executeQuery();
+            while (rs.next()) {
+                temp.setId(rs.getInt("fav_id"));
+                temp.setCalificacion(rs.getInt("fav_calificacion"));
                 temp.setComentario(rs.getString("fav_comentario"));
                 temp.setPelicula_serie(new Pelicula_Serie(rs.getInt("ps_id")));
             }
@@ -153,18 +182,16 @@ public class DatosFavorita {
             c.conectar();
             String sql = "Update favorita "
                     + "Set "
-                    + "fav_nombre=?,"
                     + "fav_calificacion=?,"
                     + "fav_comentario=?,"
                     + "ps_id=? "
                     + "Where "
                     + "fav_id=?;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setString(1, entity.getNombre());
-            st.setString(2, entity.getCalificacion());
-            st.setString(3, entity.getComentario());
-            st.setInt(4, entity.getPelicula_serie().getId());
-            st.setInt(5, entity.getId());
+            st.setInt(1, entity.getCalificacion());
+            st.setString(2, entity.getComentario());
+            st.setInt(3, entity.getPelicula_serie().getId());
+            st.setInt(4, entity.getId());
             st.executeUpdate();
         } catch (Exception ex) {
             System.out.println("Error en Sql " + ex);

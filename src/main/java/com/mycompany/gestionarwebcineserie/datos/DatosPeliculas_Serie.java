@@ -86,7 +86,14 @@ public class DatosPeliculas_Serie {
         try {
             l = new ArrayList<>();
             c.conectar();
-            String sql = "Select ps_id,ps_titulo,ps_ano_lanzamiento,ps_longitud_minutos,ps_sinopsis,ps_tipo from pelicula_serie;";
+            String sql = "Select "
+                    + "ps_id,"
+                    + "ps_titulo,"
+                    + "ps_ano_lanzamiento,"
+                    + "ps_longitud_minutos,"
+                    + "ps_sinopsis,"
+                    + "ps_tipo "
+                    + "from pelicula_serie;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
@@ -222,5 +229,32 @@ public class DatosPeliculas_Serie {
         } finally {
             c.cerrar();
         }
+    }
+
+    /**
+     * Metodo statico para consultar el ultimo registro de la tabla determinda.
+     *
+     * @return objeto de la clase determinda.
+     * @throws Exception Mensaje de Error.
+     */
+    public static Pelicula_Serie datosLastInsertID() throws Exception {
+        Conexion c = new Conexion();
+        Pelicula_Serie objEntity = new Pelicula_Serie();
+        ResultSet rs;
+        try {
+            c.conectar();
+            String sql = "SELECT ps.ps_id FROM pelicula_serie ps WHERE ps.ps_id = (SELECT MAX(ps_id) from pelicula_serie);";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                objEntity.setId(rs.getInt("ps_id"));
+            }
+        } catch (Exception ex) {
+            System.err.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return objEntity;
     }
 }

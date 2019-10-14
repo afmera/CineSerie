@@ -33,10 +33,18 @@
                         </p:column>
                         <p:column headerText="Opciones">
                             <p:commandLink value="Modificar" actionListener="#{beanPelicula_Serie.leerID(ps)}" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" style="margin-right:20px;"/>
-                            <p:commandLink value="Eliminar" actionListener="#{beanPelicula_Serie.eliminar(ps)}" update="data" style="margin-right:20px;"/>
+                            <!--<p:commandLink value="Eliminar" actionListener="#{beanPelicula_Serie.eliminar(ps)}" update="data" style="margin-right:20px;"/>-->
+                            <p:commandButton value="Eliminar" action="#{beanPelicula_Serie.eliminar(ps)}" update="msj">
+                                <p:confirm header="Mensage de Confirmacion" message="Esta seguro de eliminar esta informacion?" icon="pi pi-exclamation-triangle" />  
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog> 
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                
                 <p:dialog header="Administracion de Datos" widgetVar="wDlgDatos" id="dlgDatos">
                     <h:form>
                         <h:panelGrid columns="2">
@@ -46,8 +54,6 @@
                                     <p:inputText value="#{beanPelicula_Serie.entity.titulo}"/>
                                     <p:outputLabel value="Año de Lanzamiento"/>
                                     <p:inputMask value="#{beanPelicula_Serie.entity.an_lanzamiento}" mask="99/99/9999"/>
-                                    <p:outputLabel for="button" value="Button:" />
-                                    <!--<p:datePicker id="button" value="#{beanPelicula_Serie.date7}" showIcon="true" />-->
                                     <p:outputLabel value="Duracion en Minutos"/>
                                     <p:inputMask value="#{beanPelicula_Serie.entity.duracion}" mask="999"/>
                                     <p:outputLabel value="Sinopsis"/>
@@ -64,13 +70,14 @@
                             <p:panel id="panelFavorita" header="Informacion de la Calificacion" footer="Movies Series Details">
                                 <h:panelGrid columns="2" style="margin-bottom:5px" cellpadding="5">
                                     <p:outputLabel value="Calificacion :" />
-                                    <p:rating value="#{beanPelicula_Serie.rating}" />
+                                    <p:rating value="#{beanPelicula_Serie.entityFav.calificacion}" />
                                     <p:outputLabel value="Comentario :" />
-                                    <p:inputTextarea value="#{beanPelicula_Serie.textArea}" rows="6" cols="33" />
+                                    <p:inputTextarea value="#{beanPelicula_Serie.entityFav.comentario}" rows="6" cols="33" />
                                 </h:panelGrid>
                             </p:panel>
                             <h:panelGrid columns="2" style="alignment-adjust: central">
                                 <p:commandButton value="#{beanPelicula_Serie.accion}" actionListener="#{beanPelicula_Serie.operar()}" oncomplete="PF('wDlgDatos').hide();" update=":frm:data"/>
+                                <!--<p:commandButton value="#{beanPelicula_Serie.accion}" actionListener="#{beanPelicula_Serie.operar()}" oncomplete="PF('wDlgDatos').hide();" action="pelicula_serie?faces-redirect=true"/>-->
                                 <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wDlgDatos').hide();"/>
                             </h:panelGrid>
                         </h:panelGrid>

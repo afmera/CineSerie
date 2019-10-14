@@ -11,17 +11,23 @@ package com.mycompany.gestionarwebcineserie.model;
  */
 public class Favorita {
     private int id;
-    private String nombre;
-    private String calificacion;
+    private Integer calificacion;
     private String comentario;
     private Pelicula_Serie pelicula_serie;
 
     public Favorita() {
     }
 
-    public Favorita(int id, String nombre, String calificacion, String comentario, Pelicula_Serie pelicula_serie) {
+    public Favorita(int id) {
         this.id = id;
-        this.nombre = nombre;
+    }
+
+    public Favorita(Pelicula_Serie pelicula_serie) {
+        this.pelicula_serie = pelicula_serie;
+    }
+
+    public Favorita(int id, Integer calificacion, String comentario, Pelicula_Serie pelicula_serie) {
+        this.id = id;
         this.calificacion = calificacion;
         this.comentario = comentario;
         this.pelicula_serie = pelicula_serie;
@@ -35,19 +41,11 @@ public class Favorita {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCalificacion() {
+    public Integer getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(String calificacion) {
+    public void setCalificacion(Integer calificacion) {
         this.calificacion = calificacion;
     }
 
@@ -65,10 +63,5 @@ public class Favorita {
 
     public void setPelicula_serie(Pelicula_Serie pelicula_serie) {
         this.pelicula_serie = pelicula_serie;
-    }
-
-    @Override
-    public String toString() {
-        return "favorita{" + "id=" + id + ", nombre=" + nombre + ", calificacion=" + calificacion + ", comentario=" + comentario + ", pelicula_serie=" + pelicula_serie + '}';
     }
 }

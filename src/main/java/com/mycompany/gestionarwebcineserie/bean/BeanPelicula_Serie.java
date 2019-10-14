@@ -5,13 +5,19 @@
  */
 package com.mycompany.gestionarwebcineserie.bean;
 
+import com.mycompany.gestionarwebcineserie.control.Control_Favorita;
 import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
+import com.mycompany.gestionarwebcineserie.model.Favorita;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.MoveEvent;
 
 /**
  *
@@ -25,37 +31,46 @@ public class BeanPelicula_Serie {
      * Variable y objetos de clases determinadas.
      */
     private Pelicula_Serie entity = new Pelicula_Serie();
-    private List<Pelicula_Serie> listaEntities;
+    private List<Pelicula_Serie> listaEntities=new ArrayList<>();
     private String accion;
     private String[] selectedEntity;
-    private Integer rating;
-    private String textArea;
-    private Date date7;
 
-    public Date getDate7() {
-        return date7;
+    private Favorita entityFav = new Favorita();
+//    private Integer rating;
+//    private String textArea;
+//    private Date date7;
+
+    public Favorita getEntityFav() {
+        return entityFav;
     }
 
-    public void setDate7(Date date7) {
-        this.date7 = date7;
+    public void setEntityFav(Favorita entityFav) {
+        this.entityFav = entityFav;
     }
 
-    public String getTextArea() {
-        return textArea;
-    }
-
-    public void setTextArea(String textArea) {
-        this.textArea = textArea;
-    }
-
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
+//    public Date getDate7() {
+//        return date7;
+//    }
+//
+//    public void setDate7(Date date7) {
+//        this.date7 = date7;
+//    }
+//
+//    public String getTextArea() {
+//        return textArea;
+//    }
+//
+//    public void setTextArea(String textArea) {
+//        this.textArea = textArea;
+//    }
+//
+//    public Integer getRating() {
+//        return rating;
+//    }
+//
+//    public void setRating(Integer rating) {
+//        this.rating = rating;
+//    }
     public Pelicula_Serie getEntity() {
         return entity;
     }
@@ -127,32 +142,57 @@ public class BeanPelicula_Serie {
         this.entity.setSinopsis("");
         this.entity.setTipo("");
         this.entity.setTitulo("");
+        
+//        this.entityFav.setId(0);
+//        this.entityFav.setCalificacion(0);
+//        this.entityFav.setComentario("");
     }
 
     /**
-     * Metodo para registrar atos en la base de datos.
+     * Metodo para registrar una tupla en la base de datos.
      *
      * @throws Exception
      */
     private void registrar() throws Exception {
         try {
             Control_Peliculas_Serie.control_registrar(entity);
+            if (entityFav.getCalificacion() > 0 || entityFav.getComentario().length() > 0) {
+                Pelicula_Serie objEntity = Control_Peliculas_Serie.control_LastInsertID();
+                entityFav.setPelicula_serie(objEntity);
+                Control_Favorita.control_registrar(entityFav);
+            }
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Sea almacena de forma correta la informacion.\n"));
             this.listar(true);
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en el almacenaje.\n" + ex));
+            System.out.println("Error es : " + ex);
             throw ex;
         }
     }
 
     /**
-     * Metodo para registrar atos en la base de datos.
+     * Metodo para modificar una tupla de la base de datos.
      *
      * @throws Exception
      */
     private void modificar() throws Exception {
         try {
             Control_Peliculas_Serie.control_modificar(entity);
+            if (entityFav.getCalificacion() > 0 || entityFav.getComentario().length() > 0) {
+                entityFav.setPelicula_serie(this.entity);
+                //Necesito verificar si el registro ya ha sido almacenad, sino se registrara por primera vez.
+                Favorita temp = Control_Favorita.control_LeerIDByForeginKey(entityFav);
+                if (temp != null) {
+                    Control_Favorita.control_registrar(entityFav);
+                } else {
+                    Control_Favorita.control_modificar(entityFav);
+                }
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Sea modificado un registro de forma correta.\n"));
+            }
             this.listar(true);
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en la actualizacion del registro.\n" + ex));
+            System.out.println("Error es : " + ex);
             throw ex;
         }
     }
@@ -165,12 +205,35 @@ public class BeanPelicula_Serie {
      */
     public void eliminar(Pelicula_Serie objEntity) throws Exception {
         try {
+
             Control_Peliculas_Serie.control_eliminar(objEntity);
             this.listar(true);
+            addMessage("INFORMACION", "Registro a sido eliminado con exito.");
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en la eliminacion de un registro.\n" + ex));
+            System.out.println("Error es : " + ex);
             throw ex;
         }
     }
+
+    /**
+     * Metodo para agregar contenido al mensaje.
+     *
+     * @param summary titulo del mensaje.
+     * @param detail contenido del mensaje.
+     */
+    private void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+//    public void handleClose(CloseEvent event) {
+//        addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
+//    }
+//
+//    public void handleMove(MoveEvent event) {
+//        addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
+//    }
 
     /**
      * Metodo para listar todos los datos de la tabla en la base de datos.
@@ -188,6 +251,8 @@ public class BeanPelicula_Serie {
                 listaEntities = Control_Peliculas_Serie.control_listar();
             }
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado al consultar en la base de datos.\n" + ex));
+            System.out.println("Error es : " + ex);
             System.out.println("Error " + ex);
             throw ex;
         }
@@ -205,9 +270,14 @@ public class BeanPelicula_Serie {
             if (temp != null) {
                 this.entity = temp;
                 this.accion = "Modificar";
+                Favorita temp2 = Control_Favorita.control_LeerIDByForeginKey(new Favorita(objEntity));
+                if (temp2 != null) {
+                    this.entityFav = temp2;
+                }
             }
         } catch (Exception ex) {
-            System.err.println("Error " + ex);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en la consulta de un registro.\n" + ex));
+            System.out.println("Error es : " + ex);
             throw ex;
         }
     }

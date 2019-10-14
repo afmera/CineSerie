@@ -7,6 +7,8 @@ package com.mycompany.gestionarwebcineserie.datos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -39,6 +41,7 @@ public class Conexion {
             Class.forName("org.postgresql.Driver");//Agregacion del nombre del driver de coneccion
             cn = DriverManager.getConnection(urlDatabase, userName, passContrasena);//coneccion a la base de datos por el administrador del controlador
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado al consultar en la base de datos.\n" + ex));
             System.out.println("Error " + ex);
             throw ex;
         }
