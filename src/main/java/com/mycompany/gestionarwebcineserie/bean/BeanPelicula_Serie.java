@@ -179,8 +179,14 @@ public class BeanPelicula_Serie {
      */
     public void eliminar(Pelicula_Serie objEntity) throws Exception {
         try {
-
+            entityFav.setPelicula_serie(objEntity);
+            //Necesito verificar si el registro ya ha sido almacenad, sino se registrara por primera vez.
+            Favorita temp = Control_Favorita.control_LeerIDByForeginKey(entityFav);
+            if (temp != null) {
+                Control_Favorita.control_elimnarForeignKey(entityFav);
+            }
             Control_Peliculas_Serie.control_eliminar(objEntity);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Sea eliminado un registro de forma correta.\n"));
             this.listar(true);
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en la eliminacion de un registro.\n" + ex));

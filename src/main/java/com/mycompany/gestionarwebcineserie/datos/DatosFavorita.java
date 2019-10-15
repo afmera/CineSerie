@@ -202,18 +202,41 @@ public class DatosFavorita {
     }
 
     /**
-     * Metodo para eliminar una tupla de la tabla en la base de datos.
+     * Metodo para eliminar una tupla de la tabla por ID en la base de datos.
      *
      * @param entity del clase definida.
      * @throws Exception mensaje de error.
      */
-    public static void datosElimnar(Favorita entity) throws Exception {
+    public static void datosElimnarID(Favorita entity) throws Exception {
         Conexion c = new Conexion();
         try {
             c.conectar();
             String sql = "Delete from favorita Where fav_id=?;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             st.setInt(1, entity.getId());
+            st.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println("Error en Sql " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+    }
+
+    /**
+     * Metodo para eliminar una tupla de la tabla por Llave Foranea en la base
+     * de datos.
+     *
+     * @param entity del clase definida.
+     * @throws Exception mensaje de error.
+     */
+    public static void datosElimnarForeignKey(Favorita entity) throws Exception {
+        Conexion c = new Conexion();
+        try {
+            c.conectar();
+            String sql = "Delete from favorita Where ps_id=?;";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            st.setInt(1, entity.getPelicula_serie().getId());
             st.executeUpdate();
         } catch (Exception ex) {
             System.out.println("Error en Sql " + ex);

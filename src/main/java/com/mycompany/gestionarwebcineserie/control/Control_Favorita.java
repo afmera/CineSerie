@@ -73,7 +73,17 @@ public class Control_Favorita {
      * @param entity del tipo de la clase definada.
      * @throws java.lang.Exception Mensaje de error.
      */
-    public static void control_eliminar(Favorita entity) throws Exception {
-        DatosFavorita.datosElimnar(entity);
+    public static void control_eliminarID(Favorita entity) throws Exception {
+        DatosFavorita.datosElimnarID(entity);
+    }
+    /**
+     * Metodo para eliminar una tupla de la tabla por Llave Foranea en la base
+     * de datos.
+     *
+     * @param entity del clase definida.
+     * @throws Exception mensaje de error.
+     */
+    public static void control_elimnarForeignKey(Favorita entity) throws Exception {
+        DatosFavorita.datosElimnarForeignKey(entity);
     }
 }
