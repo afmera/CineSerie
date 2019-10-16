@@ -65,4 +65,35 @@ public class Control_PPS_Screenwriter {
     public static void control_eliminar(PPS_Screenwriter entity) throws Exception {
         DatosPPS_Screenwriter.datosElimnar(entity);
     }
+    /**
+     * Metodo para registrar datos en la base de datos.
+     *
+     * @param listEntities lista de la clase determinida.
+     * @throws Exception mensaje de error.
+     */
+    public static void control_RegistrarLista(List<PPS_Screenwriter> listEntities) throws Exception {
+        DatosPPS_Screenwriter.datosRegistrarLista(listEntities);
+    }
+    
+    /**
+     * Metodo statico para consultar la exitencia de una tupla de la tabla asignada.
+     *
+     * @param entity objeto de la clase determinada.
+     * @return un boolean.
+     * @throws Exception mensaje de error
+     */
+    public static boolean control_GetExitenciaTupla(PPS_Screenwriter entity) throws Exception {
+        return DatosPPS_Screenwriter.datosGetExitenciaTupla(entity);
+    }
+    /**
+     * Metodo para consultar todos los datos relacionado con de terminado
+     * parametro.
+     *
+     * @param entity de la clase determinada.
+     * @return de la clase determinada.
+     * @throws Exception Mensaje de Error.
+     */
+    public static List<PPS_Screenwriter> control_GetAllTuplas(PPS_Screenwriter entity) throws Exception {
+        return DatosPPS_Screenwriter.DatosGetAllTuplas(entity);
+    }
 }

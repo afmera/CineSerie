@@ -3,6 +3,7 @@ C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\Gestionar
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\control\Control_Genero_Pelicula_Serie.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\datos\DatosCompania.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\model\PPS_Actor.java
+C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\control\Control_PPS_Productor.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\bean\BeanPersona.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\model\PPS_Productor.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\control\Control_Persona.java
@@ -22,7 +23,9 @@ C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\Gestionar
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\datos\DatosFavorita.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\control\Control_Favorita.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\bean\BeanDetalle_PPS_Actor.java
+C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\bean\BeanDetalle_PPS_Screenwriter.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\model\Genero_Pelicula_Serie.java
+C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\bean\BeanDetalle_PPS_Productor.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\datos\DatosGenero_Pelicula_Serie.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\bean\BeanDetalle_PPS_Director.java
 C:\Users\Juan Bautista\Documents\Andres Felipe\Proyecto NetBeans Git01\GestionarWebCineSerie\src\main\java\com\mycompany\gestionarwebcineserie\datos\DatosPersona.java

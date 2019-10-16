@@ -90,7 +90,7 @@ create table persona_pelicula_serie_productor
     ppsp_id serial not null,
     per_id int not null,
     ps_id int not null,
-	ppsp_tipo varchar(15) not null
+	ppsp_tipo varchar(23) not null
 );
 /*==============================================================*/
 /* table: persona_pelicula_serie_director                       */

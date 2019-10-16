@@ -160,7 +160,7 @@ public class DatosPPS_Actor {
                     + "where "
                     + "ppsa.per_id=p.per_id "
                     + "AND "
-                    + "ppsa.ps_id=ps.ps_id ;";
+                    + "ppsa.ps_id=ps.ps_id;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
