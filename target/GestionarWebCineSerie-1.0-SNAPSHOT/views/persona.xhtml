@@ -42,7 +42,7 @@
                                 <f:selectItem itemLabel="Femenino" itemValue="F" />
                             </p:selectOneRadio>
                             <p:outputLabel value="Año de Nacimiento :"/>
-                            <p:inputMask value="#{beanPersona.entity.fecha_nacimiento}" mask="99/99/9999"/>
+                            <p:inputText type="date" value="#{beanPersona.entity.fecha_nacimiento}"/>
                             <p:commandButton value="#{beanPersona.accion}" actionListener="#{beanPersona.operar()}" oncomplete="PF('wDlgDatos').hide();" update=":frm:data"/>
                             <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wDlgDatos').hide();"/>
                         </h:panelGrid>

@@ -9,15 +9,12 @@ import com.mycompany.gestionarwebcineserie.control.Control_Favorita;
 import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
 import com.mycompany.gestionarwebcineserie.model.Favorita;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.CloseEvent;
-import org.primefaces.event.MoveEvent;
 
 /**
  *
@@ -111,7 +108,6 @@ public class BeanPelicula_Serie {
      */
     public void limpiar() {
         this.entity.setId(0);
-        this.entity.setAn_lanzamiento("");
         this.entity.setDuracion("");
         this.entity.setSinopsis("");
         this.entity.setTipo("");

@@ -39,7 +39,7 @@
                             </h:panelGrid>
                             <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
                                 <p:commandButton value="Agregar" actionListener="#{beanDetalle_PPS_Actor.agregar()}" update="detallePPS"/>
-                                <p:commandButton value="Consultar" actionListener="#{beanDetalle_PPS_Actor.consultar()}" update="detallePPS"/>
+                                <p:commandButton value="Consulta Especifica" actionListener="#{beanDetalle_PPS_Actor.consultar()}" update="detallePPS"/>
                             </h:panelGrid>
                         <p:dataTable id="detallePPS" value="#{beanDetalle_PPS_Actor.listaEntities}" var="ppsa" 
                                          paginator="true"
@@ -52,7 +52,8 @@
                                     <p:outputLabel value="#{ppsa.persona.nombre}"/>
                                 </p:column>
                                 <p:column headerText="Opcion">
-                                    <p:commandLink value="Quitar" actionListener="#{beanDetalle_PPS_Actor.quitarElemento(gps)}" update="detallePPS"/>
+                                    <!--<p:commandLink value="Modificar" actionListener="#{beanDetalle_PPS_Actor.leerID(ppsa)}" update="detallePPS"/>-->
+                                    <p:commandLink value="Quitar" actionListener="#{beanDetalle_PPS_Actor.quitarElemento(ppsa)}" update="detallePPS"/>
                                 </p:column>
                             </p:dataTable>
                         <p:commandButton value="Registrar" actionListener="#{beanDetalle_PPS_Actor.registrar()}" action="detalle_PPS_Actor?faces-redirect=true" />

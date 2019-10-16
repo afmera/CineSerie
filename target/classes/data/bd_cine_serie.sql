@@ -10,7 +10,7 @@ create table pelicula_serie
 (
     ps_id serial not null,
     ps_titulo varchar(100) not null,
-    ps_ano_lanzamiento date not null,
+    ps_ano_lanzamiento date null,
     ps_longitud_minutos varchar(15) not null,
     ps_sinopsis varchar(10000) not null,
 	ps_tipo varchar(15) not null
@@ -53,7 +53,7 @@ create table persona
     per_id serial not null,
     per_nombre varchar(100) not null,
     per_genero varchar(1) not null,
-    per_fecha_nacimiento date not null
+    per_fecha_nacimiento date null
 );
 /*==============================================================*/
 /* table: genero_pelicula_serie                                 */

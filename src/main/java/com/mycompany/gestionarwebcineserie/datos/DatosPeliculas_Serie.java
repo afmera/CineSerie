@@ -6,7 +6,6 @@
 package com.mycompany.gestionarwebcineserie.datos;
 
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
@@ -29,7 +28,8 @@ public class DatosPeliculas_Serie {
      * @throws ParseException mensaje de error
      */
     public static java.sql.Date convertirFecha(String f) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("f" +f);
         java.util.Date parsed = format.parse(f);
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         return sql;
@@ -42,7 +42,7 @@ public class DatosPeliculas_Serie {
      * @return de tipo String.
      */
     public static String convetirFechaString(java.sql.Date sql) {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String text = df.format(sql);
         return text;
     }
@@ -60,7 +60,7 @@ public class DatosPeliculas_Serie {
             String sql = "Insert Into pelicula_serie(ps_titulo,ps_ano_lanzamiento,ps_longitud_minutos,ps_sinopsis,ps_tipo)Values(?,?,?,?,?);";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             st.setString(1, ps.getTitulo());
-            st.setDate(2, convertirFecha(ps.getAn_lanzamiento()));
+            st.setDate(2,convertirFecha(ps.getAno_lanzamiento()));
             st.setString(3, ps.getDuracion());
             st.setString(4, ps.getSinopsis());
             st.setString(5, ps.getTipo());
@@ -97,7 +97,7 @@ public class DatosPeliculas_Serie {
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                Pelicula_Serie p = new Pelicula_Serie(rs.getInt("ps_id"), rs.getString("ps_titulo"), convetirFechaString(rs.getDate("ps_ano_lanzamiento")), rs.getString("ps_longitud_minutos"), rs.getString("ps_sinopsis"), rs.getString("ps_tipo"));
+                Pelicula_Serie p = new Pelicula_Serie(rs.getInt("ps_id"), rs.getString("ps_titulo"),convetirFechaString(rs.getDate("ps_ano_lanzamiento")), rs.getString("ps_longitud_minutos"), rs.getString("ps_sinopsis"), rs.getString("ps_tipo"));
                 l.add(p);
             }
         } catch (Exception ex) {
@@ -160,7 +160,7 @@ public class DatosPeliculas_Serie {
             while (rs.next()) {
                 p.setId(rs.getInt("ps_id"));
                 p.setTitulo(rs.getString("ps_titulo"));
-                p.setAn_lanzamiento(convetirFechaString(rs.getDate("ps_ano_lanzamiento")));
+                p.setAno_lanzamiento(convetirFechaString(rs.getDate("ps_ano_lanzamiento")));
                 p.setDuracion(rs.getString("ps_longitud_minutos"));
                 p.setSinopsis(rs.getString("ps_sinopsis"));
                 p.setTipo(rs.getString("ps_tipo"));
@@ -195,7 +195,7 @@ public class DatosPeliculas_Serie {
                     + "ps_id=?;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             st.setString(1, ps.getTitulo());
-            st.setDate(2, convertirFecha(ps.getAn_lanzamiento()));
+            st.setDate(2, convertirFecha(ps.getAno_lanzamiento()));
             st.setString(3, ps.getDuracion());
             st.setString(4, ps.getSinopsis());
             st.setString(5, ps.getTipo());

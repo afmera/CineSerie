@@ -31,7 +31,7 @@ public class BeanDetalle_PPS_Actor {
     private Persona entityPer = new Persona();
     private Pelicula_Serie entityPS = new Pelicula_Serie();
     private PPS_Actor entity = new PPS_Actor();
-    private List<PPS_Actor> listaEntities = new ArrayList<>();
+    private List<PPS_Actor> listaEntities;
     private String[] selectedEntity;
 
     public String[] getSelectTipo() {
@@ -209,9 +209,7 @@ public class BeanDetalle_PPS_Actor {
                     PPS_Actor objEntity = this.entity;
                     objEntity.setPelicula_serie(this.entityPS);
                     objEntity.setPersona(this.entityPer);
-//                    PPS_Actor temp = Control_PPS_Actor.control_GetExitenciaTupla(objEntity);
                     boolean rest = Control_PPS_Actor.control_GetExitenciaTupla(objEntity);
-//                    if (temp != null) {
                     if (rest) {
                         FacesContext.getCurrentInstance().addMessage(
                                 null,
@@ -262,6 +260,25 @@ public class BeanDetalle_PPS_Actor {
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Sea presentado un error en la consuta en la base de datos.\nError es :" + ex));
             System.out.println("Error es : " + ex);
+            throw ex;
+        }
+    }
+    
+    /**
+     * Metodo para listar todos los datos de la tabla en la base de datos.
+     *
+     * @param objEntity de tipo de la clase determinada.
+     * @throws Exception
+     */
+    public void leerID(PPS_Actor objEntity) throws Exception {
+        try {
+            PPS_Actor temp = Control_PPS_Actor.control_leerID(objEntity);
+            if (temp != null) {
+                this.entity = temp;
+                
+            }
+        } catch (Exception ex) {
+            System.err.println("Error " + ex);
             throw ex;
         }
     }

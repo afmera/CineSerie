@@ -15,7 +15,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,7 +30,7 @@ public class DatosGenero_Pelicula_Serie {
      * @throws ParseException mensaje de error
      */
     public static java.sql.Date convertirFecha(String f) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date parsed = format.parse(f);
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         return sql;
@@ -44,7 +43,7 @@ public class DatosGenero_Pelicula_Serie {
      * @return de tipo String.
      */
     public static String convetirFechaString(java.sql.Date sql) {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String text = df.format(sql);
         return text;
     }

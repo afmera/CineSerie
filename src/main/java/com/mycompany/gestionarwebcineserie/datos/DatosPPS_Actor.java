@@ -32,7 +32,7 @@ public class DatosPPS_Actor {
      * @throws ParseException mensaje de error
      */
     public static java.sql.Date convertirFecha(String f) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date parsed = format.parse(f);
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         return sql;
@@ -45,7 +45,7 @@ public class DatosPPS_Actor {
      * @return de tipo String.
      */
     public static String convetirFechaString(java.sql.Date sql) {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String text = df.format(sql);
         return text;
     }
@@ -139,11 +139,50 @@ public class DatosPPS_Actor {
         try {
             l = new ArrayList<>();
             c.conectar();
-            String sql = "Select * from persona_pelicula_serie_actor;";
+            String sql = "SELECT "
+                    + "ppsa.ppsa_id,"
+                    + "ppsa.ppsa_tipo,"
+                    + "ppsa.ppsa_tiempo_pantalla,"
+                    + "p.per_id,"
+                    + "p.per_nombre,"
+                    + "p.per_genero,"
+                    + "p.per_fecha_nacimiento,"
+                    + "ps.ps_id,"
+                    + "ps.ps_titulo,"
+                    + "ps.ps_ano_lanzamiento,"
+                    + "ps.ps_longitud_minutos,"
+                    + "ps.ps_sinopsis,"
+                    + "ps.ps_tipo "
+                    + "from "
+                    + "persona_pelicula_serie_actor ppsa,"
+                    + "persona p,"
+                    + "pelicula_serie ps "
+                    + "where "
+                    + "ppsa.per_id=p.per_id "
+                    + "AND "
+                    + "ppsa.ps_id=ps.ps_id ;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                PPS_Actor entity = new PPS_Actor(rs.getInt("ppsa_id"), new Persona(rs.getInt("per_id")), new Pelicula_Serie(rs.getInt("ps_id")), rs.getString("ppsa_tipo"), rs.getString("ppsa_tiempo_pantalla"));
+                PPS_Actor entity = new PPS_Actor(
+                        rs.getInt("ppsa_id"), 
+                        new Persona(
+                                rs.getInt("per_id"),
+                                rs.getString("per_nombre"),
+                                rs.getString("per_genero"),
+                                convetirFechaString(rs.getDate("per_fecha_nacimiento"))
+                        ), 
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")
+                        ), 
+                        rs.getString("ppsa_tipo"), 
+                        rs.getString("ppsa_tiempo_pantalla")
+                );
                 l.add(entity);
             }
         } catch (Exception ex) {
@@ -178,7 +217,7 @@ public class DatosPPS_Actor {
                 temp.setPersona(new Persona(rs.getInt("per_id")));
                 temp.setPelicula_serie(new Pelicula_Serie(rs.getInt("ps_id")));
                 temp.setTipo(rs.getString("ppsa_tipo"));
-                temp.setTiempo_pantalla(rs.getString("ppsa_tempo_pantalla"));
+                temp.setTiempo_pantalla(rs.getString("ppsa_tiempo_pantalla"));
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Se presento un error en la consulta en BD.\nError es : " + ex));
