@@ -76,6 +76,7 @@ public class Control_Favorita {
     public static void control_eliminarID(Favorita entity) throws Exception {
         DatosFavorita.datosElimnarID(entity);
     }
+
     /**
      * Metodo para eliminar una tupla de la tabla por Llave Foranea en la base
      * de datos.
@@ -85,5 +86,16 @@ public class Control_Favorita {
      */
     public static void control_elimnarForeignKey(Favorita entity) throws Exception {
         DatosFavorita.datosElimnarForeignKey(entity);
+    }
+
+    /**
+     * Metodo statico para consultar una lista de tuplas de la tabla asignada.
+     *
+     * @param entity objeto de la clase determinada.
+     * @return un boolean.
+     * @throws Exception mensaje de error
+     */
+    public static List<Favorita> control_GetTuplasCalificacion(Favorita entity) throws Exception {
+        return DatosFavorita.datosGetTuplasCalificacion(entity);
     }
 }

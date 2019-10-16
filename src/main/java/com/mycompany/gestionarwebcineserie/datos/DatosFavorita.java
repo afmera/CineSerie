@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -244,5 +246,66 @@ public class DatosFavorita {
         } finally {
             c.cerrar();
         }
+    }
+
+    /**
+     * Metodo statico para consultar una lista de tuplas de la tabla asignada.
+     *
+     * @param entity objeto de la clase determinada.
+     * @return un boolean.
+     * @throws Exception mensaje de error
+     */
+    public static List<Favorita> datosGetTuplasCalificacion(Favorita entity) throws Exception {
+        Conexion c = new Conexion();
+        ResultSet rs;
+        List<Favorita> l;
+        try {
+            l = new ArrayList<>();
+            c.conectar();
+            String sql = "SELECT  "
+                    + "ps.ps_id,"
+                    + "ps.ps_titulo,"
+                    + "ps.ps_ano_lanzamiento,"
+                    + "ps.ps_longitud_minutos,"
+                    + "ps.ps_sinopsis,"
+                    + "ps.ps_tipo,"
+                    + "f.fav_id,"
+                    + "f.fav_calificacion,"
+                    + "f.fav_comentario "
+                    + "FROM pelicula_serie ps,favorita f "
+                    + "where "
+                    + "f.ps_id=ps.ps_id "
+                    + "AND "
+                    + "f.fav_calificacion=?;";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            st.setInt(1, entity.getCalificacion());
+            rs = st.executeQuery();
+            while (rs.next()) {
+                l.add(
+                        new Favorita(
+                                rs.getInt("fav_id"),
+                                rs.getInt("fav_calificacion"),
+                                rs.getString("fav_comentario"),
+                                new Pelicula_Serie(
+                                        rs.getInt("ps_id"),
+                                        rs.getString("ps_titulo"),
+                                        convetirFechaString(
+                                                rs.getDate("ps_ano_lanzamiento")
+                                        ),
+                                        rs.getString("ps_longitud_minutos"),
+                                        rs.getString("ps_sinopsis"),
+                                        rs.getString("ps_tipo")
+                                )
+                        )
+                );
+            }
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Se presento un erro en la consulta en BD.\nError es : " + ex));
+            System.out.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
     }
 }
