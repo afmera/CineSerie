@@ -26,6 +26,16 @@ public class Control_PPS_Director {
     }
 
     /**
+     * Metodo para registrar datos en la base de datos.
+     *
+     * @param listEntities lista de la clase determinida.
+     * @throws Exception mensaje de error.
+     */
+    public static void control_RegistrarLista(List<PPS_Director> listEntities) throws Exception {
+        DatosPPS_Director.datosRegistrarLista(listEntities);
+    }
+
+    /**
      * Metodo statico para consultas generarles de la tabla asignada.
      *
      * @return de tipo List<PPS_Director>
@@ -64,5 +74,27 @@ public class Control_PPS_Director {
      */
     public static void control_eliminar(PPS_Director entity) throws Exception {
         DatosPPS_Director.datosElimnar(entity);
+    }
+    
+    /**
+     * Metodo statico para consultar la exitencia de una tupla de la tabla asignada.
+     *
+     * @param entity objeto de la clase determinada.
+     * @return un boolean.
+     * @throws Exception mensaje de error
+     */
+    public static boolean control_GetExitenciaTupla(PPS_Director entity) throws Exception {
+        return DatosPPS_Director.datosGetExitenciaTupla(entity);
+    }
+    /**
+     * Metodo para consultar todos los datos relacionado con de terminado
+     * parametro.
+     *
+     * @param entity de la clase determinada.
+     * @return de la clase determinada.
+     * @throws Exception Mensaje de Error.
+     */
+    public static List<PPS_Director> control_GetAllTuplas(PPS_Director entity) throws Exception {
+        return DatosPPS_Director.datosGetAllTuplas(entity);
     }
 }

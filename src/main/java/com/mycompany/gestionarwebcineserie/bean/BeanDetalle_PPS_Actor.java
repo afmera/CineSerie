@@ -32,7 +32,7 @@ public class BeanDetalle_PPS_Actor {
     private Pelicula_Serie entityPS = new Pelicula_Serie();
     private PPS_Actor entity = new PPS_Actor();
     private List<PPS_Actor> listaEntities;
-    private String[] selectedEntity;
+//    private String[] selectedEntity;
 
     public String[] getSelectTipo() {
         return selectTipo;
@@ -74,13 +74,13 @@ public class BeanDetalle_PPS_Actor {
         this.listaEntities = listaEntities;
     }
 
-    public String[] getSelectedEntity() {
-        return selectedEntity;
-    }
-
-    public void setSelectedEntity(String[] selectedEntity) {
-        this.selectedEntity = selectedEntity;
-    }
+//    public String[] getSelectedEntity() {
+//        return selectedEntity;
+//    }
+//
+//    public void setSelectedEntity(String[] selectedEntity) {
+//        this.selectedEntity = selectedEntity;
+//    }
 
     /**
      * Metodo para filtrar todos los elementos repetidos en la tabla.
