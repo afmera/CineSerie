@@ -158,11 +158,9 @@ public class BeanConsultas {
     public void ejecucionConsulta() throws Exception {
         String op = this.opcion;
         String valor=this.valorEditable;
-//        if (op.equals("ps")) {
         listaEntities.clear();
             Pelicula_Serie objEntity = new Pelicula_Serie();
-            objEntity.setTipo(valor);
+            objEntity.setTitulo(valor);
             listaEntities = Control_Peliculas_Serie.control_ConsultarNombre(objEntity);
-//        }
     }
 }

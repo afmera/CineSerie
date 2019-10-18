@@ -23,16 +23,13 @@
                                 <f:selectItem itemLabel="Genero" itemValue="gen" />
                             </p:selectOneRadio>
                             <p:commandButton value="Consultar" update="selectConsulta" actionListener="#{beanConsultas.opcionConsulta()}"/>
-                        </h:panelGrid>
-                        
-                            
                             <p:outputLabel for="selectConsulta" value="Editable: " />
                             <p:selectOneMenu id="selectConsulta" value="#{beanConsultas.valorEditable}" effect="fold" editable="true">
                                 <f:selectItem itemLabel="Select One" itemValue=""/>
-                                <f:selectItems value="#{beanConsultas.selectedOpcion}" var="valor" itemValue="valor" />
+                                <f:selectItems value="#{beanConsultas.selectedOpcion}" var="valor" itemValue="#{valor}" />
                             </p:selectOneMenu>
                             <p:commandButton value="Consultar" update="datatablePanel" actionListener="#{beanConsultas.ejecucionConsulta()}"/>
-                            
+                        </h:panelGrid>  
                     </p:panel>
                     <p:panel id="datatablePanel" header="Tabla de las pelciulas y/o Series">
                         <p:dataTable id="psDatatable" var="ps" value="#{beanConsultas.listaEntities}"
