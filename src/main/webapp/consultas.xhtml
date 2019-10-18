@@ -25,7 +25,7 @@
                                 <f:selectItem itemLabel="Genero" itemValue="gen" />
                             </p:selectOneRadio>
                             
-                            <p:commandLink value="Consultar" update="selectConsulta" actionListener="#{beanConsultas.opcionConsulta()}"/>
+                            <p:commandButton value="Consultar" update="selectConsulta" actionListener="#{beanConsultas.opcionConsulta()}"/>
                             
                             <p:outputLabel for="selectConsulta" value="Editable: " />
                             <p:selectOneMenu id="selectConsulta" value="" effect="fold" editable="true">
