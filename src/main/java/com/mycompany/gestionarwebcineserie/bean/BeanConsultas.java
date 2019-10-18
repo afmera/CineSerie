@@ -9,6 +9,7 @@ import com.mycompany.gestionarwebcineserie.control.Control_Favorita;
 import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
 import com.mycompany.gestionarwebcineserie.model.Favorita;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
+import static com.sun.javafx.logging.PulseLogger.addMessage;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -31,6 +32,15 @@ public class BeanConsultas {
     private Pelicula_Serie entity = new Pelicula_Serie();
     private Favorita favorita = new Favorita();
     private List<Pelicula_Serie> listaEntities;
+    private String opcion;
+
+    public String getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(String opcion) {
+        this.opcion = opcion;
+    }
 
     public Pelicula_Serie getEntity() {
         return entity;
@@ -63,36 +73,8 @@ public class BeanConsultas {
     public void setSelectCalificacion(Integer[] selectCalificacion) {
         this.selectCalificacion = selectCalificacion;
     }
-
-    /**
-     * Metodo para filtrar todos los elementos repetidos en la tabla.
-     *
-     * @return lista de la clase determinada.
-     */
-    private void filtrarElementosRepetidos() {
-        List<Pelicula_Serie> newList = this.listaEntities;
-        List<Pelicula_Serie> oldList = this.listaEntities;
-        List<Pelicula_Serie> temp = new ArrayList<>();
-        if (newList.size() > 0) {
-            for (int i = 0; i < oldList.size(); i++) {
-                int count = 0;
-                for (int j = 0; j < oldList.size(); j++) {
-//                    if (oldList.get(i).getPersona().getId() == newList.get(j).getPersona().getId()) {
-//                        count++;
-//                    }
-                }
-                if (count == 1) {
-//                    temp.add(new PPS_Actor(oldList.get(i).getId(), oldList.get(i).getPersona(), oldList.get(i).getPelicula_serie(), oldList.get(i).getTipo(), oldList.get(i).getTiempo_pantalla()));
-                }
-            }
-        }
-        if (temp.size() > 0) {
-            this.listaEntities.clear();
-            this.listaEntities = temp;
-        }
-    }
-
-    /**
+    
+    /*
      * Metodo void para limpiar la lista de la clase determinda.
      */
     public void limpiar() {
@@ -130,60 +112,11 @@ public class BeanConsultas {
             throw ex;
         }
     }
-
-    /**
-     * Metodo para consultar toso los datos de un parametro determinado.
-     *
-     * @throws Exception Mensaje de Error.
-     */
-    public void consultar() throws Exception {
-        try {
-            if (this.entity != null) {
-                Pelicula_Serie objEntity = this.entity;
-                this.listaEntities.clear();
-                if (objEntity != null) {
-                    this.listaEntities.add(Control_Peliculas_Serie.control_leerID(objEntity));
-                    Favorita fav = this.favorita;
-                    if (fav != null) {
-                        if (fav.getId() > 0) {
-                            this.listaEntities.clear();
-                            fav.setPelicula_serie(objEntity);
-                            List<Favorita> lista = Control_Favorita.control_GetTuplasCalificacion(fav);
-                            for (Favorita l : lista) {
-                                this.listaEntities.add(l.getPelicula_serie());
-                            }
-                        }
-                    }
-                }
-                Favorita fav = this.favorita;
-                if (fav != null) {
-                    if (fav.getId() > 0) {
-                        this.listaEntities.clear();
-                        fav.setPelicula_serie(objEntity);
-                        List<Favorita> lista = Control_Favorita.control_GetTuplasCalificacion(fav);
-                        for (Favorita l : lista) {
-                            this.listaEntities.add(l.getPelicula_serie());
-                        }
-                    }
-                }
-            } else if(this.favorita!=null) {
-                Favorita fav = this.favorita;
-                if (fav != null) {
-                    if (fav.getCalificacion() > 0) {
-                        this.listaEntities.clear();
-                        List<Favorita> lista = Control_Favorita.control_GetTuplasCalificacion(fav);
-                        for (Favorita l : lista) {
-                            this.listaEntities.add(l.getPelicula_serie());
-                        }
-                    }
-                }
-            }else{
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "Debes seleccionar una pelicula o serie para consultar."));
-            }
-        } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Sea presentado un error en la consuta en la base de datos.\nError es :" + ex));
-            System.out.println("Error es : " + ex);
-            throw ex;
-        }
+    
+    public void opcionConsulta()
+    {
+//        addMessage("Welcome to Primefaces!!");
+        System.out.println("Opcion "+opcion);
+//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "INFORMACION", "Si paso.\nOpcion"+opcion));
     }
 }
