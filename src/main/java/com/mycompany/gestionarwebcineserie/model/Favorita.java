@@ -64,4 +64,9 @@ public class Favorita {
     public void setPelicula_serie(Pelicula_Serie pelicula_serie) {
         this.pelicula_serie = pelicula_serie;
     }
+
+    @Override
+    public String toString() {
+        return "Favorita{" + "id=" + id + ", calificacion=" + calificacion + ", comentario=" + comentario + ", pelicula_serie=" + pelicula_serie + '}';
+    }
 }
