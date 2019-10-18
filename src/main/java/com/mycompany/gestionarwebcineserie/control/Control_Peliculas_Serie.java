@@ -33,6 +33,17 @@ public class Control_Peliculas_Serie {
     public static List<Pelicula_Serie> control_listar() throws Exception {
         return DatosPeliculas_Serie.datosListar();
     }
+    
+    /**
+     * Metodo statico para consultas especificas por un parametro de entrada asignada a una tabla.
+     *
+     * @param entity
+     * @return de tipo List<Pelicula_Serie>
+     * @throws Exception mensaje de error
+     */
+    public static List<Pelicula_Serie> control_ConsultarNombre(Pelicula_Serie entity) throws Exception {
+        return DatosPeliculas_Serie.datosConsultarNombre(entity);
+    }
 
     /**
      * Metodo statico para consultar una tupla de la tabla asignada.

@@ -29,10 +29,28 @@ public class BeanConsultas {
      * Variable y objetos de clases determinadas.
      */
     private Integer[] selectCalificacion = {1, 2, 3, 4, 5};
+    private Object[] selectedOpcion;
     private Pelicula_Serie entity = new Pelicula_Serie();
     private Favorita favorita = new Favorita();
     private List<Pelicula_Serie> listaEntities;
     private String opcion;
+    private String valorEditable;
+
+    public String getValorEditable() {
+        return valorEditable;
+    }
+
+    public void setValorEditable(String valorEditable) {
+        this.valorEditable = valorEditable;
+    }
+
+    public Object[] getSelectedOpcion() {
+        return selectedOpcion;
+    }
+
+    public void setSelectedOpcion(Object[] selectedOpcion) {
+        this.selectedOpcion = selectedOpcion;
+    }
 
     public String getOpcion() {
         return opcion;
@@ -73,7 +91,7 @@ public class BeanConsultas {
     public void setSelectCalificacion(Integer[] selectCalificacion) {
         this.selectCalificacion = selectCalificacion;
     }
-    
+
     /*
      * Metodo void para limpiar la lista de la clase determinda.
      */
@@ -112,11 +130,39 @@ public class BeanConsultas {
             throw ex;
         }
     }
-    
-    public void opcionConsulta()
-    {
-//        addMessage("Welcome to Primefaces!!");
-        System.out.println("Opcion "+opcion);
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "INFORMACION", "Si paso.\nOpcion"+opcion));
+
+    /**
+     * Metodo para determinar el tipo de consulta a realizar.
+     *
+     * @throws java.lang.Exception Mensaje de error.
+     */
+    public void opcionConsulta() throws Exception {
+        int cont = 0;
+        String op = this.opcion;
+        System.out.println("Opcion " + opcion);
+        if (op.equals("ps")) {
+            List<Pelicula_Serie> lista = Control_Peliculas_Serie.control_listar();
+            selectedOpcion = new Object[lista.size()];
+            for (Pelicula_Serie l : lista) {
+                selectedOpcion[cont] = l.getTitulo();
+                cont++;
+            }
+        }
+    }
+
+    /**
+     * Metodo void para la ejecucion de la consulta.
+     *
+     * @throws Exception Mensaje de error.
+     */
+    public void ejecucionConsulta() throws Exception {
+        String op = this.opcion;
+        String valor=this.valorEditable;
+//        if (op.equals("ps")) {
+        listaEntities.clear();
+            Pelicula_Serie objEntity = new Pelicula_Serie();
+            objEntity.setTipo(valor);
+            listaEntities = Control_Peliculas_Serie.control_ConsultarNombre(objEntity);
+//        }
     }
 }

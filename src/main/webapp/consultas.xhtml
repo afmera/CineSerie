@@ -15,22 +15,24 @@
                     <p:panel id="opcConsulPanel" header="Opciones de Consulta">
                         <h:panelGrid columns="3" cellpadding="10">
                             <p:outputLabel for="opcion" value="Opciones" />
-                            <p:selectOneRadio id="opcion" columns="2" value="#{beanConsultas.opcion}">
+                            <p:selectOneRadio id="opcion" columns="2" value="#{beanConsultas.opcion}" >
                                 <f:selectItem itemLabel="Nombre de la Pelicula o Serie" itemValue="ps"/>
-                                <f:selectItem itemLabel="Nombre de Actor(riz)" itemValue="act" />
+                                <f:selectItem itemLabel="Nombre del Actor(riz)" itemValue="act" />
                                 <f:selectItem itemLabel="Nombre del Diretor(es)" itemValue="dir" />
                                 <f:selectItem itemLabel="Calificacion" itemValue="cal" />
                                 <f:selectItem itemLabel="Genero" itemValue="gen" />
                             </p:selectOneRadio>
-                            
                             <p:commandButton value="Consultar" update="selectConsulta" actionListener="#{beanConsultas.opcionConsulta()}"/>
+                        </h:panelGrid>
+                        
                             
                             <p:outputLabel for="selectConsulta" value="Editable: " />
-                            <p:selectOneMenu id="selectConsulta" value="" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Select One" itemValue="" />
-                                <f:selectItems value="" />
+                            <p:selectOneMenu id="selectConsulta" value="#{beanConsultas.valorEditable}" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Select One" itemValue=""/>
+                                <f:selectItems value="#{beanConsultas.selectedOpcion}" var="valor" itemValue="valor" />
                             </p:selectOneMenu>
-                        </h:panelGrid>
+                            <p:commandButton value="Consultar" update="datatablePanel" actionListener="#{beanConsultas.ejecucionConsulta()}"/>
+                            
                     </p:panel>
                     <p:panel id="datatablePanel" header="Tabla de las pelciulas y/o Series">
                         <p:dataTable id="psDatatable" var="ps" value="#{beanConsultas.listaEntities}"

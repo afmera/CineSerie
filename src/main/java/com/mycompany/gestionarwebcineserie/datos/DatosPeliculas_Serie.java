@@ -110,6 +110,45 @@ public class DatosPeliculas_Serie {
     }
 
     /**
+     * Metodo statico para consultas especificas por un parametro de entrada asignada a una tabla.
+     *
+     * @param entity
+     * @return de tipo List<Pelicula_Serie>
+     * @throws Exception mensaje de error
+     */
+    public static List<Pelicula_Serie> datosConsultarNombre(Pelicula_Serie entity) throws Exception {
+        Conexion c = new Conexion();
+        List<Pelicula_Serie> l;
+        ResultSet rs;
+        try {
+            l = new ArrayList<>();
+            c.conectar();
+            String sql = "Select "
+                    + "ps_id,"
+                    + "ps_titulo,"
+                    + "ps_ano_lanzamiento,"
+                    + "ps_longitud_minutos,"
+                    + "ps_sinopsis,"
+                    + "ps_tipo "
+                    + "from pelicula_serie "
+                    + "Where "
+                    + "ps_titulo LIKE '%"+entity.getTitulo()+"%';";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Pelicula_Serie p = new Pelicula_Serie(rs.getInt("ps_id"), rs.getString("ps_titulo"),convetirFechaString(rs.getDate("ps_ano_lanzamiento")), rs.getString("ps_longitud_minutos"), rs.getString("ps_sinopsis"), rs.getString("ps_tipo"));
+                l.add(p);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
+    }
+    
+    /**
      * Metodo statico para consultar una tupla de la tabla asignada.
      *
      * @param entity obnjeto de la clase determinada.
