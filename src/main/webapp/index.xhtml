@@ -4,13 +4,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>PAGINA INDEX</title>
+        <h:outputStylesheet library="css" name="estilo_01.css"/>
     </h:head>
-    <h:body>
-        Página Principal
-        <h:form>
-            <p:commandLink value="Ir" action="principal?faces-redirect=true"/>
-        </h:form>
+    <h:body id="principal">
+            <h:form>
+                <div id="cuerpo">
+                <p:commandLink id="msjPincipal" value="Página Principal" action="principal?faces-redirect=true"/>
+                </div>
+            </h:form>
     </h:body>
 </html>
 

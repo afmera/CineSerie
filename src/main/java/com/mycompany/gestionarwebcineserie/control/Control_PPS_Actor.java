@@ -26,6 +26,16 @@ public class Control_PPS_Actor {
     }
 
     /**
+     * Metodo para registrar datos en la base de datos.
+     *
+     * @param listEntities lista de la clase determinida.
+     * @throws Exception mensaje de error.
+     */
+    public static void control_RegistrarLista(List<PPS_Actor> listEntities) throws Exception {
+        DatosPPS_Actor.datosRegistrarLista(listEntities);
+    }
+
+    /**
      * Metodo statico para consultas generarles de la tabla asignada.
      *
      * @return de tipo List<PPS_Actor>
@@ -64,5 +74,28 @@ public class Control_PPS_Actor {
      */
     public static void control_eliminar(PPS_Actor entity) throws Exception {
         DatosPPS_Actor.datosElimnar(entity);
+    }
+
+    /**
+     * Metodo statico para consultas una tupla de la tabla asignada.
+     *
+     * @param entity objeto de la clase determinada.
+     * @return objeto de la clase determinada.
+     * @throws Exception mensaje de error
+     */
+//    public static PPS_Actor control_GetExitenciaTupla(PPS_Actor entity) throws Exception {
+    public static boolean control_GetExitenciaTupla(PPS_Actor entity) throws Exception {
+        return DatosPPS_Actor.datosGetExitenciaTupla(entity);
+    }
+    /**
+     * Metodo para consultar todos los datos relacionado con de terminado
+     * parametro.
+     *
+     * @param entity de la clase determinada.
+     * @return de la clase determinada.
+     * @throws Exception Mensaje de Error.
+     */
+    public static List<PPS_Actor> control_GetAllTuplas(PPS_Actor entity) throws Exception {
+        return DatosPPS_Actor.DatosGetAllTuplas(entity);
     }
 }

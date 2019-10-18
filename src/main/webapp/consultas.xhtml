@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
+
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{beanConsultas.listar(false)}"/>
+                <p:growl id="msj" autoUpdate="true" showDetail="true"/>
+                <h:form>
+                    <p:panel id="opcConsulPanel" header="Opciones de Consulta">
+                        <h:panelGrid columns="3" cellpadding="10">
+                            <p:outputLabel for="opcion" value="Opciones" />
+                            <p:selectOneRadio id="opcion" columns="2" value="#{beanConsultas.opcion}">
+                                <f:selectItem itemLabel="Nombre de la Pelicula o Serie" itemValue="ps"/>
+                                <f:selectItem itemLabel="Nombre de Actor(riz)" itemValue="act" />
+                                <f:selectItem itemLabel="Nombre del Diretor(es)" itemValue="dir" />
+                                <f:selectItem itemLabel="Calificacion" itemValue="cal" />
+                                <f:selectItem itemLabel="Genero" itemValue="gen" />
+                            </p:selectOneRadio>
+                            
+                            <p:commandLink value="Consultar" update="selectConsulta" actionListener="#{beanConsultas.opcionConsulta()}"/>
+                            
+                            <p:outputLabel for="selectConsulta" value="Editable: " />
+                            <p:selectOneMenu id="selectConsulta" value="" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel id="datatablePanel" header="Tabla de las pelciulas y/o Series">
+                        <p:dataTable id="psDatatable" var="ps" value="#{beanConsultas.listaEntities}"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            <p:column headerText="Titulo">
+                                <p:outputLabel value="#{ps.titulo}"/>                                
+                            </p:column>
+                            <p:column headerText="Sinopsis">
+                                <p:outputLabel value="#{ps.sinopsis}"/>                                
+                            </p:column>
+                            <p:column headerText="Tipo">
+                                <p:outputLabel value="#{ps.tipo}"/>                                
+                            </p:column>
+                            <p:column headerText="Año de lanzamiento">
+                                <p:outputLabel value="#{ps.ano_lanzamiento}"/>                                
+                            </p:column>
+                            <p:column headerText="Duracion (Minutos)">
+                                <p:outputLabel value="#{ps.duracion}"/>                                
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

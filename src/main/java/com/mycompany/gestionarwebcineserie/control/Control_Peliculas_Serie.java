@@ -73,4 +73,14 @@ public class Control_Peliculas_Serie {
     public static void control_eliminar(Pelicula_Serie ps) throws Exception {
         DatosPeliculas_Serie.datosElimnar(ps);
     }
+
+    /**
+     * Metodo statico para consultar el ultimo registro de la tabla determinda.
+     *
+     * @return objeto de la clase determinda.
+     * @throws Exception Mensaje de Error.
+     */
+    public static Pelicula_Serie control_LastInsertID() throws Exception {
+        return DatosPeliculas_Serie.datosLastInsertID();
+    }
 }
