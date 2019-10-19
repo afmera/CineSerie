@@ -138,7 +138,6 @@ public class DatosPPS_Director {
             String sql = "Select "
                     + "ppsd.ppsd_id,"
                     + "ppsd.ppsd_tipo,"
-                    
                     + "p.per_id,"
                     + "p.per_nombre,"
                     + "p.per_genero,"
@@ -385,6 +384,77 @@ public class DatosPPS_Director {
             }
         } catch (Exception ex) {
             System.out.println("Error en Sql " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
+    }
+
+    /**
+     * Metodo statico para consultar una lista de tuplas por el parametro
+     * determinado.
+     *
+     * @param entity de la clase determinda.
+     * @return una lista de la clase determinda.
+     * @throws Exception Mensaje de error.
+     */
+    public static List<PPS_Director> datosListarNombreDirector(PPS_Director entity) throws Exception {
+        Conexion c = new Conexion();
+        List<PPS_Director> l;
+        ResultSet rs;
+        try {
+            l = new ArrayList<>();
+            c.conectar();
+            String sql = "SELECT "
+                    + "ppsd.ppsd_id,"
+                    + "ppsd.ppsd_tipo,"
+                    + "p.per_id,"
+                    + "p.per_nombre,"
+                    + "p.per_genero,"
+                    + "p.per_fecha_nacimiento,"
+                    + "ps.ps_id,"
+                    + "ps.ps_titulo,"
+                    + "ps.ps_ano_lanzamiento,"
+                    + "ps.ps_longitud_minutos,"
+                    + "ps.ps_sinopsis,"
+                    + "ps.ps_tipo "
+                    + "from "
+                    + "persona_pelicula_serie_director ppsd,"
+                    + "persona p,"
+                    + "pelicula_serie ps "
+                    + "where "
+                    + "ppsd.per_id=p.per_id "
+                    + "AND "
+                    + "ppsd.ps_id=ps.ps_id "
+                    + "AND "
+                    + "p.per_nombre LIKE '%" + entity.getPersona().getNombre() + "%';";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                PPS_Director objEntity = new PPS_Director(
+                        rs.getInt("ppsd_id"),
+                        new Persona(
+                                rs.getInt("per_id"),
+                                rs.getString("per_nombre"),
+                                rs.getString("per_genero"),
+                                convetirFechaString(rs.getDate("per_fecha_nacimiento"))
+                        ),
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")
+                        ),
+                        rs.getString("ppsd_tipo")
+                );
+                l.add(objEntity);
+            }
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Se presento un error en la consulta en BD.\nError es : " + ex));
+            System.err.println("Error " + ex);
             throw ex;
         } finally {
             c.cerrar();

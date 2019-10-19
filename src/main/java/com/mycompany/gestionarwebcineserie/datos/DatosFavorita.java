@@ -290,7 +290,7 @@ public class DatosFavorita {
                     + "AND "
                     + "f.fav_calificacion=?;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setInt(1, entity.getCalificacion());
+            st.setString(1, String.valueOf(entity.getCalificacion()));
             rs = st.executeQuery();
             while (rs.next()) {
                 l.add(
