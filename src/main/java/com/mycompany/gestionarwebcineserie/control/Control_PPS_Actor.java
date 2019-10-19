@@ -87,6 +87,7 @@ public class Control_PPS_Actor {
     public static boolean control_GetExitenciaTupla(PPS_Actor entity) throws Exception {
         return DatosPPS_Actor.datosGetExitenciaTupla(entity);
     }
+
     /**
      * Metodo para consultar todos los datos relacionado con de terminado
      * parametro.
@@ -98,6 +99,7 @@ public class Control_PPS_Actor {
     public static List<PPS_Actor> control_GetAllTuplas(PPS_Actor entity) throws Exception {
         return DatosPPS_Actor.DatosGetAllTuplas(entity);
     }
+
     /**
      * Metodo statico para consultar todas las peliculas desde un valor
      * determindo por parametro.

@@ -182,6 +182,9 @@ alter table persona_pelicula_serie_productor add constraint ck_ppsp_tipo check(p
 alter table persona_pelicula_serie_director add constraint ck_ppsd_tipo check(ppsd_tipo in ('Director Principal','Director Fotografia','Director de Libretos','Director de Compositor','Director de Montaje'));
 alter table persona_pelicula_serie_actor add constraint ck_ppsa_tipo check(ppsa_tipo in ('Protagonista','Secundario','De Reparto','De Pequeñas Partes'));
 /*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*/
+-- UNIQUE
+alter table favorita add constraint uniq_ps_id unique (ps_id);
+/*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*/
 -- Datos basicos de la base de datos.
 INSERT INTO genero (gen_nombre)VALUES('Clásicos');
 INSERT INTO genero (gen_nombre)VALUES('Mudas');

@@ -12,6 +12,7 @@ import com.mycompany.gestionarwebcineserie.control.Control_PPS_Director;
 import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
 import com.mycompany.gestionarwebcineserie.control.Control_Persona;
 import com.mycompany.gestionarwebcineserie.model.Favorita;
+import com.mycompany.gestionarwebcineserie.model.Genero;
 import com.mycompany.gestionarwebcineserie.model.Genero_Pelicula_Serie;
 import com.mycompany.gestionarwebcineserie.model.PPS_Actor;
 import com.mycompany.gestionarwebcineserie.model.PPS_Director;
@@ -147,7 +148,6 @@ public class BeanConsultas {
     public void opcionConsulta() throws Exception {
         int cont = 0;
         String op = this.opcion;
-        System.out.println("Opcion " + opcion);
         if (op.equals("ps")) {
             List<Pelicula_Serie> lista = Control_Peliculas_Serie.control_listar();
             selectedOpcion = new Object[lista.size()];
@@ -173,18 +173,12 @@ public class BeanConsultas {
             }
         }
         if (op.equals("cal")) {
-//            List<Favorita> lista = Control_Favorita.control_listar();
-//            selectedOpcion = new Object[lista.size()];
-//            for (Favorita l : lista) {
-//                selectedOpcion[cont] = l.getCalificacion();
-//                cont++;
-//            }
-selectedOpcion= new Object[5];
-selectedOpcion[0]="1";
-selectedOpcion[1]="2";
-selectedOpcion[2]="3";
-selectedOpcion[3]="4";
-selectedOpcion[4]="5";
+            selectedOpcion = new Object[5];
+            selectedOpcion[0] = "1";
+            selectedOpcion[1] = "2";
+            selectedOpcion[2] = "3";
+            selectedOpcion[3] = "4";
+            selectedOpcion[4] = "5";
         }
         if (op.equals("gen")) {
             List<Genero_Pelicula_Serie> lista = Control_Genero_Pelicula_Serie.control_listar();
@@ -243,7 +237,14 @@ selectedOpcion[4]="5";
             }
         }
         if (op.equals("gen")) {
-
+            Genero obj = new Genero();
+            obj.setNombre(valor);
+            Genero_Pelicula_Serie ent = new Genero_Pelicula_Serie();
+            ent.setGenero(obj);
+            List<Genero_Pelicula_Serie> lista = Control_Genero_Pelicula_Serie.control_GetAllTuplasNombre(ent);
+            for (Genero_Pelicula_Serie l : lista) {
+                listaEntities.add(l.getPelicula_serie());
+            }
         }
     }
 }
