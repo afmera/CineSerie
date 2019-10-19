@@ -6,9 +6,17 @@
 package com.mycompany.gestionarwebcineserie.bean;
 
 import com.mycompany.gestionarwebcineserie.control.Control_Favorita;
+import com.mycompany.gestionarwebcineserie.control.Control_Genero_Pelicula_Serie;
+import com.mycompany.gestionarwebcineserie.control.Control_PPS_Actor;
+import com.mycompany.gestionarwebcineserie.control.Control_PPS_Director;
 import com.mycompany.gestionarwebcineserie.control.Control_Peliculas_Serie;
+import com.mycompany.gestionarwebcineserie.control.Control_Persona;
 import com.mycompany.gestionarwebcineserie.model.Favorita;
+import com.mycompany.gestionarwebcineserie.model.Genero_Pelicula_Serie;
+import com.mycompany.gestionarwebcineserie.model.PPS_Actor;
+import com.mycompany.gestionarwebcineserie.model.PPS_Director;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
+import com.mycompany.gestionarwebcineserie.model.Persona;
 import static com.sun.javafx.logging.PulseLogger.addMessage;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +153,42 @@ public class BeanConsultas {
             selectedOpcion = new Object[lista.size()];
             for (Pelicula_Serie l : lista) {
                 selectedOpcion[cont] = l.getTitulo();
+                cont++;
+            }
+        }
+         if(op.equals("act"))
+        {
+            List<PPS_Actor> lista=Control_PPS_Actor.control_listar();
+            selectedOpcion = new Object[lista.size()];
+            for (PPS_Actor l : lista) {
+                selectedOpcion[cont] = l.getPersona().getNombre();
+                cont++;
+            }
+        }
+        if(op.equals("dir"))
+        {
+            List<PPS_Director> lista=Control_PPS_Director.control_listar();
+            selectedOpcion = new Object[lista.size()];
+            for (PPS_Director l : lista) {
+                selectedOpcion[cont] = l.getPersona().getNombre();
+                cont++;
+            }
+        }
+        if(op.equals("cal"))
+        {
+            List<Favorita> lista=Control_Favorita.control_listar();
+            selectedOpcion = new Object[lista.size()];
+            for (Favorita l : lista) {
+                selectedOpcion[cont] = l.getCalificacion();
+                cont++;
+            }
+        }
+        if(op.equals("gen"))
+        {
+            List<Genero_Pelicula_Serie> lista=Control_Genero_Pelicula_Serie.control_listar();
+            selectedOpcion = new Object[lista.size()];
+            for (Genero_Pelicula_Serie l : lista) {
+                selectedOpcion[cont] = l.getGenero().getNombre();
                 cont++;
             }
         }

@@ -92,11 +92,23 @@ public class DatosFavorita {
         try {
             l = new ArrayList<>();
             c.conectar();
-            String sql = "Select * from favotira;";
+            String sql = "SELECT f.fav_id,f.fav_calificacion,f.fav_comentario,ps.ps_id,ps.ps_titulo,ps.ps_ano_lanzamiento,ps.ps_longitud_minutos,ps.ps_sinopsis,ps.ps_tipo FROM favorita f, pelicula_serie ps where f.ps_id=ps.ps_id;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                Favorita entity = new Favorita(rs.getInt("fav_id"), rs.getInt("fav_calificacion"), rs.getString("fav_comentario"), new Pelicula_Serie(rs.getInt("ps_id")));
+                Favorita entity = new Favorita(
+                        rs.getInt("fav_id"), 
+                        rs.getInt("fav_calificacion"), 
+                        rs.getString("fav_comentario"), 
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")
+                        )
+                );
                 l.add(entity);
             }
         } catch (Exception ex) {
