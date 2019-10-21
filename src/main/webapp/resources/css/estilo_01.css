@@ -4,16 +4,32 @@
     background-color: #0BE4CD;
 }
 #cuerpo{
-    margin: 0 auto;
-    width: 40%;
+    margin: 100px auto;
+    width: 40% !important;
     text-align: center;
-    margin-top: 200px;
-    background-color: #BFFBF5;
-    padding-bottom: 30px;
-    border: 1px solid;
+    /*margin-top: 200px;*/
+    background-color: #0BE4CD;
+    padding-bottom: 40px;
+/*    border: 1px solid;*/
 }
-#cuerpo.msjPincipal{
-    margin-top: 5px;
-    text-decoration: overline;
-    text-emphasis-style: circle;
+.msjPrincipal{
+/*    margin-bottom: 200px;*/
+    font-family:Arial;
+    font-size:30px;
+    text-decoration:none;
+    padding:2px;
+    background-color:#505050;
+    color:white;
+    border-radius:8px;
+}
+.msjPrincipal:hover
+{
+    background-color:black;
+    padding-bottom:15px;
+    color:while;
+    margin-top:-15px;
+    margin-left:15px;
+    margin-right:15px;
+    border-radius:8px;
+/*    padding-bottom:15px; */
 }
