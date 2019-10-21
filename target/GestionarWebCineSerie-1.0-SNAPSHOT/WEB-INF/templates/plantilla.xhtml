@@ -10,41 +10,45 @@
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>PAGINA PRINCIPAL DE LA PLANTILLA</title>
-        <!--<h:outputStylesheet library="css" name="estilo_02.css"/>-->
+        <h:outputStylesheet library="css" name="estilo_02.css"/>
     </h:head>
 
     <h:body>
-
         <ui:insert name="top">
-            <h:form id="principal">
-                <p:menubar>
-                    <p:menuitem value="Home" url='index.xhtml'/>
-                    <p:submenu label="Administracion Peliculas Serie" icon="pi pi-folder-open" style="font-size: 1em">
-                        <p:menuitem value="Peliculas o Series" url='./pelicula_serie.xhtml'/>
-                        <p:menuitem value="Compañias" url='./compania.xhtml'/>
-                        <p:menuitem value="Generos" url='./genero.xhtml'/>
-                        <p:menuitem value="Reparto" url='./persona.xhtml'/>
-                        <p:submenu label="Detalle de las peliculas y/o Series">
-                            <p:menuitem value="Generos de las Peliculas y/o Series" url='./detalle_genero_pelicula_serie.xhtml'/>
-                            <p:menuitem value="Actores de las Peliculas y/o Series" url='./detalle_PPS_Actor.xhtml'/>
-                            <p:menuitem value="Director(es) de las Peliculas y/o Series" url='./detalle_PPS_Director.xhtml'/>
-                            <p:menuitem value="Productor(es) de las Peliculas y/o Series" url='./detalle_PPS_Productor.xhtml'/>
-                            <p:menuitem value="Guionistas de las Peliculas y/o Series" url='./detalle_PPS_Screenwriter.xhtml'/>
+            <div id="menuHorizontal">
+                <h:form>
+                    <p:menubar>
+                        <p:menuitem value="Home" url='index.xhtml'/>
+                        <p:submenu label="Administracion Peliculas Serie" icon="pi pi-folder-open" style="font-size: 1em">
+                            <p:menuitem value="Peliculas o Series" url='./pelicula_serie.xhtml'/>
+                            <p:menuitem value="Compañias" url='./compania.xhtml'/>
+                            <p:menuitem value="Generos" url='./genero.xhtml'/>
+                            <p:menuitem value="Reparto" url='./persona.xhtml'/>
+                            <p:submenu label="Detalle de las peliculas y/o Series">
+                                <p:menuitem value="Generos de las Peliculas y/o Series" url='./detalle_genero_pelicula_serie.xhtml'/>
+                                <p:menuitem value="Actores de las Peliculas y/o Series" url='./detalle_PPS_Actor.xhtml'/>
+                                <p:menuitem value="Director(es) de las Peliculas y/o Series" url='./detalle_PPS_Director.xhtml'/>
+                                <p:menuitem value="Productor(es) de las Peliculas y/o Series" url='./detalle_PPS_Productor.xhtml'/>
+                                <p:menuitem value="Guionistas de las Peliculas y/o Series" url='./detalle_PPS_Screenwriter.xhtml'/>
+                            </p:submenu>
                         </p:submenu>
-                    </p:submenu>
-                    <p:menuitem value="Consultas de Peliculas y/o Series" url='./consultas.xhtml'/>
-                </p:menubar>
-            </h:form>
+                        <p:menuitem value="Consultas de Peliculas y/o Series" url='./consultas.xhtml'/>
+                    </p:menubar>
+                </h:form>
+            </div>
         </ui:insert>
 
         <ui:insert name="content">Content</ui:insert>
 
         <ui:insert name="bottom">
             <div id="pie">
-                <h:outputText id="msjPie" 
-                              value="Derechos Reservados por Ingeniero Informatico y Tecnologo ADSI Andrés Felipe Mera Tróchez, 
-                              feli041089@gmail.com, felipemera@unimayor.edu.co, pipe891004@hotmail.com.
-                              Popayán, Cauca."/>
+                <h:outputLabel class="msjPie">
+                    <p>
+                        Derechos Reservados por Ingeniero Informatico y Tecnologo ADSI Andrés Felipe Mera Tróchez, 
+                    feli041089@gmail.com, felipemera@unimayor.edu.co, pipe891004@hotmail.com.
+                    Popayán, Cauca.
+                    </p>
+                </h:outputLabel>
             </div>
         </ui:insert>
 

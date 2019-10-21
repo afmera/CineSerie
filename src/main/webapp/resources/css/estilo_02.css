@@ -3,25 +3,42 @@
     width: 1024px;
     background-color: #0BE4CD;
 }
-#pie{
-    margin: 0 auto;
-    width: 1024px;
+#menuHorizontal
+{
+    padding: 10px;
+    margin: 5px;
+}
+#cuerpoPrincipal
+{
+    /*    width:1024px;
+        height: 500px;*/
+    /*border:1px solid #000000;*/
+    margin:10px;
     background-color: #0BE4CD;
 }
-#msjTitulo{
-    margin: 0 auto;
-    width: 40%;
-    text-align: justify;
-    margin-top: 200px;
-    background-color: #BFFBF5;
-    padding-bottom: 30px;
+#clear
+{
+    clear:both;/*se usa para incluir las colunas en el cuadro principal...*/
 }
-#msjPie{
-    margin: 0 auto;
-    width: 40%;
-    text-align: justify;
-    margin-top: 200px;
+#pie{
+    margin: 11px;
+    /*    width: 1024px;*/
+    height: 43px;
+    padding-top:  10px;
+    background-color: #0BE4CD;
+}
+.msjTitulo{
+    text-align: center;
+    font-family: Arial;
+    font-size: 12px;
     background-color: #BFFBF5;
-    padding-bottom: 30px;
-    border: 1px solid;
+    padding: 20px;
+    padding-top: 10px;
+}
+.msjPie p{
+    text-align: center;
+    font-style: normal;
+    font-size: 12px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
