@@ -1,19 +1,15 @@
 #principal{
     width: 1024px;
     margin: 0 auto;
-    background-color: #0BE4CD;
+    background-color: #F7FEFD;
 }
 #cuerpo{
     margin: 100px auto;
     width: 40% !important;
     text-align: center;
-    /*margin-top: 200px;*/
-    background-color: #0BE4CD;
-    padding-bottom: 40px;
-/*    border: 1px solid;*/
+    padding: 40px;
 }
 .msjPrincipal{
-/*    margin-bottom: 200px;*/
     font-family:Arial;
     font-size:30px;
     text-decoration:none;
@@ -25,11 +21,10 @@
 .msjPrincipal:hover
 {
     background-color:black;
-    padding-bottom:15px;
+    padding-bottom:20px;
     color:while;
-    margin-top:-15px;
-    margin-left:15px;
+    margin-top:-30px;
+    margin-left:35px;
     margin-right:15px;
-    border-radius:8px;
-/*    padding-bottom:15px; */
+    border-radius:8px; 
 }

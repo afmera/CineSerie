@@ -11,8 +11,8 @@
             <ui:define name="content">
                 <f:event type="preRenderView" listener="#{beanConsultas.listar(false)}"/>
                 <p:growl id="msj" autoUpdate="true" showDetail="true"/>
-                <h:form>
-                    <p:panel id="opcConsulPanel" header="Opciones de Consulta">
+                <h:form id="frm">
+                    <p:panel class="opcConsulPanel" id="opcConsulPanel" header="Opciones de Consulta">
                         <h:panelGrid columns="3" cellpadding="10">
                             <p:outputLabel for="opcion" value="Opciones" />
                             <p:selectOneRadio id="opcion" columns="2" value="#{beanConsultas.opcion}" >
@@ -31,7 +31,7 @@
                             <p:commandButton value="Consultar" update="datatablePanel" actionListener="#{beanConsultas.ejecucionConsulta()}"/>
                         </h:panelGrid>  
                     </p:panel>
-                    <p:panel id="datatablePanel" header="Tabla de las pelciulas y/o Series">
+                    <p:panel class="datatablePanel" id="datatablePanel" header="Tabla de las pelciulas y/o Series">
                         <p:dataTable id="psDatatable" var="ps" value="#{beanConsultas.listaEntities}"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
