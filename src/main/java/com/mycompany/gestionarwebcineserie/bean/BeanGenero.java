@@ -67,33 +67,6 @@ public class BeanGenero {
         this.accion = accion;
     }
 
-//    /**
-//     * Metodo void de arraque
-//     */
-//    @PostConstruct
-//    public void init() {
-//        listGeneros = new ArrayList<String>();
-//        listGeneros.add("Clásicos");
-//        listGeneros.add("Mudas");
-//        listGeneros.add("Sonoras");
-//        listGeneros.add("Películas en blanco y negro");
-//        listGeneros.add("Películas en color");
-//        listGeneros.add("Acción");
-//        listGeneros.add("Aventuras");
-//        listGeneros.add("Comedias");
-//        listGeneros.add("Dramáticas");
-//        listGeneros.add("Terror");
-//        listGeneros.add("Musicales");
-//        listGeneros.add("Ciencia ficción");
-//        listGeneros.add("Guerra o bélicas");
-//        listGeneros.add("Películas del Oeste");
-//        listGeneros.add("Crimen (Suspense)");
-//        listGeneros.add("Infantiles");
-//        listGeneros.add("Animacion");
-//        listGeneros.add("Anime");
-//        listGeneros.add("Adultos");
-//    }
-
     /**
      * Metodo para verificar el uso del preRenderView para evitar consumo de
      * recursos innecesarios.

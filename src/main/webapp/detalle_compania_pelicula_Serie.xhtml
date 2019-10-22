@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body id="principal">
+        <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
+            <ui:define name="content">
+                <f:event type="preRenderView" listener="#{beanDetalle_Compania_Pelicula_Serie.listar()}"/>
+                <f:event type="preRenderView" listener="#{beanPelicula_Serie.listar(false)}"/>
+                <f:event type="preRenderView" listener="#{beanCompania.listar(false)}"/>
+                <p:growl id="msj" autoUpdate="true" showDetail="true"/>
+                <div id="cuerpo">
+                    <h:form id='frm'>
+                        <p:panel class="panelInform" id="panelInform" header="Informacion de los Generos" footer="Movies Series Details" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                <p:outputLabel value="Peliculas o Serie"/>
+                                <p:selectOneMenu value="#{beanDetalle_Compania_Pelicula_Serie.entityPS}" converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{beanPelicula_Serie.listaEntities}" var="ps" itemLabel="#{ps.titulo}" itemValue="#{ps}"/> 
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Compania:" />
+                                <p:selectOneMenu value="#{beanDetalle_Compania_Pelicula_Serie.entityComp}" converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                                    <f:selectItems value="#{beanCompania.listaEntities}" var="com" itemLabel="#{com.nombre}" itemValue="#{com}"/> 
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                <p:commandButton value="Agregar" actionListener="#{beanDetalle_Compania_Pelicula_Serie.agregar()}" update="detalleGPS"/>
+                                <p:commandButton value="Consultar" actionListener="#{beanDetalle_Compania_Pelicula_Serie.consultar()}" update="detalleGPS"/>
+                            </h:panelGrid>
+                            <p:dataTable id="detalleGPS" value="#{beanDetalle_Compania_Pelicula_Serie.listaCPS}" var="cps" 
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                                <p:column headerText="Peliculas Series">
+                                    <p:outputLabel value="#{cps.pelicual_serie.titulo}"/>
+                                </p:column>
+                                <p:column headerText="Genero">
+                                    <p:outputLabel value="#{cps.compania.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Opcion">
+                                    <p:commandLink value="Quitar" actionListener="#{beanDetalle_Compania_Pelicula_Serie.quitarElemento(cps)}" update="detalleGPS"/>
+                                </p:column>
+                            </p:dataTable>
+                            <p:commandButton value="Registrar" actionListener="#{beanDetalle_Compania_Pelicula_Serie.registrar()}" action="detalle_compania_pelicula_serie?faces-redirect=true" />
+                        </p:panel>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
