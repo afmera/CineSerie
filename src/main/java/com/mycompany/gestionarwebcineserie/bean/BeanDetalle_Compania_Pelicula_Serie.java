@@ -8,8 +8,6 @@ package com.mycompany.gestionarwebcineserie.bean;
 import com.mycompany.gestionarwebcineserie.control.Control_Compania_Pelicula_Serie;
 import com.mycompany.gestionarwebcineserie.model.Compania;
 import com.mycompany.gestionarwebcineserie.model.Compania_Pelicula_Serie;
-import com.mycompany.gestionarwebcineserie.model.Genero;
-import com.mycompany.gestionarwebcineserie.model.Compania_Pelicula_Serie;
 import com.mycompany.gestionarwebcineserie.model.Pelicula_Serie;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,13 +117,13 @@ public class BeanDetalle_Compania_Pelicula_Serie {
             this.listaCPS = temp;
         }
     }
-
-    /**
-     * Limapiar list de la clase determinada.
-     */
-    public void limpiar() {
-        listaCPS.clear();
-    }
+//
+//    /**
+//     * Limapiar list de la clase determinada.
+//     */
+//    public void limpiar() {
+//        listaCPS.clear();
+//    }
 
     /**
      * Metodo void para agregar ala la lista.
@@ -138,12 +136,6 @@ public class BeanDetalle_Compania_Pelicula_Serie {
                 Pelicula_Serie ps = this.entityPS;
                 if (this.entityComp != null) {
                     Compania com = this.entityComp;
-//                if (selectGenero.length > 0) {
-//                    for (int cont = 0; cont < selectGenero.length; cont++) {
-//                        Compania_Pelicula_Serie cps = new Compania_Pelicula_Serie();
-//                        String[] valor = selectGenero[cont].split(",");
-//                        gps.setGenero(new Genero(Integer.parseInt(valor[0]), valor[1]));
-//                        gps.setPelicula_serie(pelicula_serie);
                     Compania_Pelicula_Serie cps = new Compania_Pelicula_Serie();
                     cps.setCompania(com);
                     cps.setPelicual_serie(ps);
@@ -162,14 +154,11 @@ public class BeanDetalle_Compania_Pelicula_Serie {
 
                         } else {
                             listaCPS.add(cps);
+                            System.out.println("listaCPS.size() " + listaCPS.size());
                         }
                     } else {
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ADVERTENCIA", "Lo sentimos, el elemento ha agregar ya esta en la tabla."));
                     }
-//                    }
-//                } else {
-//                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar por lo menos un genero para agregar."));
-//                }
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ADVERTENCIA", "Debes seleccionar una compania para agregar."));
                 }
@@ -272,15 +261,32 @@ public class BeanDetalle_Compania_Pelicula_Serie {
     /**
      * Metodo void para una consulta general de los datos en la tabla.
      *
+     * @param valor
      * @throws Exception Mensaje Error.
      */
-    public void listar() throws Exception {
+    public void listar(boolean valor) throws Exception {
         try {
-            this.listaCPS = Control_Compania_Pelicula_Serie.control_listar();
+            if (!valor) {
+                if (!isPostBack()) {
+                    this.listaCPS = Control_Compania_Pelicula_Serie.control_listar();
+                }
+            } else {
+                this.listaCPS = Control_Compania_Pelicula_Serie.control_listar();
+            }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "ERROR", "Sea presentado un error en :\n" + ex));
             System.out.println("Error es : " + ex);
             throw ex;
         }
+    }
+
+    /**
+     * Metodo para verificar el uso del preRenderView para evitar consumo de
+     * recursos innecesarios.
+     *
+     * @return de tipo boolean.
+     */
+    private boolean isPostBack() {
+        return FacesContext.getCurrentInstance().isPostback();
     }
 }

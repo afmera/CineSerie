@@ -20,7 +20,9 @@
                                 <p:outputLabel value="#{entity.nombre}"/>
                             </p:column>
                             <p:column headerText="Genero">
-                                <p:outputLabel value="#{entity.genero}"/>
+                                <p:outputLabel value="#{entity.genero}">
+                                    <f:converter converterId="sexoConverter"/>
+                                </p:outputLabel>
                             </p:column>
                             <p:column headerText="Fecha de Nacimiento">
                                 <p:outputLabel value="#{entity.fecha_nacimiento}"/>
