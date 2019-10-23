@@ -97,4 +97,16 @@ public class Control_PPS_Director {
     public static List<PPS_Director> control_GetAllTuplas(PPS_Director entity) throws Exception {
         return DatosPPS_Director.datosGetAllTuplas(entity);
     }
+    
+    /**
+     * Metodo statico para consultar una lista de tuplas por el parametro
+     * determinado.
+     *
+     * @param entity de la clase determinda.
+     * @return una lista de la clase determinda.
+     * @throws Exception Mensaje de error.
+     */
+    public static List<PPS_Director> control_ListarNombreDirector(PPS_Director entity) throws Exception {
+        return DatosPPS_Director.datosListarNombreDirector(entity);
+    }
 }

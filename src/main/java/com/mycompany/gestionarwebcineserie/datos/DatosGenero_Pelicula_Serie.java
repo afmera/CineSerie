@@ -128,11 +128,25 @@ public class DatosGenero_Pelicula_Serie {
         try {
             l = new ArrayList<>();
             c.conectar();
-            String sql = "Select * from genero_pelicula_serie;";
+            String sql = "SELECT gps.gps_id,ps.ps_id,ps.ps_titulo,ps.ps_ano_lanzamiento,ps.ps_longitud_minutos,ps.ps_sinopsis,ps.ps_tipo,g.gen_id,g.gen_nombre FROM genero_pelicula_serie gps, pelicula_serie ps,genero g WHERE gps.gen_id=g.gen_id AND gps.ps_id=ps.ps_id;";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                Genero_Pelicula_Serie entity = new Genero_Pelicula_Serie(rs.getInt("gps_id"), new Genero(rs.getInt("gen_id")), new Pelicula_Serie(rs.getInt("ps_id")));
+                Genero_Pelicula_Serie entity = new Genero_Pelicula_Serie(
+                        rs.getInt("gps_id"),
+                        new Genero(
+                                rs.getInt("gen_id"),
+                                rs.getString("gen_nombre")
+                        ),
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")
+                        )
+                );
                 l.add(entity);
             }
         } catch (Exception ex) {
@@ -327,6 +341,53 @@ public class DatosGenero_Pelicula_Serie {
             while (rs.next()) {
                 temp = new Genero_Pelicula_Serie();
                 temp.setGenero(new Genero(rs.getInt("gen_id"), rs.getString("gen_nombre")));
+                temp.setPelicula_serie(
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")));
+                temp.setId(rs.getInt("gps_id"));
+                l.add(temp);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error en Sql " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
+    }
+
+    /**
+     * Metodo para consultar una lista de tuplas por un aparametro determinado.
+     *
+     * @param entity de la clase determinda.
+     * @return una lista de la clase determinda.
+     * @throws Exception Mensaje de error.
+     */
+    public static List<Genero_Pelicula_Serie> datosGetAllTuplasNombre(Genero_Pelicula_Serie entity) throws Exception {
+        Conexion c = new Conexion();
+        List<Genero_Pelicula_Serie> l;
+        ResultSet rs;
+        Genero_Pelicula_Serie temp;
+        try {
+            c.conectar();
+            l = new ArrayList<>();
+            String sql = "SELECT gps.gps_id,ps.ps_id,ps.ps_titulo,ps.ps_ano_lanzamiento,ps.ps_longitud_minutos,ps.ps_sinopsis,ps.ps_tipo,g.gen_id,g.gen_nombre FROM genero_pelicula_serie gps, pelicula_serie ps,genero g WHERE gps.gen_id=g.gen_id AND gps.ps_id=ps.ps_id AND g.gen_nombre=?;";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            st.setString(1, entity.getGenero().getNombre());
+            rs = st.executeQuery();
+            while (rs.next()) {
+                temp = new Genero_Pelicula_Serie();
+                temp.setGenero(
+                        new Genero(
+                                rs.getInt("gen_id"),
+                                rs.getString("gen_nombre")
+                        )
+                );
                 temp.setPelicula_serie(
                         new Pelicula_Serie(
                                 rs.getInt("ps_id"),

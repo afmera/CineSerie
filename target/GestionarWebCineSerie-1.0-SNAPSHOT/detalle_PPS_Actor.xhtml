@@ -14,7 +14,7 @@
                 <f:event type="preRenderView" listener="#{beanPersona.listar(false)}"/>
                 <p:growl id="msj" autoUpdate="true" showDetail="true"/>
                 <h:form id='frm'>
-                    <p:panel id="basic" header="Informacion de los Actores en Peliculas y/o Series" footer="Movies Series Details" style="margin-bottom:20px">
+                    <p:panel class="panelInform" id="panelInform" header="Informacion de los Actores en Peliculas y/o Series" footer="Movies Series Details" style="margin-bottom:20px">
                         <h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
                             <p:outputLabel for="selectPS" value="Peliculas o Serie :"/>
                             <p:selectOneMenu id="selectPS" value="#{beanDetalle_PPS_Actor.entityPS}" converter="omnifaces.SelectItemsConverter">
@@ -58,7 +58,6 @@
                                 <p:outputLabel value="#{ppsa.tiempo_pantalla}"/>
                             </p:column>
                             <p:column headerText="Opcion">
-                                <!--<p:commandLink value="Modificar" actionListener="#{beanDetalle_PPS_Actor.leerID(ppsa)}" update="detallePPS"/>-->
                                 <p:commandLink value="Quitar" actionListener="#{beanDetalle_PPS_Actor.quitarElemento(ppsa)}" update="detallePPS"/>
                             </p:column>
                         </p:dataTable>

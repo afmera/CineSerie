@@ -165,13 +165,13 @@ public class DatosPPS_Actor {
             rs = st.executeQuery();
             while (rs.next()) {
                 PPS_Actor entity = new PPS_Actor(
-                        rs.getInt("ppsa_id"), 
+                        rs.getInt("ppsa_id"),
                         new Persona(
                                 rs.getInt("per_id"),
                                 rs.getString("per_nombre"),
                                 rs.getString("per_genero"),
                                 convetirFechaString(rs.getDate("per_fecha_nacimiento"))
-                        ), 
+                        ),
                         new Pelicula_Serie(
                                 rs.getInt("ps_id"),
                                 rs.getString("ps_titulo"),
@@ -179,11 +179,84 @@ public class DatosPPS_Actor {
                                 rs.getString("ps_longitud_minutos"),
                                 rs.getString("ps_sinopsis"),
                                 rs.getString("ps_tipo")
-                        ), 
-                        rs.getString("ppsa_tipo"), 
+                        ),
+                        rs.getString("ppsa_tipo"),
                         rs.getString("ppsa_tiempo_pantalla")
                 );
                 l.add(entity);
+            }
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Se presento un error en la consulta en BD.\nError es : " + ex));
+            System.err.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
+    }
+
+    /**
+     * Metodo statico para consultar todas las peliculas desde un valor
+     * determindo por parametro.
+     *
+     * @param entity de la clase determinda.
+     * @return una lista de la clase determinda.
+     * @throws Exception Mensaje de error.
+     */
+    public static List<PPS_Actor> datosListarNombreActor(PPS_Actor entity) throws Exception {
+        Conexion c = new Conexion();
+        List<PPS_Actor> l;
+        ResultSet rs;
+        try {
+            l = new ArrayList<>();
+            c.conectar();
+            String sql = "SELECT "
+                    + "ppsa.ppsa_id,"
+                    + "ppsa.ppsa_tipo,"
+                    + "ppsa.ppsa_tiempo_pantalla,"
+                    + "p.per_id,"
+                    + "p.per_nombre,"
+                    + "p.per_genero,"
+                    + "p.per_fecha_nacimiento,"
+                    + "ps.ps_id,"
+                    + "ps.ps_titulo,"
+                    + "ps.ps_ano_lanzamiento,"
+                    + "ps.ps_longitud_minutos,"
+                    + "ps.ps_sinopsis,"
+                    + "ps.ps_tipo "
+                    + "from "
+                    + "persona_pelicula_serie_actor ppsa,"
+                    + "persona p,"
+                    + "pelicula_serie ps "
+                    + "where "
+                    + "ppsa.per_id=p.per_id "
+                    + "AND "
+                    + "ppsa.ps_id=ps.ps_id "
+                    + "AND "
+                    + "p.per_nombre LIKE '%" + entity.getPersona().getNombre() + "%';";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                PPS_Actor objEntity = new PPS_Actor(
+                        rs.getInt("ppsa_id"),
+                        new Persona(
+                                rs.getInt("per_id"),
+                                rs.getString("per_nombre"),
+                                rs.getString("per_genero"),
+                                convetirFechaString(rs.getDate("per_fecha_nacimiento"))
+                        ),
+                        new Pelicula_Serie(
+                                rs.getInt("ps_id"),
+                                rs.getString("ps_titulo"),
+                                rs.getString("ps_ano_lanzamiento"),
+                                rs.getString("ps_longitud_minutos"),
+                                rs.getString("ps_sinopsis"),
+                                rs.getString("ps_tipo")
+                        ),
+                        rs.getString("ppsa_tipo"),
+                        rs.getString("ppsa_tiempo_pantalla")
+                );
+                l.add(objEntity);
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Se presento un error en la consulta en BD.\nError es : " + ex));
@@ -287,7 +360,8 @@ public class DatosPPS_Actor {
     }
 
     /**
-     * Metodo statico para consultar la exitencia de una tupla de la tabla asignada.
+     * Metodo statico para consultar la exitencia de una tupla de la tabla
+     * asignada.
      *
      * @param entity objeto de la clase determinada.
      * @return un boolean.

@@ -173,7 +173,7 @@ public class BeanDetalle_PPS_Actor {
         try {
             if (this.listaEntities.size() > 0) {
                 {
-                    this.filtrarElementosRepetidos();
+//                    this.filtrarElementosRepetidos();
                     Control_PPS_Actor.control_RegistrarLista(listaEntities);
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro sea Almacenado de forma exitosa."));
                     listaEntities.clear();
@@ -214,6 +214,7 @@ public class BeanDetalle_PPS_Actor {
 
                     } else {
                         listaEntities.add(objEntity);
+                        this.filtrarElementosRepetidos();
                     }
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "Debes seleccionar unaa persona para agregar."));

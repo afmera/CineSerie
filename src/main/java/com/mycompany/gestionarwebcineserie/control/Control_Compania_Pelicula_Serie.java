@@ -65,4 +65,36 @@ public class Control_Compania_Pelicula_Serie {
     public static void control_eliminar(Compania_Pelicula_Serie entity) throws Exception {
         DatosCompania_Pelicula_Serie.datosElimnar(entity);
     }
+    
+    /**
+     * Metodo statico para consultas una tupla de la tabla asignada.
+     *
+     * @param entity objeto de la clase determinada
+     * @return de tipo Compania_Pelicula_Serie
+     * @throws Exception mensaje de error
+     */
+    public static Compania_Pelicula_Serie control_GetExitenciaTupla(Compania_Pelicula_Serie entity) throws Exception {
+        return DatosCompania_Pelicula_Serie.datosGetExitenciaTupla(entity);
+    }
+    
+    /**
+     * Metodo para consultar todos los datos relacionado con de terminado
+     * parametro.
+     *
+     * @param entity de la clase determinada.
+     * @return de la clase determinada.
+     * @throws Exception Mensaje de Error.
+     */
+    public static List<Compania_Pelicula_Serie> control_GetAllTuplas(Compania_Pelicula_Serie entity) throws Exception {
+        return DatosCompania_Pelicula_Serie.datosGetAllTuplas(entity);
+    }
+    /**
+     * Metodo para registrar datos en la base de datos.
+     *
+     * @param listEntities lista de la clase determinida.
+     * @throws Exception mensaje de error.
+     */
+    public static void control_RegistrarLista(List<Compania_Pelicula_Serie> listEntities) throws Exception {
+        DatosCompania_Pelicula_Serie.datosRegistrarLista(listEntities);
+    }
 }

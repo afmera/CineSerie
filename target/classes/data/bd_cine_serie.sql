@@ -1,7 +1,7 @@
 /*==============================================================*/
 /* create database: db_cine_serie                              	*/
 /*==============================================================*/
-create database db_cine_serie;
+-- create database db_cine_serie;
 ----------------------------------------------------------------------------------------------------
 /*==============================================================*/
 /* table: pelicula_serie                                        */
@@ -10,7 +10,7 @@ create table pelicula_serie
 (
     ps_id serial not null,
     ps_titulo varchar(100) not null,
-    ps_ano_lanzamiento date not null,
+    ps_ano_lanzamiento date null,
     ps_longitud_minutos varchar(15) not null,
     ps_sinopsis varchar(10000) not null,
 	ps_tipo varchar(15) not null
@@ -53,7 +53,7 @@ create table persona
     per_id serial not null,
     per_nombre varchar(100) not null,
     per_genero varchar(1) not null,
-    per_fecha_nacimiento date not null
+    per_fecha_nacimiento date null
 );
 /*==============================================================*/
 /* table: genero_pelicula_serie                                 */
@@ -90,7 +90,7 @@ create table persona_pelicula_serie_productor
     ppsp_id serial not null,
     per_id int not null,
     ps_id int not null,
-	ppsp_tipo varchar(15) not null
+	ppsp_tipo varchar(23) not null
 );
 /*==============================================================*/
 /* table: persona_pelicula_serie_director                       */
@@ -181,6 +181,9 @@ alter table persona add constraint ck_per_genero check(per_genero in ('F','M'));
 alter table persona_pelicula_serie_productor add constraint ck_ppsp_tipo check(ppsp_tipo in ('Productor Ejecutivo','Coproductor','Productor Asociado','Productor en Línea','Gerente de Producción','Asistente de Producción'));
 alter table persona_pelicula_serie_director add constraint ck_ppsd_tipo check(ppsd_tipo in ('Director Principal','Director Fotografia','Director de Libretos','Director de Compositor','Director de Montaje'));
 alter table persona_pelicula_serie_actor add constraint ck_ppsa_tipo check(ppsa_tipo in ('Protagonista','Secundario','De Reparto','De Pequeñas Partes'));
+/*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*/
+-- UNIQUE
+alter table favorita add constraint uniq_ps_id unique (ps_id);
 /*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*---------------*/
 -- Datos basicos de la base de datos.
 INSERT INTO genero (gen_nombre)VALUES('Clásicos');

@@ -1,27 +1,53 @@
+body {
+  background-image: url(imagen/portada_03.jpg);
+  background-attachment: fixed;
+}
 #principal{
     margin: 0 auto;
     width: 1024px;
     background-color: #0BE4CD;
 }
+#menuHorizontal
+{
+    padding: 10px;
+    margin: 5px;
+}
+#cuerpoPrincipal{
+    margin:14px;
+    border-radius:5px;
+    background-color: #FCFFFF;
+}
+#frm .BtnNuevo{
+    margin: 10px;
+    width: 100px;
+    height: 50px;
+}
+#frm .panelInform 
+{
+    margin: 12px;
+}
+#frm .opcConsulPanel{
+    margin-bottom: 11px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+#frm .datatablePanel{
+    margin-left: 12px;
+    margin-right: 12px;
+}
 #pie{
-    margin: 0 auto;
-    width: 1024px;
-    background-color: #0BE4CD;
+    margin: 11px;
+    height: 65px;
+    padding-top:  10px;
+    border-radius:5px;
+    background-color: #1680F8;
 }
-#msjTitulo{
-    margin: 0 auto;
-    width: 40%;
-    text-align: justify;
-    margin-top: 200px;
-    background-color: #BFFBF5;
-    padding-bottom: 30px;
-}
-#msjPie{
-    margin: 0 auto;
-    width: 40%;
-    text-align: justify;
-    margin-top: 200px;
-    background-color: #BFFBF5;
-    padding-bottom: 30px;
-    border: 1px solid;
+.msjPie p{
+    text-align: center;
+    font-style: normal;
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFDFC;
+    margin-left: 50px;
+    margin-right: 50px;
 }

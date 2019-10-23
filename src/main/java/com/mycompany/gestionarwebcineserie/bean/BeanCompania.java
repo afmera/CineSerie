@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,6 +69,16 @@ public class BeanCompania {
         this.limpiar();
         this.accion = accion;
     }
+    
+    /**
+     * Metodo para verificar el uso del preRenderView para evitar consumo de
+     * recursos innecesarios.
+     *
+     * @return de tipo boolean.
+     */
+    private boolean isPostBack() {
+        return FacesContext.getCurrentInstance().isPostback();
+    }
 
     /**
      * Metodo para determinar la accion registrar o modificar.
@@ -106,7 +117,7 @@ public class BeanCompania {
     private void registrar() throws Exception {
         try {
             Control_Compania.control_registrar(enti);
-            this.listar();
+            this.listar(true);
         } catch (Exception ex) {
             throw ex;
         }
@@ -120,7 +131,7 @@ public class BeanCompania {
     private void modificar() throws Exception {
         try {
             Control_Compania.control_modificar(enti);
-            this.listar();
+            this.listar(true);
         } catch (Exception ex) {
             throw ex;
         }
@@ -135,7 +146,7 @@ public class BeanCompania {
     public void eliminar(Compania entity) throws Exception {
         try {
             Control_Compania.control_eliminar(entity);
-            this.listar();
+            this.listar(true);
         } catch (Exception ex) {
             throw ex;
         }
@@ -144,11 +155,18 @@ public class BeanCompania {
     /**
      * Metodo para listar todos los datos de la tabla en la base de datos.
      *
+     * @param valor
      * @throws Exception
      */
-    public void listar() throws Exception {
+    public void listar(boolean valor) throws Exception {
         try {
+            if (!valor) {
+                if (!isPostBack()) {
             listaEntities = Control_Compania.control_listar();
+            }
+            } else {
+                listaEntities = Control_Compania.control_listar();
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error :" + ex);
             System.out.println("Error " + ex);

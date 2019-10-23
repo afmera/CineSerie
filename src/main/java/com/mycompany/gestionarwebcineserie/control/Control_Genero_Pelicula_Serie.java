@@ -99,4 +99,14 @@ public class Control_Genero_Pelicula_Serie {
     public static void control_RegistrarTupla(Genero_Pelicula_Serie entity) throws Exception {
         DatosGenero_Pelicula_Serie.datosRegistrarTupla(entity);
     }
+    /**
+     * Metodo para consultar una lista de tuplas por un aparametro determinado.
+     *
+     * @param entity de la clase determinda.
+     * @return una lista de la clase determinda.
+     * @throws Exception Mensaje de error.
+     */
+    public static List<Genero_Pelicula_Serie> control_GetAllTuplasNombre(Genero_Pelicula_Serie entity) throws Exception {
+        return DatosGenero_Pelicula_Serie.datosGetAllTuplasNombre(entity);
+    }
 }

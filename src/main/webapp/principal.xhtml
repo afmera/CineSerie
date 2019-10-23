@@ -5,17 +5,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <h:head>
-        <title>PAGINA PRINCIPAL</title>
+        <title>PAGINA PRINCIPAL</title>       
         <h:outputStylesheet library="css" name="estilo_02.css"/>
     </h:head>
-    <body>
+    <body id="principal">
         <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
-
-            <ui:define name="content">
-                <h:outputText id="msjTitulo" value="Bienvenido a la Pagina Principal"/>
-            </ui:define>
-
+            <div id="cuerpoPrincipal">
+                <ui:define class="content" name="content">              
+                    <!--<h:outputText class="msjTitulo" value="Bienvenido a la Pagina Principal"/> -->              
+                </ui:define>
+            </div>
         </ui:composition>
-
     </body>
 </html>

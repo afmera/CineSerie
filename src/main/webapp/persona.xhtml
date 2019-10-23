@@ -9,48 +9,49 @@
     <body>
 
         <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
-
             <ui:define name="content">
-               <f:event type="preRenderView" listener="#{beanPersona.listar(false)}"/>
-               <p:growl id="msj" autoUpdate="true" showDetail="true"/>
-                <h:form id='frm'>
-                    <p:commandButton value="Nuevo" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" actionListener="#{beanPersona.setAccion('Registrar')}" />
-                    <p:dataTable id="data" value="#{beanPersona.listaEntities}" var="entity">
-                        <p:column headerText="Nombre Completo">
-                            <p:outputLabel value="#{entity.nombre}"/>
-                        </p:column>
-                        <p:column headerText="Genero">
-                            <p:outputLabel value="#{entity.genero}"/>
-                        </p:column>
-                        <p:column headerText="Fecha de Nacimiento">
-                            <p:outputLabel value="#{entity.fecha_nacimiento}"/>
-                        </p:column>
-                        <p:column headerText="Opciones">
-                            <p:commandLink value="Modificar" actionListener="#{beanPersona.leerID(entity)}" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" style="margin-right:20px;"/>
-                            <p:commandLink value="Eliminar" actionListener="#{beanPersona.eliminar(entity)}" update="data" style="margin-right:20px;"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-                <p:dialog header="Administracion de Datos" widgetVar="wDlgDatos" id="dlgDatos">
-                    <h:form>
-                        <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                            <p:outputLabel value="Nombre :"/>
-                            <p:inputText value="#{beanPersona.entity.nombre}"/>
-                            <p:outputLabel value="Genero :" />
-                            <p:selectOneRadio value="#{beanPersona.entity.genero}">
-                                <f:selectItem itemLabel="Masculino" itemValue="M" />
-                                <f:selectItem itemLabel="Femenino" itemValue="F" />
-                            </p:selectOneRadio>
-                            <p:outputLabel value="Año de Nacimiento :"/>
-                            <p:inputText type="date" value="#{beanPersona.entity.fecha_nacimiento}"/>
-                            <p:commandButton value="#{beanPersona.accion}" actionListener="#{beanPersona.operar()}" oncomplete="PF('wDlgDatos').hide();" update=":frm:data"/>
-                            <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wDlgDatos').hide();"/>
-                        </h:panelGrid>
+                <f:event type="preRenderView" listener="#{beanPersona.listar(false)}"/>
+                <p:growl id="msj" autoUpdate="true" showDetail="true"/>
+                <div id="cuerpoPrincipal">
+                    <h:form id='frm'>
+                        <p:commandButton class="BtnNuevo" value="Nuevo" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" actionListener="#{beanPersona.setAccion('Registrar')}" />
+                        <p:dataTable id="data" value="#{beanPersona.listaEntities}" var="entity">
+                            <p:column headerText="Nombre Completo">
+                                <p:outputLabel value="#{entity.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Genero">
+                                <p:outputLabel value="#{entity.genero}">
+                                    <f:converter converterId="sexoConverter"/>
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column headerText="Fecha de Nacimiento">
+                                <p:outputLabel value="#{entity.fecha_nacimiento}"/>
+                            </p:column>
+                            <p:column headerText="Opciones">
+                                <p:commandLink value="Modificar" actionListener="#{beanPersona.leerID(entity)}" oncomplete="PF('wDlgDatos').show();" update="dlgDatos" style="margin-right:20px;"/>
+                                <p:commandLink value="Eliminar" actionListener="#{beanPersona.eliminar(entity)}" update="data" style="margin-right:20px;"/>
+                            </p:column>
+                        </p:dataTable>
                     </h:form>
-                </p:dialog>
+                    <p:dialog header="Administracion de Datos" widgetVar="wDlgDatos" id="dlgDatos">
+                        <h:form>
+                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                <p:outputLabel value="Nombre :"/>
+                                <p:inputText value="#{beanPersona.entity.nombre}"/>
+                                <p:outputLabel value="Genero :" />
+                                <p:selectOneRadio value="#{beanPersona.entity.genero}">
+                                    <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                    <f:selectItem itemLabel="Femenino" itemValue="F" />
+                                </p:selectOneRadio>
+                                <p:outputLabel value="Año de Nacimiento :"/>
+                                <p:inputText type="date" value="#{beanPersona.entity.fecha_nacimiento}"/>
+                                <p:commandButton value="#{beanPersona.accion}" actionListener="#{beanPersona.operar()}" oncomplete="PF('wDlgDatos').hide();" update=":frm:data"/>
+                                <p:commandButton value="Cancelar" immediate="true" oncomplete="PF('wDlgDatos').hide();"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                </div>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

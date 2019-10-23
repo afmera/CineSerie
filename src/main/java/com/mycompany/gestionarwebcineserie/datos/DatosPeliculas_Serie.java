@@ -29,7 +29,7 @@ public class DatosPeliculas_Serie {
      */
     public static java.sql.Date convertirFecha(String f) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("f" +f);
+        System.out.println("f" + f);
         java.util.Date parsed = format.parse(f);
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         return sql;
@@ -60,7 +60,7 @@ public class DatosPeliculas_Serie {
             String sql = "Insert Into pelicula_serie(ps_titulo,ps_ano_lanzamiento,ps_longitud_minutos,ps_sinopsis,ps_tipo)Values(?,?,?,?,?);";
             PreparedStatement st = c.getCn().prepareStatement(sql);
             st.setString(1, ps.getTitulo());
-            st.setDate(2,convertirFecha(ps.getAno_lanzamiento()));
+            st.setDate(2, convertirFecha(ps.getAno_lanzamiento()));
             st.setString(3, ps.getDuracion());
             st.setString(4, ps.getSinopsis());
             st.setString(5, ps.getTipo());
@@ -97,11 +97,51 @@ public class DatosPeliculas_Serie {
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                Pelicula_Serie p = new Pelicula_Serie(rs.getInt("ps_id"), rs.getString("ps_titulo"),convetirFechaString(rs.getDate("ps_ano_lanzamiento")), rs.getString("ps_longitud_minutos"), rs.getString("ps_sinopsis"), rs.getString("ps_tipo"));
+                Pelicula_Serie p = new Pelicula_Serie(rs.getInt("ps_id"), rs.getString("ps_titulo"), convetirFechaString(rs.getDate("ps_ano_lanzamiento")), rs.getString("ps_longitud_minutos"), rs.getString("ps_sinopsis"), rs.getString("ps_tipo"));
                 l.add(p);
             }
         } catch (Exception ex) {
             System.err.println("Error " + ex);
+            throw ex;
+        } finally {
+            c.cerrar();
+        }
+        return l;
+    }
+
+    /**
+     * Metodo statico para consultas especificas por un parametro de entrada
+     * asignada a una tabla.
+     *
+     * @param entity
+     * @return de tipo List<Pelicula_Serie>
+     * @throws Exception mensaje de error
+     */
+    public static List<Pelicula_Serie> datosConsultarNombre(Pelicula_Serie entity) throws Exception {
+        Conexion c = new Conexion();
+        List<Pelicula_Serie> l;
+        ResultSet rs;
+        try {
+            l = new ArrayList<>();
+            c.conectar();
+            String sql = "Select "
+                    + "ps_id,"
+                    + "ps_titulo,"
+                    + "ps_ano_lanzamiento,"
+                    + "ps_longitud_minutos,"
+                    + "ps_sinopsis,"
+                    + "ps_tipo "
+                    + "from pelicula_serie "
+                    + "Where "
+                    + "ps_titulo LIKE '%" + entity.getTitulo() + "%';";
+            PreparedStatement st = c.getCn().prepareStatement(sql);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Pelicula_Serie p = new Pelicula_Serie(rs.getInt("ps_id"), rs.getString("ps_titulo"), convetirFechaString(rs.getDate("ps_ano_lanzamiento")), rs.getString("ps_longitud_minutos"), rs.getString("ps_sinopsis"), rs.getString("ps_tipo"));
+                l.add(p);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error " + ex);
             throw ex;
         } finally {
             c.cerrar();
@@ -219,10 +259,23 @@ public class DatosPeliculas_Serie {
         Conexion c = new Conexion();
         try {
             c.conectar();
-            String sql = "Delete from pelicula_serie Where ps_id=?;";
-            PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setInt(1, ps.getId());
-            st.executeUpdate();
+            String sql
+                    = "DELETE FROM persona_pelicula_serie_actor ppsa WHERE ppsa.ps_id=" + ps.getId() + ";"
+                    + "DELETE FROM persona_pelicula_serie_director ppsd WHERE ppsd.ps_id=" + ps.getId() + ";"
+                    + "DELETE FROM persona_pelicula_serie_productor ppsp WHERE ppsp.ps_id=" + ps.getId() + ";"
+                    + "DELETE FROM persona_pelicula_serie_screenwriter ppssw WHERE ppssw.ps_id=" + ps.getId() + ";"
+                    + "DELETE FROM compania_pelicula_serie cps WHERE cps.ps_id=" + ps.getId() + ";"
+                    + "DELETE FROM genero_pelicula_serie gps WHERE gps.ps_id=" + ps.getId() + ";"
+                    + "DELETE FROM favorita f WHERE f.ps_id=" + ps.getId() + ";";
+
+            PreparedStatement st1 = c.getCn().prepareStatement(sql);
+            st1.executeUpdate();
+            {
+                sql = "DELETE FROM pelicula_serie ps WHERE ps.ps_id=?;";
+                PreparedStatement st2 = c.getCn().prepareStatement(sql);
+                st2.setInt(1, ps.getId());
+                st2.executeUpdate();
+            }
         } catch (Exception ex) {
             System.err.println("Error en Sql " + ex);
             throw ex;

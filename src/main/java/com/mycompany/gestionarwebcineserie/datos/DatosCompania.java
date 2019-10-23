@@ -19,7 +19,7 @@ import java.util.List;
  * @author Andrés Felipe Mera Tróchez
  */
 public class DatosCompania {
-    
+
     /**
      * Metodo para convertir un valor string de fecha a una valor java.sql.Date
      *
@@ -95,7 +95,7 @@ public class DatosCompania {
             PreparedStatement st = c.getCn().prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
-                Compania com = new Compania(rs.getInt("com_id"), rs.getString("com_nombre"),(rs.getString("com_majos")), rs.getString("com_nacionalidad"), rs.getString("com_streaming"));
+                Compania com = new Compania(rs.getInt("com_id"), rs.getString("com_nombre"), (rs.getString("com_majos")), rs.getString("com_nacionalidad"), rs.getString("com_streaming"));
                 l.add(com);
             }
         } catch (Exception ex) {
@@ -183,10 +183,16 @@ public class DatosCompania {
         Conexion c = new Conexion();
         try {
             c.conectar();
-            String sql = "Delete from compania Where com_id=?;";
-            PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setInt(1, com.getId());
-            st.executeUpdate();
+            String sql
+                    = "DELETE FROM compania_pelicula_serie cps WHERE cps.com_id=" + com.getId() + ";";
+            PreparedStatement st1 = c.getCn().prepareStatement(sql);
+            st1.executeUpdate();
+            {
+                sql = "DELETE FROM compania c WHERE c.com_id=?;";
+                PreparedStatement st2 = c.getCn().prepareStatement(sql);
+                st2.setInt(1, com.getId());
+                st2.executeUpdate();
+            }
         } catch (Exception ex) {
             System.err.println("Error en Sql " + ex);
             throw ex;
