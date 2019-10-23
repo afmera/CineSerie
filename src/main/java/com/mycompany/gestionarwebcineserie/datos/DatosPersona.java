@@ -178,10 +178,19 @@ public class DatosPersona {
         Conexion c = new Conexion();
         try {
             c.conectar();
-            String sql = "Delete from persona Where per_id=?;";
-            PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setInt(1, entity.getId());
-            st.executeUpdate();
+            String sql
+                    = "DELETE FROM persona_pelicula_serie_actor WHERE per_id=" + entity.getId() + ";"
+                    + "DELETE FROM persona_pelicula_serie_director WHERE per_id=" + entity.getId() + ";"
+                    + "DELETE FROM persona_pelicula_serie_productor WHERE per_id=" + entity.getId() + ";"
+                    + "DELETE FROM persona_pelicula_serie_screenwriter WHERE per_id=" + entity.getId() + ";";
+            PreparedStatement st1 = c.getCn().prepareStatement(sql);
+            st1.executeUpdate();
+            {
+                sql = "DELETE FROM persona WHERE per_id=?;";
+                PreparedStatement st2 = c.getCn().prepareStatement(sql);
+                st2.setInt(1, entity.getId());
+                st2.executeUpdate();
+            }
         } catch (Exception ex) {
             System.out.println("Error en Sql " + ex);
             throw ex;

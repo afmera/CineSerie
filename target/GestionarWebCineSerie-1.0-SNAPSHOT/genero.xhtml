@@ -9,7 +9,6 @@
     <body>
 
         <ui:composition template="./WEB-INF/templates/plantilla.xhtml">
-
             <ui:define name="content">
                 <f:event type="preRenderView" listener="#{beanGenero.listar(false)}"/>
                 <p:growl id="msj" autoUpdate="true" showDetail="true"/>

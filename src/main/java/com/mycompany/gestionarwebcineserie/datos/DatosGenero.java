@@ -19,7 +19,7 @@ import java.util.List;
  * @author Andrés Felipe Mera Tróchez
  */
 public class DatosGenero {
-    
+
     /**
      * Metodo para convertir un valor string de fecha a una valor java.sql.Date
      *
@@ -168,10 +168,15 @@ public class DatosGenero {
         Conexion c = new Conexion();
         try {
             c.conectar();
-            String sql = "Delete from genero Where gen_id=?;";
-            PreparedStatement st = c.getCn().prepareStatement(sql);
-            st.setInt(1, entity.getId());
-            st.executeUpdate();
+            String sql = "DELETE FROM genero_pelicula_serie WHERE gen_id=" + entity.getId() + ";";
+            PreparedStatement st1 = c.getCn().prepareStatement(sql);
+            st1.executeUpdate();
+            {
+                sql = "DELETE FROM genero where gen_id=?;";
+                PreparedStatement st2 = c.getCn().prepareStatement(sql);
+                st2.setInt(1, entity.getId());
+                st2.executeUpdate();
+            }
         } catch (Exception ex) {
             System.out.println("Error en Sql " + ex);
             throw ex;

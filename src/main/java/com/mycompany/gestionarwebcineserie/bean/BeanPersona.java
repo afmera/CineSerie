@@ -9,6 +9,7 @@ import com.mycompany.gestionarwebcineserie.control.Control_Persona;
 import com.mycompany.gestionarwebcineserie.model.Persona;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -100,13 +101,28 @@ public class BeanPersona {
     /**
      * Metodo para registrar atos en la base de datos.
      *
-     * @throws Exception
+     * @throws Exception Mensaje de Error.
      */
     private void registrar() throws Exception {
         try {
-            Control_Persona.control_registrar(entity);
-            this.listar(true);
+            Persona p = this.entity;
+            if (p.getNombre().length() > 0) {
+                if (p.getGenero().length() > 0) {
+                    if (p.getFecha_nacimiento().length() > 0) {
+                        Control_Persona.control_registrar(p);
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro se almaceno de forma exitosa."));
+                        this.listar(true);
+                    } else {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "El registro Año de Nacimiento no puede estar vacio."));
+                    }
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "El registro Genero no puede estar vacio."));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "El registro Nombre no puede estar vacio."));
+            }
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en el registro.\n" + ex));
             throw ex;
         }
     }
@@ -114,13 +130,28 @@ public class BeanPersona {
     /**
      * Metodo para registrar atos en la base de datos.
      *
-     * @throws Exception
+     * @throws Exception Mensaje de Error.
      */
     private void modificar() throws Exception {
         try {
-            Control_Persona.control_modificar(entity);
-            this.listar(true);
+            Persona p = this.entity;
+            if (p.getNombre().length() > 0) {
+                if (p.getGenero().length() > 0) {
+                    if (p.getFecha_nacimiento().length() > 0) {
+                        Control_Persona.control_modificar(p);
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro se modifico de forma exitosa."));
+                        this.listar(true);
+                    } else {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "El registro Año de Nacimiento no puede estar vacio."));
+                    }
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "El registro Genero no puede estar vacio."));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "El registro Nombre no puede estar vacio."));
+            }
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en el registro.\n" + ex));
             throw ex;
         }
     }
@@ -134,8 +165,10 @@ public class BeanPersona {
     public void eliminar(Persona objEntity) throws Exception {
         try {
             Control_Persona.control_eliminar(objEntity);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "INFORMACION", "El registro se elimino de forma exitosa."));
             this.listar(true);
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en el registro.\n" + ex));
             throw ex;
         }
     }
@@ -156,6 +189,7 @@ public class BeanPersona {
                 listaEntities = Control_Persona.control_listar();
             }
         } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en el registro.\n" + ex));
             System.out.println("Error " + ex);
             throw ex;
         }
@@ -175,7 +209,8 @@ public class BeanPersona {
                 this.accion = "Modificar";
             }
         } catch (Exception ex) {
-            System.err.println("Error " + ex);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR", "Sea presentado un error en el registro.\n" + ex));
+            System.out.println("Error " + ex);
             throw ex;
         }
     }

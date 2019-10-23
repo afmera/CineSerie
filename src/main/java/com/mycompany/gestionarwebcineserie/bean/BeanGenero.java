@@ -134,12 +134,12 @@ public class BeanGenero {
     /**
      * Metodo para registrar atos en la base de datos.
      *
-     * @param peliser de tipo de la clase determinda.
+     * @param objEntity de tipo de la clase determinda.
      * @throws Exception
      */
-    public void eliminar(Genero peliser) throws Exception {
+    public void eliminar(Genero objEntity) throws Exception {
         try {
-            Control_Genero.control_eliminar(peliser);
+            Control_Genero.control_eliminar(objEntity);
             this.listar(true);
         } catch (Exception ex) {
             throw ex;
