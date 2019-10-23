@@ -148,45 +148,49 @@ public class BeanConsultas {
     public void opcionConsulta() throws Exception {
         int cont = 0;
         String op = this.opcion;
-        if (op.equals("ps")) {
-            List<Pelicula_Serie> lista = Control_Peliculas_Serie.control_listar();
-            selectedOpcion = new Object[lista.size()];
-            for (Pelicula_Serie l : lista) {
-                selectedOpcion[cont] = l.getTitulo();
-                cont++;
+        if (op != null) {
+            if (op.equals("ps")) {
+                List<Pelicula_Serie> lista = Control_Peliculas_Serie.control_listar();
+                selectedOpcion = new Object[lista.size()];
+                for (Pelicula_Serie l : lista) {
+                    selectedOpcion[cont] = l.getTitulo();
+                    cont++;
+                }
             }
-        }
-        if (op.equals("act")) {
-            List<PPS_Actor> lista = Control_PPS_Actor.control_listar();
-            selectedOpcion = new Object[lista.size()];
-            for (PPS_Actor l : lista) {
-                selectedOpcion[cont] = l.getPersona().getNombre();
-                cont++;
+            if (op.equals("act")) {
+                List<PPS_Actor> lista = Control_PPS_Actor.control_listar();
+                selectedOpcion = new Object[lista.size()];
+                for (PPS_Actor l : lista) {
+                    selectedOpcion[cont] = l.getPersona().getNombre();
+                    cont++;
+                }
             }
-        }
-        if (op.equals("dir")) {
-            List<PPS_Director> lista = Control_PPS_Director.control_listar();
-            selectedOpcion = new Object[lista.size()];
-            for (PPS_Director l : lista) {
-                selectedOpcion[cont] = l.getPersona().getNombre();
-                cont++;
+            if (op.equals("dir")) {
+                List<PPS_Director> lista = Control_PPS_Director.control_listar();
+                selectedOpcion = new Object[lista.size()];
+                for (PPS_Director l : lista) {
+                    selectedOpcion[cont] = l.getPersona().getNombre();
+                    cont++;
+                }
             }
-        }
-        if (op.equals("cal")) {
-            selectedOpcion = new Object[5];
-            selectedOpcion[0] = "1";
-            selectedOpcion[1] = "2";
-            selectedOpcion[2] = "3";
-            selectedOpcion[3] = "4";
-            selectedOpcion[4] = "5";
-        }
-        if (op.equals("gen")) {
-            List<Genero_Pelicula_Serie> lista = Control_Genero_Pelicula_Serie.control_listar();
-            selectedOpcion = new Object[lista.size()];
-            for (Genero_Pelicula_Serie l : lista) {
-                selectedOpcion[cont] = l.getGenero().getNombre();
-                cont++;
+            if (op.equals("cal")) {
+                selectedOpcion = new Object[5];
+                selectedOpcion[0] = "1";
+                selectedOpcion[1] = "2";
+                selectedOpcion[2] = "3";
+                selectedOpcion[3] = "4";
+                selectedOpcion[4] = "5";
             }
+            if (op.equals("gen")) {
+                List<Genero_Pelicula_Serie> lista = Control_Genero_Pelicula_Serie.control_listar();
+                selectedOpcion = new Object[lista.size()];
+                for (Genero_Pelicula_Serie l : lista) {
+                    selectedOpcion[cont] = l.getGenero().getNombre();
+                    cont++;
+                }
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "Debes seleccionar una opcion de consulta para cargar los registros en ls lista desplegable."));
         }
     }
 
@@ -198,53 +202,57 @@ public class BeanConsultas {
     public void ejecucionConsulta() throws Exception {
         String op = this.opcion;
         String valor = this.valorEditable;
-        listaEntities.clear();
-        if (op.equals("ps")) {
-            Pelicula_Serie objEntity = new Pelicula_Serie();
-            objEntity.setTitulo(valor);
-            listaEntities = Control_Peliculas_Serie.control_ConsultarNombre(objEntity);
-        }
-        if (op.equals("act")) {
-            Persona obj = new Persona();
-            obj.setNombre(valor);
-            PPS_Actor objEntity = new PPS_Actor();
-            objEntity.setPersona(obj);
-            List<PPS_Actor> lista = Control_PPS_Actor.control_ListarNombreActor(objEntity);
-            for (PPS_Actor act : lista) {
-                listaEntities.add(act.getPelicula_serie());
+        if (valor != null) {
+            listaEntities.clear();
+            if (op.equals("ps")) {
+                Pelicula_Serie objEntity = new Pelicula_Serie();
+                objEntity.setTitulo(valor);
+                listaEntities = Control_Peliculas_Serie.control_ConsultarNombre(objEntity);
             }
-        }
-        if (op.equals("dir")) {
-            Persona obj = new Persona();
-            obj.setNombre(valor);
-            PPS_Director objDirector = new PPS_Director();
-            objDirector.setPersona(obj);
-            List<PPS_Director> lista = Control_PPS_Director.control_ListarNombreDirector(objDirector);
-            for (PPS_Director direc : lista) {
-                listaEntities.add(direc.getPelicula_serie());
-            }
-        }
-        if (op.equals("cal")) {
-            try {
-                Favorita obj = new Favorita();
-                obj.setCalificacion(Integer.parseInt(valor));
-                List<Favorita> lista = Control_Favorita.control_GetTuplasCalificacion(obj);
-                for (Favorita f : lista) {
-                    listaEntities.add(f.getPelicula_serie());
+            if (op.equals("act")) {
+                Persona obj = new Persona();
+                obj.setNombre(valor);
+                PPS_Actor objEntity = new PPS_Actor();
+                objEntity.setPersona(obj);
+                List<PPS_Actor> lista = Control_PPS_Actor.control_ListarNombreActor(objEntity);
+                for (PPS_Actor act : lista) {
+                    listaEntities.add(act.getPelicula_serie());
                 }
-            } catch (Exception ex) {
-                System.out.println("Error es : " + ex);
             }
-        }
-        if (op.equals("gen")) {
-            Genero obj = new Genero();
-            obj.setNombre(valor);
-            Genero_Pelicula_Serie ent = new Genero_Pelicula_Serie();
-            ent.setGenero(obj);
-            List<Genero_Pelicula_Serie> lista = Control_Genero_Pelicula_Serie.control_GetAllTuplasNombre(ent);
-            for (Genero_Pelicula_Serie l : lista) {
-                listaEntities.add(l.getPelicula_serie());
+            if (op.equals("dir")) {
+                Persona obj = new Persona();
+                obj.setNombre(valor);
+                PPS_Director objDirector = new PPS_Director();
+                objDirector.setPersona(obj);
+                List<PPS_Director> lista = Control_PPS_Director.control_ListarNombreDirector(objDirector);
+                for (PPS_Director direc : lista) {
+                    listaEntities.add(direc.getPelicula_serie());
+                }
             }
+            if (op.equals("cal")) {
+                try {
+                    Favorita obj = new Favorita();
+                    obj.setCalificacion(Integer.parseInt(valor));
+                    List<Favorita> lista = Control_Favorita.control_GetTuplasCalificacion(obj);
+                    for (Favorita f : lista) {
+                        listaEntities.add(f.getPelicula_serie());
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Error es : " + ex);
+                }
+            }
+            if (op.equals("gen")) {
+                Genero obj = new Genero();
+                obj.setNombre(valor);
+                Genero_Pelicula_Serie ent = new Genero_Pelicula_Serie();
+                ent.setGenero(obj);
+                List<Genero_Pelicula_Serie> lista = Control_Genero_Pelicula_Serie.control_GetAllTuplasNombre(ent);
+                for (Genero_Pelicula_Serie l : lista) {
+                    listaEntities.add(l.getPelicula_serie());
+                }
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "ADVERTENCIA", "Debes seleccionar una opcion de la lista desplegable para cargar los registros en la tabla."));
         }
     }
 }
